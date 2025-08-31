@@ -3,7 +3,8 @@ export type Category = 'Algorithm' | 'Wrong' | 'Dictionary';
 export interface BaseNote{
   id : string;
   title : string;
-  createAt : string;
+  createdAt : string;
+  content : string;
 }
 
 export interface AlgorithmNote extends BaseNote{
