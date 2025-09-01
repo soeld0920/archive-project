@@ -1,3 +1,4 @@
+import { categoryToString } from "lib/categoryTransform";
 import { getNotes } from "lib/storage";
 import { toISOTime } from "lib/time";
 import { useParams } from "react-router-dom"
@@ -14,7 +15,8 @@ export default function NoteDetail(){
     <>
       <p>{note.category}</p>
       <h2>{note.title}</h2>
-      <span>{toISOTime(note.createdAt)}</span>
+      <span>{toISOTime(note.createdAt)}</span> <br />
+      <span>{categoryToString(note.category)}</span>
       <hr />
       <p>{note.content}</p>
     </>

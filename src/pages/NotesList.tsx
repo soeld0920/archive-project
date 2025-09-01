@@ -1,5 +1,7 @@
 import Sort from "components/Sort";
+import { categoryToString } from "lib/categoryTransform";
 import { getNotes as getNotesUtil, deleteNote as deleteNoteUtil } from "lib/storage"
+import { textPreshow } from "lib/textTransform";
 import { toISOTime } from "lib/time";
 import { useEffect, useState } from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -62,8 +64,8 @@ export default function NotesList(){
             <Link to={`/note/${note.id}`} className="mouseHoverEvent-Link">
               <h2>{note.title ? note.title : "빈 제목"}</h2>
               <span>{toISOTime(note.createdAt)}</span>
-              <p>{note.content? note.content : "빈 내용"}</p>
-              <span>{note.category}</span>
+              <p>{note.content? textPreshow(note.content) : "빈 내용"}</p>
+              <span>{categoryToString(note.category)}</span>
             </Link>
           </li>
         ))}

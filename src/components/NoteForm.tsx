@@ -1,4 +1,4 @@
-import { useRef,  } from "react";
+import { useRef} from "react";
 import { FaAlignJustify,FaAlignLeft,FaAlignCenter,FaAlignRight } from "react-icons/fa";
 import ColorForm from "./ColorForm";
 import { wrapRange, wrapTag as wrapTagUtil } from "lib/textEditor";
@@ -45,7 +45,7 @@ export default function NoteForm({value, onChange} : NoteFormProps){
       <ul role="toolbar" aria-label="서식" style={{display : "flex", width : "1280px", listStyle : "none", justifyContent : "space-between"}}>
         <li>
           <button type="button" aria-label="굵게" onClick={() => wrapSelection("**")}><b>B</b></button>
-          <button type="button" aria-label="기울기" onClick={() => wrapSelection("/")}><em>I</em></button>
+          <button type="button" aria-label="기울기" onClick={() => wrapSelection("%%")}><em>I</em></button>
           <button type="button" aria-label="밑줄" onClick={() => wrapSelection("__")}><span style={{textDecoration : "underline"}}>U</span></button> 
           <button type="button" aria-label="취소선" onClick={() => wrapSelection("~~")}><span style={{textDecoration : "line-through"}}>T</span></button>
         </li>

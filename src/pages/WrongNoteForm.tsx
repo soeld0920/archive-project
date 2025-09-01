@@ -2,7 +2,9 @@ import type { WrongNote } from "types/note"
 import { useState } from "react";
 import { saveNote } from "lib/storage";
 import NoteForm from "../components/NoteForm";
-import "styles/mouseHoverEvent.css"
+import "styles/mouseHoverEvent.css";
+import { v4 as uuidv4 } from "uuid";
+
 
 export default function WrongNoteForm(){
   const LEVELS = [1,2,3,4,5] as const;
@@ -12,7 +14,6 @@ export default function WrongNoteForm(){
   const [problemLink, setProblemLink] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>(3);
   const [content, setContent] = useState("");
-  
 
   const onSubmit = (e : React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ export default function WrongNoteForm(){
     const date = new Date().toISOString();
   
     const note: WrongNote = {
-      id : crypto.randomUUID(),
+      id : uuidv4(),
       title : title,
       createdAt : date,
       content : content,
