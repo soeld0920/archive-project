@@ -1,5 +1,5 @@
 import type React from "react";
-import { symbolList, type TextState, type TextSymbol } from "types/textSymbol";
+import { createCSSProps, initialState, symbolList, type TextState, type TextSymbol } from "types/textSymbol";
 
 export function textPreshow(text : string) : React.ReactNode{
   let result = text.replace(/\*\*|\%\%|\_\_|\~\~/g,"");
@@ -34,109 +34,81 @@ export function textPreshow(text : string) : React.ReactNode{
 
 }
 
-export function textShow(text : string){}
-
-const initialState : TextState = {
-  bold : false,
-  italic : false,
-  underline : false,
-  lineThrough : false,
-  color : "",
-  bgColor : "",
-  fontSize : 0
+export function textShow(text : string){
+  const parts = parseTextToRun(text);
+  console.log(parts)
+  return (
+    <>
+      {
+        parts.map((run, idx) => {
+          const {text, state} = run;
+          return(
+            <span key={idx} style={{...createCSSProps(state), whiteSpace : "pre-line"}}>{text}</span>
+          )
+        })
+      }
+    </>
+  )
 }
+
 
 type TextRun = {text : string, state : TextState};
 
-const parseTextRun = (text : string) : TextRun[] => {
+const TOGGLES = symbolList.filter(sy => sy.kind === "toggle");
+const COMMANDS = symbolList.filter(sy => sy.kind === "command");
+
+const parseTextToRun = (text : string) : TextRun[] => {
   const result : TextRun[] = [];
   let buffer = "";
   let state = {...initialState};
+  let i = 0;
 
-  const flush = (type : string) => {
-    if(!buffer) return;
+  
+  const flush = () => {
+    if(buffer === "") return;
 
-    let txt : string;
-
-    switch(type){
-      case "toggle":
-        txt = buffer.slice(0,buffer.length - 2);
-        break;
-      case "command":
-        txt = buffer.slice(0, buffer.lastIndexOf("{"));
-        break;
-    }
-
-    const run = {text : txt, state : {...state}};
+    const run = {text : buffer, state : {...state}};
     result.push(run);
     buffer = "";
   }
 
-  const matchToggle = () => {
-    if(!buffer) return;
-    for(const symbol of symbolList){
-      if(symbol.kind !== "toggle") continue;
-      if(buffer.endsWith(symbol.symbol)) return {[symbol.state as keyof TextState] : !state[symbol.state as keyof TextState]};
-    }
-  }
 
-  const matchCommand = () => {
-    if(!buffer) return;
+  while(i < text.length){
+    const ch = text[i];
 
-    const out : string[] = [];
-    let isEscape = false;
-    let skipping = true;
-
-    for(let i = 0; i < buffer.length; i++){
-      const ch = buffer[i];
-
-      if(ch === '`'){
-        isEscape = true;
-        continue
-      }else if(!isEscape && ch === "{"){
-        skipping = false;
-        isEscape = false;
-        continue;
-      }else if(!skipping && ch === "}"){
-        skipping = true;
-        isEscape = false;
-        continue;
-      }else if(skipping){
-        continue;
-      }
-
-      isEscape = false;
-      out.push(ch);
-    }
-
-    const tag = out.join("").split(" ");
-
-    if(tag.length === 1){
-      const key = tag[0].slice(1,tag[0].length) as keyof TextState;
-      return {[key] : initialState[key]};
-    }else{
-      return {[tag[0]] : tag[1]};
-    }
-  }
-
-  for(let i = 0; i < text.length; i++){
-    buffer += text[i];
-
-    let symbol : Object | undefined = matchToggle();
-    if(symbol){
-      flush(symbol);
-      const key = symbol.state as keyof TextState;
-      state = {...state, [key] : !state[key]};
+    let found : TextSymbol | undefined= TOGGLES.find(t => text.startsWith(t.symbol,i));
+    if(found !== undefined){
+      i += found.symbol.length;
+      flush()
+      const key = found.state as keyof TextState
+      state = {...state, ...{[key] : !state[key]}}
       continue;
     }
-    symbol = matchCommand();
-    if(symbol){
-      
+
+    if(ch === "{" && (i === 0 || text[i-1] !== "`")){
+      const endIdx = text.indexOf("}",i);
+      if(endIdx === -1){
+        buffer += ch;
+        i++;
+        continue;
+      }
+      const rawInner = text.slice(i+1, endIdx);
+      let isCloseTag = rawInner.startsWith("/");
+      let [name, ...rest] = (isCloseTag ? rawInner.slice(1) : rawInner).split(/\s+/);
+      const rowValue = rest.join(" ");
+      const cmd = COMMANDS.find(com => com.command === name);
+      if(cmd !== undefined){
+        flush();
+        const key = cmd.command as keyof TextState;
+        state = {...state, ...{[key] : (rowValue !== "" ? cmd.parse(rowValue) : initialState[key])}};
+        i = endIdx + 1;
+        continue;
+      }
     }
-
-
+    buffer += ch;
+    i++;
   }
-
+  flush();
   return result;
 }
 
