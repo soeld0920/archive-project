@@ -6,7 +6,7 @@ import NoteDetail from 'pages/NoteDetail'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/archive-project/'>
       <nav>
         <Link to="/">목록</Link> | <Link to="/new">새 노트</Link>
       </nav>
