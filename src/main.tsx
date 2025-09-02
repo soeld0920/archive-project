@@ -5,8 +5,6 @@ import App from "./App";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/archive-project">
       <App />
-    </BrowserRouter>
   </StrictMode>
 );
