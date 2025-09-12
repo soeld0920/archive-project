@@ -16,6 +16,10 @@ type SubMenuItem = {
 
 const navList : NavItemProps[] = [
   {
+    txt : "Basic",
+    href : "/basic"
+  },
+  {
     txt : "Python",
     href : "/python"
   },
@@ -53,8 +57,8 @@ const navList : NavItemProps[] = [
         href : "/algorithm/dp"
       },
       {
-        txt : "Greed",
-        href : "/algorithm/greed"
+        txt : "Greedy",
+        href : "/algorithm/greedy"
       }
     ]
   }
@@ -62,7 +66,7 @@ const navList : NavItemProps[] = [
 
 export default function Header(){
   return(
-    <header id={styles.header}>
+    <header className={styles.header}>
       <Logo variant="main" coverTag="h1" className={styles.logo}/>
       <Nav/>
     </header>
@@ -74,8 +78,8 @@ function Nav(){
     <nav className={styles.nav}>
       <ul className={styles.navUl}>
         {
-          navList.map((navItem,idx) => (
-            <NavItem txt={navItem.txt} href={navItem.href} subMenu={navItem.subMenu} key={idx}/>
+          navList.map((navItem) => (
+            <NavItem txt={navItem.txt} href={navItem.href} subMenu={navItem.subMenu} key={navItem.txt}/>
           ))
         }
       </ul>
@@ -86,7 +90,7 @@ function Nav(){
 function NavItem({txt, href, subMenu} : NavItemProps){
   const [open, setOpen] = useState(false);
   return (
-    <li style={{position : "relative",display : "flex", justifyContent : "space-between"}}>
+    <li className={styles.navItem}>
       <Link to={href} className={`mouseHoverEvent-Link ${styles.navText}`}>
         {txt}
       </Link>
@@ -94,21 +98,24 @@ function NavItem({txt, href, subMenu} : NavItemProps){
         <>
           <button 
             type="button"
+            aria-expanded = {open}
+            aria-controls={`submenu - ${txt}`}
+            aria-haspopup="menu"
             onClick={() => setOpen(!open)}
             className={styles.subMenuBtn}
-          >{!open ? "▽" : "△"}</button>
-          {open && <SubNavToggle subMenuList = {subMenu}/>}
+          >{!open ? "▼" : "▲"}</button>
+          {open && <SubNavToggle subMenuList = {subMenu} id = {txt}/>}
         </>
       }
     </li>
   )
 }
 
-type SubNavToggleProps = {subMenuList : SubMenuItem[]}
+type SubNavToggleProps = {subMenuList : SubMenuItem[]; id : string}
 
-function SubNavToggle({subMenuList} : SubNavToggleProps){
+function SubNavToggle({subMenuList, id} : SubNavToggleProps){
   return(
-    <ul className={styles.subNav}>
+    <ul className={styles.subNav} id={`submenu - ${id}`}>
       {
         subMenuList.map((item) => (
           <SubNavItem subMenu={item} key={item.txt} />

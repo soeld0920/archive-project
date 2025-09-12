@@ -1,0 +1,16 @@
+.CS05_compare{
+  display: flex;
+  justify-content: space-between;
+}
+
+.CS05_code{
+  width : 45%;
+}
+
+.CS05_codeBlock{
+  height: 180px;
+}
+
+.CS05_codeBlock2{
+  height: 240px;
+}

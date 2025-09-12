@@ -1,6 +1,5 @@
 import mainLogo from "assets/img/logo-main.png"
 import { Link } from "react-router-dom";
-import "styles/Home.css"
 
 type LogoProps = {
   variant : "main" | "sub";
