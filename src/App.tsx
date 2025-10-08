@@ -1,20 +1,30 @@
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from 'pages/Home'
-import Basic from 'pages/Basic'
-import Basic01 from 'pages/contentPage/basic/Basic01'
-import Basic02 from 'pages/contentPage/basic/Basic02'
-import Basic03 from 'pages/contentPage/basic/Basic03'
-import Basic04 from 'pages/contentPage/basic/Basic04'
-import Basic05 from 'pages/contentPage/basic/Basic05'
+import { TextStyles } from 'styles/TextStyles'
+import "styles/font.css"
+import Etc from 'pages/Etc'
+import { Colors } from 'styles/Colors'
+import { Layouts } from 'styles/Layouts'
+import Search from 'pages/Search'
+import Ground from 'pages/Ground'
+import Header from 'components/layout/Header'
+import PageDetail from 'pages/PageDetail'
 
 function App() {
   return (
     <HashRouter>
+      <TextStyles/>
+      <Colors/>
+      <Layouts/>
+      <TextStyles/>
+      <Header/>
       <Routes>
         <Route path='/' element = {<Home/>}/>
-        {/* <Route path='/basic' element={<Basic/>}/> */}
-        <Route path='/basic' element={<Basic05/>}/>
+        <Route path='/search/*' element={<Search/>}/>
+        {/* <Route path='/page' element={<PageDetail/>}/> */}
+        <Route path='/ground' element={<Ground/>}/>
+        <Route path='/etc/*' element={<Etc/>}/>
       </Routes>
     </HashRouter>
   )

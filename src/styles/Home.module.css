@@ -10,7 +10,7 @@
   left: 10px;
   width: auto;
   height: auto;
-  font-size: 20px;
+  font-size: var(--scales-m);
   color: #333;
 }
 
@@ -48,7 +48,7 @@
   height: 30px;
   background: #ccc;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: var(--scales-m);
   align-items: center;
   justify-content: center;
   color: #333;

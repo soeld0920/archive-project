@@ -20,18 +20,55 @@ export default function Basic05(){
         만약 입력받은 정보를 분류하지 못한다면 프로그램은 작동되지 않을 것이다. <br />
         이를 처리하기위해 등장한 것이 조건문이다.
       </TextBlockForm>
-      <TextBlockForm title="조건문-if" img={image02}>
+
+      <TextBlockForm title="조건문-if" img={image02} removePTag = {true}>
         if 예약어는 주로 다음의 구조를 가진다.(언어마다 상의) <br />
-        if 조건문 실행문 <br /> <br />
-        
+
+        <CodeBlock language="python">
+          if 조건문 : <br />
+          &nbsp;&nbsp;실행문
+        </CodeBlock><br />
+
+        <CodeBlock language="java">
+          if (조건문) {"{"}실행문{"}"}
+        </CodeBlock><br />
+
         if문의 조건문이 참이면 실행하고 거짓이면 건너뛴다. <br />
         조건문의 경우 진리형 변수를 써도 되고 비교연산자를 이용한 식을 사용해도 된다.
       </TextBlockForm>
-      <TextBlockForm title="조건문-else" img={image03}>
-        조건문 - else <br />
-        if와 함께 쓰이며 else 실행문 의 구조로 사용된다. <br />
-        if의 조건문이 거짓일때 대신 else의 실행문이 실행되게된다. <br />
-        if... else if... else...처럼 여러 조건을 분기하여 사용할 수 있다. <br />
+
+      <TextBlockForm title="조건문-else" img={image03} removePTag={true}>
+        <CodeBlock language="python">
+          if 조건문 : <br />
+          &nbsp;&nbsp;실행문 <br />
+          else : <br />
+          &nbsp;&nbsp;실행문
+        </CodeBlock><br />
+
+        <CodeBlock language="java">
+          if (조건문) {"{"}실행문{"}"} <br />
+          else {"{"}실행문{"}"}
+        </CodeBlock><br />
+
+        if의 조건문이 거짓일때 대신 else의 실행문이 실행되게된다.
+      </TextBlockForm>
+
+      <TextBlockForm title="조건문 - else if" removePTag={true} hasGap={false}>
+        <CodeBlock language="python">
+          #파이썬의 경우 else if를 줄여 elif로 사용한다. <br />
+          if 조건문 : <br />
+          &nbsp;&nbsp;실행문 <br />
+          elif 조건문 : <br />
+          &nbsp;&nbsp;실행문 <br />
+          else : <br />
+          &nbsp;&nbsp;실행문
+        </CodeBlock><br />
+        <CodeBlock language="java">
+          if (조건문) {"{"}실행문{"}"} <br />
+          else if (조건문) {"{"}실행문{"}"} <br />
+          else {"{"}실행문{"}"}
+        </CodeBlock><br />
+        if... else if... else...처럼 여러 조건을 분기하여 사용할 수도 있다. <br />
       </TextBlockForm>
 
       <HighlightBlock type="compare" title="else의 유뮤" removePTag={true}>
@@ -71,11 +108,14 @@ export default function Basic05(){
         하지만 너무 많은 if문은 가독성을 저해하므로 가능한 논리연산자 또는 else if를 이용하여 조건식을 표현하자.<br />
       </HighlightBlock>
 
-      <TextBlockForm title="조건문 - switch" img={image04}>
+      <TextBlockForm title="조건문 - switch" img={image04} removePTag={true} hasGap={false}>
         switch는 다음과 같은 구조로 사용된다.<br />
-        switch 변수<br />
-        &nbsp;&nbsp;case 값 : 코드<br />
-        &nbsp;&nbsp;case 값 : 코드<br />
+        <CodeBlock language="java">
+          switch (변수){"{"}<br />
+          &nbsp;&nbsp;case 값 : 코드<br />
+          &nbsp;&nbsp;case 값 : 코드 <br />
+          {"}"}
+        </CodeBlock>
         <br />
         switch는 변수의 값에 따라 각기 다른 코드를 실행하게한다.<br />
         변수의 값이 case의 값과 일치할경우 해당 부분부터 코드를 실행한다.<br />

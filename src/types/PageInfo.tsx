@@ -1,17 +1,25 @@
-export type Page = {
-  id : string;
-  title : string;
+import type { JSX } from "react";
+
+type comment = {
+  writer : string;
   date : string;
-  tags : string[];
-  seriesId : string;
-  seriesNum : number;
+  content : string;
 }
 
-export type Series = {
-  id : string;
-  category : PageCategory;
+export type Page = {
+  UUID : string;
   title : string;
-  pages : Page[];
+  author : string;
+  formType : "snippet" | "series";
+  seriesUUID? : string;
+  seriesTitle? :string;
+  date : string;
+  view : number;
+  great : number;
+  comment : comment[];
+  tag : string[];
+  mainCategory : string;
+  subCategory : string;
+  image? :string;
+  content : string; //앞에 보일 약 150자의 내용만
 }
-
-export type PageCategory = "Basic" | "Python" | "C" | "Java" | "React" | "Node.js" | "Github" | "Algorithm"

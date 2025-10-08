@@ -8,7 +8,7 @@ type CodeBlockProps = {
 
 export default function CodeBlock({language, children, className} : CodeBlockProps){
   return(
-    <div className={className}>
+    <div className={className} style={{width : (className || "50%")}}>
       <div style={{width : "100%", height : "25px", fontSize : "15px", padding : "2px", backgroundColor : " #666", color : "yellow", borderTopLeftRadius : "5px", borderTopRightRadius : "5px", boxSizing : "border-box"}}>{language}</div>
       <pre style={{
         width : "100%", height : "calc(100% - 25px)",backgroundColor : "#000", 

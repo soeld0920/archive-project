@@ -8,9 +8,17 @@
 }
 
 .CS05_codeBlock{
-  height: 180px;
+  height: 300px;
 }
 
 .CS05_codeBlock2{
-  height: 240px;
+  height: 400px;
+}
+
+.asciicode_char{
+  width: 5rem;
+}
+
+.asciicode_code{
+  width: 2rem;
 }
