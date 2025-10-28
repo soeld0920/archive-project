@@ -1,0 +1,53 @@
+.wrapper{
+  width: 100%;
+  height: auto;
+  background-color: var(--background-wrap);
+}
+
+.header{
+  width: calc(100% - 40px);
+  height: auto;
+  margin: 10px 20px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  border-bottom: 3px solid var(--border-color);
+}
+
+.headerWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.detailSub{
+  font-weight: 700;
+}
+
+.contentWrapper{
+  display: flex;
+  margin-top: 10px;
+}
+
+.article{
+  width: 100%;
+  max-width: 960px;
+  margin-left: 50px;
+}
+
+.aside{
+  width: 370px;
+}
+
+.subInfoWrapper{
+  margin-top: 30px;
+}
+
+.greatBtn:hover{
+  border: 1px solid red !important;
+}
+
+.bookmarkBtn:hover{
+  border: 1px solid gold !important;
+}

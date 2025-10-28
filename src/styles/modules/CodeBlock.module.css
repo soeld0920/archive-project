@@ -1,0 +1,26 @@
+/* CSS (module이든 global이든) */
+.codeWrap {
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+.copyBtn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease;
+}
+.codeWrap:hover .copyBtn,
+.codeWrap:focus-within .copyBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+.codePre {
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+  padding: 12px 44px 12px 12px;
+}

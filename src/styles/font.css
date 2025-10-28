@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "NotoSansKorean";
+  src: url("../assets/fonts/NotoSansKR-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter-VariableFont_opsz\,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Jet";
+  src: url("../assets/fonts/JetBrainsMono-Regular.woff2") format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/RobotoCondensed-VariableFont_wght.ttf") format("truetype");
+}
