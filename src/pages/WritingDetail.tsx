@@ -1,5 +1,5 @@
 import {  Suspense, useState } from "react";
-import { useLoaderData, useRouteLoaderData } from "react-router-dom"
+import { useLoaderData, useRevalidator, useRouteLoaderData } from "react-router-dom"
 import styles from "styles/modules/DetailPage.module.css"
 import WritingHero from "features/Detail/Components/WritingHero";
 import WritingMetaBar from "features/Detail/Components/WritingMetaBar";
@@ -11,6 +11,8 @@ import WritingInteraction from "features/Detail/Components/WritingBtn";
 import { Flex, message } from "antd";
 import WritingSubInteraction from "features/Detail/Components/WritingSubInteraction";
 import Wrapper from "components/blocks/Wrapper";
+import WritingTag from "features/Detail/Components/WritingTag";
+import { MdOutlineRefresh } from "react-icons/md";
 
 type WritingDetailLoaderData = {
   writing : Writing
@@ -20,7 +22,9 @@ type WritingDetailLoaderData = {
   currentUser : User
 }
 
+
 export default function WritingDetail(){
+  const revalidator = useRevalidator()
   const pageData : WritingDetailLoaderData = useLoaderData()
   const rookData : WritingDetailLoaderData | undefined =  useRouteLoaderData('root')
   if(!rookData) return
@@ -34,6 +38,8 @@ export default function WritingDetail(){
 
   const seriesPayload : {series : Series, writingIndexs : WritingIndex[]} | undefined = pageData.seriesPayload
   const seriesIndex = seriesPayload?.writingIndexs.map(w => w.UUID).indexOf(UUID) ?? -1
+
+
 
   return (
     <main className={styles.wrapper}>
@@ -68,6 +74,24 @@ export default function WritingDetail(){
             />
             <WritingSubInteraction UUID={writing.UUID} message={{messageApi : messageApi}}/>
           </Flex>
+          <Flex gap="small" className={styles.tagWrapper}>
+            {
+              tag.map((str) => 
+              <WritingTag tag={str} key={str}/>)
+            }
+          </Flex>
+        </div>
+      </Wrapper>
+      <Wrapper className={styles.commentWrapper}>
+        <div className={styles.commentHeader}>
+          <span>댓글 {comment.length}</span>
+          <button className={styles.refreshBtn}>새로고침 <MdOutlineRefresh/></button>
+        </div>
+        <ul className={styles.commentBody}>
+
+        </ul>
+        <div className={styles.commentInput}>
+
         </div>
       </Wrapper>
     </main>

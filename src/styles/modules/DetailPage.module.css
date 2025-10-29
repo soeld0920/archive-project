@@ -27,13 +27,13 @@
 
 .contentWrapper{
   display: flex;
+  justify-content: space-between;
   margin-top: 10px;
 }
 
 .article{
-  width: 100%;
+  width: calc(100% - 370px - 50px);
   max-width: 960px;
-  margin-left: 50px;
 }
 
 .aside{
@@ -42,6 +42,7 @@
 
 .subInfoWrapper{
   margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .greatBtn:hover{
@@ -50,4 +51,44 @@
 
 .bookmarkBtn:hover{
   border: 1px solid gold !important;
+}
+
+.tag{
+  font-size: var(--scales-xs);
+  font-weight: var(--weight-regular);
+  background-color: var(--background-gray);
+  color : var(--color-text-secondary);
+  padding: 3px;
+}
+
+.tagWrapper{
+  margin-bottom: 10px;
+}
+
+.commentWrapper{
+  width: 100%;
+  margin-top: 50px;
+}
+
+.commentHeader{
+  display: flex;
+  padding-top:20px;
+  padding-bottom: 10px;
+  gap: 20px;
+  border-bottom: 3px solid var(--border-color);
+}
+
+.refreshBtn{
+  display: flex;
+  font-size: var(--scales-xs);
+  gap: 5px;
+  border: none;
+  background: none;
+  color: var(--color-text-secondary);
+  align-items: center;
+}
+
+.refreshBtn:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }

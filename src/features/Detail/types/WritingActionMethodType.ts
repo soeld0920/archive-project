@@ -1,0 +1,1 @@
+export type ActionMethodType = "add-comment" | "delete-comment" | "modify-comment" | "refresh-comment" | "update-great"
