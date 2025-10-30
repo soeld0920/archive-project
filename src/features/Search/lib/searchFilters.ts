@@ -1,5 +1,5 @@
 import type { WritingIndex } from "types/Writing";
-import { initialFilterState, type SearchFilterState, type SearchFilterAction } from "../types/searchFilter.types";
+import { initialFilterState, type SearchFilterState, type SearchFilterAction, VIEW_RANGE_STEPS, GREAT_RANGE_STEPS } from "../types/searchFilter.types";
 import type { FuseResult } from "fuse.js";
 import type { MainCategory, SubCategory } from "content/category";
 import { isWithinInterval, parseISO, startOfToday, subDays, subMonths, subYears } from "date-fns";
@@ -12,12 +12,12 @@ export function setFilterReducer(state: SearchFilterState, action: SearchFilterA
     case "SET_DURING":
       return action.payload === "custom"
         ? { ...state, during: "custom" }
-        : { ...state, during: action.payload, from: undefined, to: undefined };
+        : { ...state, during: action.payload };
     case "SET_DATE_RANGE": return { ...state, during: "custom", ...action.payload };
     case "SET_VIEW_ENABLED": return { ...state, viewEnabled: action.payload, ...(action.payload ? {} : { viewMin: undefined, viewMax: undefined }) };
-    case "SET_VIEW_RANGE": return { ...state, viewMin: action.payload.min, viewMax: action.payload.max };
+    case "SET_VIEW_RANGE": return { ...state, viewRange : {min: action.payload.min || VIEW_RANGE_STEPS[0], max: action.payload.max || VIEW_RANGE_STEPS[VIEW_RANGE_STEPS.length-1]} };
     case "SET_GREAT_ENABLED": return { ...state, greatEnabled: action.payload, ...(action.payload ? {} : { greatMin: undefined, greatMax: undefined }) };
-    case "SET_GREAT_RANGE": return { ...state, greatMin: action.payload.min, greatMax: action.payload.max };
+    case "SET_GREAT_RANGE": return { ...state, greatRange : {min: action.payload.min || GREAT_RANGE_STEPS[0], max: action.payload.max || GREAT_RANGE_STEPS[GREAT_RANGE_STEPS.length-1]} };
     case "HYDRATE": return { ...state, ...action.payload };
     case "RESET": return initialFilterState;
     default: return state;
@@ -34,7 +34,11 @@ export function filterResultsByCategory(list : FuseResult<WritingIndex>[], mainC
 }
 
 export function applySearchFilters(list : FuseResult<WritingIndex>[], filterState : SearchFilterState):FuseResult<WritingIndex>[]{
-  const {byAuthor,author,formType,during,from, to,viewEnabled,viewMin,viewMax,greatEnabled,greatMin,greatMax} = filterState;
+  const {byAuthor,author,formType,during,dateRange,viewEnabled,viewRange,greatEnabled,greatRange} = filterState;
+  const {from, to} = dateRange || {}
+  const viewMin = viewRange?.min, viewMax = viewRange?.max;
+  
+  const greatMin = greatRange?.min, greatMax = greatRange?.max;
   const today = startOfToday();
 
   return list.filter(i=> {

@@ -1,5 +1,6 @@
 import { Button, message } from "antd";
 import type { MessageInstance } from "antd/es/message/interface";
+import { useMessageContext } from "context/message";
 import doCopyTextAtclipboard from "lib/doCopyTextatClipboard";
 import { useCallback, useRef } from "react";
 import { FaRegCopy } from "react-icons/fa";
@@ -10,7 +11,7 @@ type CodeBlockProps = {
 };
 
 export default function CodeBlock({ children }: CodeBlockProps) {
-  const [api, contextHolder] = message.useMessage();
+  const [api] = useMessageContext();
 
   const handleCopy = useCallback(async () => {
     const ok = doCopyTextAtclipboard(children);
@@ -20,8 +21,6 @@ export default function CodeBlock({ children }: CodeBlockProps) {
 
   return (
     <div className={styles.codeWrap}>
-      {contextHolder}
-
       {/* 항상 렌더 + hover/focus로만 보이게 */}
       <Button
         type="primary"

@@ -66,9 +66,6 @@ export default function SearchFilterPanel({
     setPreset: (preset: DatePreset) => {
       filterDispatch({ type: "SET_DURING", payload: preset });
       // preset 변경 시 커스텀 값 초기화가 필요하면 아래 활성화
-      if (preset !== "custom") {
-        filterDispatch({ type: "SET_DATE_RANGE", payload: { from: undefined, to: undefined } });
-      }
     },
     setRange: (value: string, key: "from" | "to") => {
       if (filterState.during !== "custom") return;

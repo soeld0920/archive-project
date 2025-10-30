@@ -1,18 +1,15 @@
-import { Button, Flex, message, Tooltip } from "antd";
-import type { MessageInstance } from "antd/es/message/interface";
+import { Button, Flex, Tooltip } from "antd";
+import { useMessageContext } from "context/message";
 import doCopyTextAtclipboard from "lib/doCopyTextatClipboard";
-import { FaPrint, FaRegCopy, FaShareAlt } from "react-icons/fa";
+import { FaPrint, FaShareAlt } from "react-icons/fa";
 import { createSearchParams } from "react-router-dom";
 
 type WritingSubInteractionProps = {
   UUID : string
-  message : {
-    messageApi : MessageInstance
-  }
 }
 
-export default function WritingSubInteraction({UUID, message} : WritingSubInteractionProps){
-  const messageApi = message.messageApi
+export default function WritingSubInteraction({UUID} : WritingSubInteractionProps){
+  const [messageApi] = useMessageContext()
   const url = (() => {
     const origin = window.location.origin;                    // ex) https://example.com
     const base = (import.meta as any).env?.BASE_URL ?? "/";   // ex) /archive-project/

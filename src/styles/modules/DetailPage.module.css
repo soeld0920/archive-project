@@ -21,9 +21,19 @@
   align-items: end;
 }
 
-.detailSub{
-  font-weight: 700;
+.title{
+  font-size: var(--scales-xl);
 }
+
+.detailSub{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  font-weight: 700;
+  font-size: var(--scales-s);
+}
+.detailSub dt { font-weight: 600; color: var(--color-text-secondary); }
+.detailSub dd { margin: 0; }
 
 .contentWrapper{
   display: flex;
@@ -32,12 +42,12 @@
 }
 
 .article{
-  width: calc(100% - 370px - 50px);
+  flex : 1;
   max-width: 960px;
 }
 
 .aside{
-  width: 370px;
+  flex:0 0 370px
 }
 
 .subInfoWrapper{
@@ -59,6 +69,21 @@
   background-color: var(--background-gray);
   color : var(--color-text-secondary);
   padding: 3px;
+  border: none;
+}
+
+.tag:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.tagAlert{
+  opacity: 0;
+  margin-bottom: 5px;
+}
+
+.tagAlert.shown{
+  opacity: 1;
 }
 
 .tagWrapper{
@@ -75,7 +100,7 @@
   padding-top:20px;
   padding-bottom: 10px;
   gap: 20px;
-  border-bottom: 3px solid var(--border-color);
+  border-bottom: 3px solid var(--border-color-gray);
 }
 
 .refreshBtn{
@@ -89,6 +114,70 @@
 }
 
 .refreshBtn:hover{
-  text-decoration: underline;
+  color: var(--color-text-highlight);
+  cursor: pointer;
+}
+
+.commentBody{
+  width: 100%;
+  margin: 10px 40px;
+  box-sizing: border-box;
+}
+
+.commentItem{
+  display: flex;
+  width: calc(100% - 80px);
+  height: 100px;
+  padding: 10px 0;
+  border-bottom: 2px solid var(--border-color);
+  box-sizing: unset;
+}
+
+.commentUserBanner{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.commentTextbox{
+  margin-left: 20px;
+  height: 100px;
+}
+
+.commentContentBox{
+  margin-top: 10px;
+  font-size: var(--scales-xs);
+}
+
+.commentFoot{
+  width: calc(100% - 80px);
+  margin: 10px 40px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: var(--background-gray);
+  display: flex;
+  justify-content: space-between;
+}
+
+.commentInput{
+  width: 85%;
+  height: 80px;
+  padding: 5px;
+}
+
+.commentButton{
+  display: block;
+  width: 10%;
+  height: 80px;
+  background-color: var(--background-point-hazy);
+  color: var(--color-text-primary);
+  font-size: var(--scales-sm);
+  border: 1px solid var(--border-color);
+}
+
+.commentButton:hover{
+  background-color: var(--background-point-secondary);
   cursor: pointer;
 }

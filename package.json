@@ -15,6 +15,7 @@
     "@radix-ui/themes": "^3.2.1",
     "antd": "^5.27.6",
     "classnames": "^2.5.1",
+    "context": "^3.0.33",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.18",
     "fuse": "^0.12.1",

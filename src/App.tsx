@@ -9,8 +9,8 @@ import "App.css"
 import WritingDetail from "pages/WritingDetail";
 import { fetchLoginUserByParams } from "lib/getUserByParams";
 import writingLoader from "features/Detail/libs/writingLoader";
-
-
+import writingShouldRevalidate from "features/Detail/libs/writingShouldRevalidate";
+import { MessageProvider, useMessageContext } from "context/message";
 
 
 const router = createBrowserRouter(
@@ -25,8 +25,7 @@ const router = createBrowserRouter(
         {
           path : "page", element : <WritingDetail/>,
           loader : ({request}) => writingLoader(request), 
-          shouldRevalidate : ({currentUrl, nextUrl, formMethod, formAction,formData}) => nextUrl.search !== currentUrl.search
-          
+          shouldRevalidate : writingShouldRevalidate
         }
       ],
       loader : async ({request}) => {const currentUser = await fetchLoginUserByParams(new URL(request.url).searchParams); return {currentUser : currentUser}},
@@ -40,14 +39,18 @@ const router = createBrowserRouter(
 
 export default function App() {
   return (
-    <RouterProvider router={router}/>
+    <MessageProvider>
+      <RouterProvider router={router}/>
+    </MessageProvider>
   );
 }
 
 function Layout(){
+  const [_,contextHolder] = useMessageContext()
   return(
     <>
-      <TextStyles/><Colors/><Layouts/><TextStyles/>
+      {contextHolder}
+      <TextStyles/><Colors/><Layouts/>
       <Header/>
       <Outlet/>
     </>

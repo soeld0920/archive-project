@@ -15,10 +15,12 @@ export async function updateGreat(writing : Writing | null, user : User | null, 
 
   if(next){
     //on
+    console.log("on")
     await Promise.all([upsertWriting({...writing, great : writing.great + 1}),upsertUser({...user, greatPostIds : user.greatPostIds.concat(writing.UUID)})])
   }else{
     //off
     if(writing.great <= 0) throw new Error("great can't be minus")
+    console.log("off")
     await Promise.all([upsertWriting({...writing, great : writing.great - 1}),upsertUser({...user, greatPostIds : user.greatPostIds.filter(id => id !== writing.UUID)})])
   }
   return

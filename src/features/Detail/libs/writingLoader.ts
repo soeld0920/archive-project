@@ -10,6 +10,7 @@ type WritingDetailLoderData = {
   writing : Writing
   author : User
   WritingContent : React.LazyExoticComponent<React.ComponentType<any>>
+  commentContent : {user : User, content : string, date : string}[]
   seriesPayload? : {series : Series, writingIndexs : WritingIndex[]}
 }
 
@@ -17,16 +18,22 @@ export default async function writingLoader(request : Request) : Promise<Writing
   const searchParams = new URL(request.url).searchParams
   const writing = await fetchWritingByParams(searchParams);
   const authorP = await fetchUser(writing.authorUUID);
+  const commentP = writing.comment.map(c => fetchUser(c.writer))
   const WritingContent = getWritingContent(writing.URL)
+  const comment = await Promise.all(commentP.map(async (c,i) => {
+    return {user : await c, content : writing.comment[i].content, date : writing.comment[i].date}
+  }))
   if(!WritingContent) throw new Error("Not Content")
   if(writing.formType === "series"){
     const seriesP = await fetchSeries(writing.seriesUUID || null)
     const [author, series] = await Promise.all([authorP, seriesP])
-    return {writing : writing, author : author, WritingContent : WritingContent , seriesPayload : {series : series.series, writingIndexs : series.writingIndexs}}
+    return {writing : {...writing}, author : {...author}, WritingContent : WritingContent , 
+    commentContent : comment,
+    seriesPayload : {series : series.series, writingIndexs : series.writingIndexs}}
   }
   else {
     const author = await authorP
-    return {writing : writing, author : author,  WritingContent : WritingContent}
+    return {writing : writing, author : author, commentContent : comment, WritingContent : WritingContent}
   }
 }
 

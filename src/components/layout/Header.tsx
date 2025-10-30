@@ -3,8 +3,8 @@ import styles from "styles/modules/Header.module.css"
 import logo from "assets/img/logo-main.png"
 import { FaRandom,FaSearch,FaStar  } from "react-icons/fa";
 import { IoTimerSharp } from "react-icons/io5";
-import { createSearchParams, Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useMemo, useReducer, useRef, useState, type KeyboardEvent } from "react";
+import { createSearchParams, Link, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState, } from "react";
 import { categories as categoryList, type MainCategory, type SearchParams, type SubCategory } from "content/category";
 import classNames from "classnames";
 
