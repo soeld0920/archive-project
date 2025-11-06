@@ -7,6 +7,7 @@ import { SubP } from "components/shared/SubSpan";
 import ErrorSpan from "components/shared/ErrorSpan";
 import { HighlightSpan } from "components/shared/HighlightSpan";
 import CategoryBreadcrumb from "components/shared/CategoryBreadCrump";
+import Wrapper from "components/blocks/Wrapper";
 
 type SearchHeaderProps = {
   variant : "error" | "default",
@@ -22,14 +23,15 @@ export default function SearchHeader({variant, query,results,page,sortStandard,s
   
   return(
     <header className={styles.header}>
-      <div>
-        <CategoryBreadcrumb mainCategory={mainCategory} subCategory={subCategory} />
-        <ResultSummary detail={detail} page={page} total={results.length} variant={variant}/>
-      </div>
-      <form aria-label="검색 결과 정렬">
-        <label htmlFor="sortSelect" style={{display:"none"}}>정렬</label>
-        <SortSelect className={styles.sortWrapper} sortStandard={sortStandard} setSortStandard={setSortStandard}/>
-      </form>
+      <Wrapper className="flexBlock">
+        <div>
+          <CategoryBreadcrumb mainCategory={mainCategory} subCategory={subCategory} />
+          <ResultSummary detail={detail} page={page} total={results.length} variant={variant}/>
+        </div>
+        <form aria-label="검색 결과 정렬" style={{display:"flex",alignItems:"center"}}>
+          <SortSelect className={styles.sortWrapper} sortStandard={sortStandard} setSortStandard={setSortStandard}/>
+        </form>
+      </Wrapper>
     </header>
   )
 }

@@ -41,7 +41,7 @@ export const writingList: Writing[] = [
     tag: ["프론트엔드", "React Query", "캐싱", "키 설계"],
     mainCategory: "프론트엔드",
     subCategory: "React Query",
-    URL: "/writing/rq001aa11bb22cc3.tsx"
+    contentId: "rq001aa11bb22cc3"
   },
   {
     UUID: "rq002aa11bb22cc3",
@@ -59,7 +59,7 @@ export const writingList: Writing[] = [
     tag: ["프론트엔드", "React Query", "뮤테이션", "옵티미스틱 업데이트"],
     mainCategory: "프론트엔드",
     subCategory: "React Query",
-    URL: "/writing/rq002aa11bb22cc3.tsx"
+    contentId: "rq002aa11bb22cc3"
   },
   {
     UUID: "rq003aa11bb22cc3",
@@ -74,7 +74,7 @@ export const writingList: Writing[] = [
     tag: ["프론트엔드", "React Query", "무한스크롤", "프리패칭"],
     mainCategory: "프론트엔드",
     subCategory: "React Query",
-    URL: "/writing/rq003aa11bb22cc3.tsx"
+    contentId: "rq003aa11bb22cc3"
   },
 
   // --- Snippets (단편 2편) ---
@@ -92,7 +92,7 @@ export const writingList: Writing[] = [
     tag: ["데이터베이스", "Redis", "성능", "캐싱"],
     mainCategory: "데이터베이스",
     subCategory: "Redis",
-    URL: "/writing/sn001dd55ee66ff7.tsx"
+    contentId: "sn001dd55ee66ff7"
   },
   {
     UUID: "sn002dd55ee66ff7",
@@ -106,7 +106,7 @@ export const writingList: Writing[] = [
     tag: ["알고리즘", "탐색(DFS/BFS)", "그래프", "BFS"],
     mainCategory: "알고리즘",
     subCategory: "탐색(DFS/BFS)",
-    URL: "/writing/sn002dd55ee66ff7.tsx"
+    contentId: "sn002dd55ee66ff7"
   },
 
   // --- Series B: NestJS로 REST API 구축 (4편) ---
@@ -125,7 +125,7 @@ export const writingList: Writing[] = [
     tag: ["백엔드", "NestJS", "아키텍처", "모듈"],
     mainCategory: "백엔드",
     subCategory: "NestJS",
-    URL: "/writing/nj001cc33dd44ee5.tsx"
+    contentId: "nj001cc33dd44ee5"
   },
   {
     UUID: "nj002cc33dd44ee5",
@@ -140,7 +140,7 @@ export const writingList: Writing[] = [
     tag: ["백엔드", "NestJS", "유효성검사", "가드", "인터셉터"],
     mainCategory: "백엔드",
     subCategory: "NestJS",
-    URL: "/writing/nj002cc33dd44ee5.tsx"
+    contentId: "nj002cc33dd44ee5"
   },
   {
     UUID: "nj003cc33dd44ee5",
@@ -157,7 +157,7 @@ export const writingList: Writing[] = [
     tag: ["백엔드", "NestJS", "Prisma", "Repository"],
     mainCategory: "백엔드",
     subCategory: "NestJS",
-    URL: "/writing/nj003cc33dd44ee5.tsx"
+    contentId: "nj003cc33dd44ee5"
   },
   {
     UUID: "nj004cc33dd44ee5",
@@ -172,7 +172,7 @@ export const writingList: Writing[] = [
     tag: ["백엔드", "NestJS", "테스트", "CI/CD"],
     mainCategory: "백엔드",
     subCategory: "NestJS",
-    URL: "/writing/nj004cc33dd44ee5.tsx"
+    contentId: "nj004cc33dd44ee5"
   }
 ];
 

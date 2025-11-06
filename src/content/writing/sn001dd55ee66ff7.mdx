@@ -1,0 +1,60 @@
+import CodeBlock from "components/shared/CodeBlock";
+import React from "react";
+
+## 요약
+
+        <p>읽기 지향 트래픽에서 Redis 캐시 계층을 구성하고 TTL, 자료구조, 핫 키 회피 전략을 정리했습니다.</p>
+      
+
+      
+        
+## 핵심 포인트
+
+        
+          
+- 키 네이밍으로 핫 키 분산
+\n          
+- TTL/슬라이딩 만료
+\n          
+- 백필/콜드 스타트
+
+        
+      
+
+      
+        
+## 예제 코드
+
+        <CodeBlock>{`import Redis from "ioredis";
+const redis = new Redis();
+export async function getCachedUser(id: string) {
+  const key = user:id;
+  const cached = await redis.get(key);
+  if (cached) return JSON.parse(cached);
+  const fresh = await db.user.findById(id);
+  await redis.set(key, JSON.stringify(fresh), "EX", 300);
+  return fresh;
+}`}</CodeBlock>
+      
+
+      
+        
+## 체크리스트
+
+        
+          
+1. 미스율 모니터링
+\n          
+1. 쓰기 후 무효화 점검
+\n          
+1. 메모리 알람
+
+        
+      
+
+      
+        
+
+---
+
+        <p>이 글은 학습 및 실무 정리를 위해 제작된 더미 콘텐츠입니다.</p>

@@ -12,6 +12,8 @@ import SearchFilterPanel from "features/Search/Components/SearchFilterPanel";
 import NoResults from "features/Search/Components/NoResults";
 import SearchResultsList from "features/Search/Components/SearchResultsList";
 import SelectPagination from "features/Search/Components/SelectPagination";
+import Wrapper from "components/blocks/Wrapper";
+import styles from "styles/modules/Search.module.css"
 
 export default function Search(){
   const [params] = useSearchParams();
@@ -57,13 +59,13 @@ export default function Search(){
     <main>
       <section>
         <SearchHeader variant={results.length === 0 ? "error" : "default"} query={searchParams} results={results} page={page} sortStandard={sortStandard} setSortStandard={setSortStandard}/>
-        <div style={{width : "calc(100% - 40px)", margin : "20px 20px 0", display : "flex", justifyContent : "space-between"}}>
+        <Wrapper className={styles.bodyWrapper}>
           <aside style={{width : "370px", height : "100%"}}>
             <UserProfileCard userUUID={userId}/>
             <SearchFilterPanel filterState={filterState} filterDispatch={filterDispatch}/>
           </aside>
           {results.length === 0 ? <NoResults /> : <SearchResultsList results = {deferredResults} page={page}/>}
-        </div>
+        </Wrapper>
         {results.length !== 0 && <SelectPagination page={page} setPage={setPage} total={results.length}/>}
       </section>
     </main>

@@ -7,27 +7,32 @@ import { createSearchParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState, } from "react";
 import { categories as categoryList, type MainCategory, type SearchParams, type SubCategory } from "content/category";
 import classNames from "classnames";
+import Wrapper from "components/blocks/Wrapper";
 
 export default function Header(){
   return(
     <header className={styles.header}>
       <div className={styles.topNav}>
-        <HighlightSpan>한국어로 배우는 쉬운 컴퓨터공학</HighlightSpan>
-        <nav aria-label="유틸 메뉴">
-          <ul>
-            <li><Link to="/login">로그인</Link></li>
-            <li><Link to="/join">회원가입</Link></li>
-          </ul>
-        </nav>
+        <Wrapper className={styles.wrapper}>
+          <HighlightSpan>한국어로 배우는 쉬운 컴퓨터공학</HighlightSpan>
+          <nav aria-label="유틸 메뉴">
+            <ul>
+              <li><Link to="/login">로그인</Link></li>
+              <li><Link to="/join">회원가입</Link></li>
+            </ul>
+          </nav>
+        </Wrapper>
       </div>
       <div className={styles.mainNav}>
-        <Link to="/" aria-label="홈으로"><img src={logo} alt="로고이미지" /></Link>
-        <SearchDiv/>
-        <ul className={styles.subNav} aria-label="보조 메뉴">
-          <li className={styles.subNavBtn}><Link to="/" title="무작위 페이지" aria-label="무작위 페이지"><FaRandom/></Link></li>
-          <li className={styles.subNavBtn}><Link to="/" title="인기있는 페이지" aria-label="인기있는 페이지"><FaStar/></Link></li>
-          <li className={styles.subNavBtn}><Link to="/" title="최근 수정된 페이지" aria-label="최근 수정된 페이지"><IoTimerSharp/></Link></li>
-        </ul>
+        <Wrapper  className={styles.wrapper}>
+          <Link to="/" aria-label="홈으로"><img src={logo} alt="로고이미지" /></Link>
+          <SearchDiv/>
+          <ul className={styles.subNav} aria-label="보조 메뉴">
+            <li className={styles.subNavBtn}><Link to="/" title="무작위 페이지" aria-label="무작위 페이지"><FaRandom/></Link></li>
+            <li className={styles.subNavBtn}><Link to="/" title="인기있는 페이지" aria-label="인기있는 페이지"><FaStar/></Link></li>
+            <li className={styles.subNavBtn}><Link to="/" title="최근 수정된 페이지" aria-label="최근 수정된 페이지"><IoTimerSharp/></Link></li>
+          </ul>
+        </Wrapper>
       </div>
     </header>
   )

@@ -1,0 +1,58 @@
+import CodeBlock from "components/shared/CodeBlock";
+import React from "react";
+
+## 요약
+
+        <p>React Query 캐시/키 설계, 뮤테이션, 무한 스크롤/프리패칭 등 실전 운영 포인트를 담았습니다.</p>
+      
+
+      
+        
+## 핵심 포인트
+
+        
+          
+- 일관된 쿼리 키
+\n          
+- staleTime/cachTime 조정
+\n          
+- 명시적 무효화
+
+        
+      
+
+      
+        
+## 예제 코드
+
+        <CodeBlock>{`import { useQuery } from "@tanstack/react-query";
+function useUser(userId: string) {
+  return useQuery({
+    queryKey: ["user", userId],
+    queryFn: () => fetch(/api/users/userId).then(r => r.json()),
+    staleTime: 60_000,
+  });
+}`}</CodeBlock>
+      
+
+      
+        
+## 체크리스트
+
+        
+          
+1. 키 규칙 문서화
+\n          
+1. 콜렉션/디테일 분리
+\n          
+1. 에러/로딩 UX
+
+        
+      
+
+      
+        
+
+---
+
+        <p>이 글은 학습 및 실무 정리를 위해 제작된 더미 콘텐츠입니다.</p>

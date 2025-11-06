@@ -1,9 +1,8 @@
-import {  Suspense } from "react";
+import {  Suspense, useEffect } from "react";
 import { useLoaderData, useRouteLoaderData } from "react-router-dom"
 import styles from "styles/modules/DetailPage.module.css"
 import WritingHero from "features/Detail/Components/WritingHero";
 import WritingMetaBar from "features/Detail/Components/WritingMetaBar";
-import UserProfileCard from "components/UserProfileInfo";
 import WritingInteraction from "features/Detail/Components/WritingBtn";
 import { Flex } from "antd";
 import WritingSubInteraction from "features/Detail/Components/WritingSubInteraction";
@@ -12,11 +11,16 @@ import WritingTag from "features/Detail/Components/WritingTag";
 import WritingComment from "features/Detail/Components/WritingComment";
 import { RevalidatorProvider } from "features/Detail/context/Revalidator";
 import type { WritingDetailLoaderData } from "features/Search/types/WritingDetailLoaderData";
+import WritingToc from "features/Detail/Components/WritingToc";
+import useTOC from "features/Detail/hooks/useTOC";
 
 export default function WritingDetail(){
   const pageData : WritingDetailLoaderData = useLoaderData()
   const rookData : WritingDetailLoaderData | undefined =  useRouteLoaderData('root')
+  const {toc, writingRef} = useTOC()
   if(!rookData) return
+
+  
 
   const {writing,WritingContent, commentContent} = pageData
   const currentUser = rookData.currentUser
@@ -33,10 +37,10 @@ export default function WritingDetail(){
         </header>
         <Wrapper className={styles.contentWrapper}>
           <aside className={styles.aside}>
-            <UserProfileCard userUUID={currentUser.UUID}/>
+            <WritingToc toc={toc}/>
           </aside>
-          <div className={styles.article}>
-            <Suspense fallback={<div>콘텐츠 불러오는 중…</div>}>
+          <div className={styles.article} ref={writingRef}>
+            <Suspense fallback={<div>콘텐츠 불러오는 중…</div>} >
               <WritingContent key={UUID}/>
             </Suspense>
             <Flex justify="space-between" className={styles.subInfoWrapper}>

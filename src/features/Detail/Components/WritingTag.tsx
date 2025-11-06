@@ -1,47 +1,40 @@
-import { Alert, Button, Flex, Space } from "antd"
-import classNames from "classnames";
+import { ConfigProvider, Flex, Popconfirm } from "antd"
 import { clearParams } from "lib/clearParams";
-import { useState } from "react";
-import { FaCheck, FaXmark } from "react-icons/fa6";
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 import styles from "styles/modules/DetailPage.module.css"
 
 export default function WritingTag({tag} : {tag : string[]}){
-  const [alertValue, setAlertValue] = useState("")
-  const navigate = useNavigate()
-  const tagAlertClasses = classNames(styles.tagAlert,{[styles.shown] : alertValue !== ""})
-  const [props] = useSearchParams()
-
-  const onAlertClick = () => {
-    const next = clearParams(props)
-    navigate({pathname : "/search", search : `?${createSearchParams({...next,detail : alertValue})}`})
-  }
 
   return (
-    <div className={styles.tagWrapper}>
-      <Alert message={`${alertValue} 태그로 검색하시겠습니까?`} type="info"
-        action={
-          <Space>
-            <Button key={"true"} icon={<FaCheck/>} color="blue" type="text" onClick={onAlertClick}/>
-            <Button key={"false"} icon={<FaXmark/>} color="red" type="text" onClick={() => setAlertValue("")}/>
-          </Space>
-        }
-        className={tagAlertClasses}
-      />
-      <Flex gap="small">
-        {
-          tag.map((str) => 
-          <Tag tag={str} key={str} setValue={setAlertValue}/>)
-        }
-      </Flex>
+    <div  className={styles.tagWrapper}>
+      <ConfigProvider>
+        <Flex gap="small">
+          {
+            tag.map((str) => 
+            <Tag tag={str} key={str}/>)
+          }
+        </Flex>
+      </ConfigProvider>
     </div>
   )
 }
 
-type TagProps = {tag : string, setValue : (value : string) => void}
+type TagProps = {tag : string}
 
-function Tag({tag,setValue} : TagProps){
+function Tag({tag} : TagProps){
+  const navigate = useNavigate()
+  const [props] = useSearchParams()
+
+  const onAlertClick = () => {
+    const next = clearParams(props)
+    navigate({pathname : "/search", search : `?${createSearchParams({...next,detail : tag})}`})
+  }
+
   return(
-      <button className={styles.tag} value={tag} onClick={(e) => setValue(e.currentTarget.value)} type="button" aria-label={"태그 검색: ${tag}"}># {tag}</button>
+      <Popconfirm title={`${tag} 태그로 검색하시겠습니까?`} onConfirm={onAlertClick}>
+        <button className={styles.tag} value={tag} type="button" aria-label={"태그 검색: ${tag}"}>
+          # {tag}
+        </button>
+      </Popconfirm>
   )
 }

@@ -141,3 +141,21 @@ blockquote {
 .WrapperCenter{
   margin-inline: auto; 
 }
+
+.writingToc .ant-anchor-link-title{
+  font-size: var(--scales-m);
+}
+
+.writingToc .ant-anchor-link-title:hover{
+  text-decoration: underline;
+}
+
+.writingToc .ant-anchor-link-active{
+  color: var(--color-text-highlight);
+}
+
+.flexBlock{
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}

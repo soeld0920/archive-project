@@ -37,7 +37,7 @@ export type Writing = {
   mainCategory : MainCategory;
   subCategory : SubCategory;
   
-  URL : string;
+  contentId : string;
 }
 
 export type Comment = {
