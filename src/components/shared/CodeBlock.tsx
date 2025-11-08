@@ -1,8 +1,7 @@
-import { Button, message } from "antd";
-import type { MessageInstance } from "antd/es/message/interface";
+import { Button } from "antd";
 import { useMessageContext } from "context/message";
 import doCopyTextAtclipboard from "lib/doCopyTextatClipboard";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { FaRegCopy } from "react-icons/fa";
 import styles from "styles/modules/CodeBlock.module.css"
 

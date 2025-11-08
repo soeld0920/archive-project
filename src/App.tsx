@@ -11,6 +11,7 @@ import { fetchLoginUserByParams } from "lib/getUserByParams";
 import writingLoader from "features/Detail/libs/writingLoader";
 import writingShouldRevalidate from "features/Detail/libs/writingShouldRevalidate";
 import { MessageProvider, useMessageContext } from "context/message";
+import { useEffect } from "react";
 
 
 const router = createBrowserRouter(
