@@ -1,0 +1,1 @@
+export type CategoryPopupType = {categorySection : "main" | "sub" | "none", idx : number}

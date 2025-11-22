@@ -1,31 +1,27 @@
 import classNames from "classnames/bind"
-import { SubP } from "components/shared/SubSpan"
-import type { FuseResult } from "fuse.js"
 import millify from "millify"
 import { createSearchParams, Link } from "react-router-dom"
-import styles from "styles/modules/Search.module.css"
-import type { WritingIndex } from "types/Writing"
+import styles from "features/Search/Search.module.css"
+import type { WritingIndex } from "shared/types/Writing"
+import { useWritingsContent } from "../context/writingsContent"
+import { usePageContent } from "../context/pageContent"
 
-type SearchResultsListProps = {
-  results : FuseResult<WritingIndex>[],
-  page :number,
-}
 
-export default function SearchResultsList({results,page} : SearchResultsListProps) {
-  const showResults = results.slice((page - 1) * 10, page * 10);
+export default function SearchResultsList() {
+  const [writings] = useWritingsContent();
+  const {page} = usePageContent();
   return(
     <ol className={styles.rightWrapper}  aria-label="검색 결과 목록" start={(page - 1) * 10 + 1}>
       {
-        showResults.map(r => (
-          <SearchResultItem key={r.item.UUID} r={r}/>
+        writings.slice((page - 1) * 10, page * 10).map(r => (
+          <SearchResultItem key={r.UUID} item={r}/>
         ))
       }
     </ol>
   )
 }
 
-function SearchResultItem({r} : {r : FuseResult<WritingIndex>}){
-  const item = r.item;
+function SearchResultItem({item} : {item : WritingIndex}){
   const cx = classNames.bind(styles)
   return(
     <li>
@@ -36,14 +32,14 @@ function SearchResultItem({r} : {r : FuseResult<WritingIndex>}){
           <img src={item.image} alt="글의 이미지"/>
         </div>
         }
-          <div className={cx('resultItemP',r.item.image && 'hasimage')}>
-            <SubP>{item.mainCategory  + ">" + item.subCategory}</SubP>
+          <div className={cx('resultItemP',item.image && 'hasimage')}>
+            <p className="Subspan">{item.mainCategory  + ">" + item.subCategory}</p>
             <h3 style={{margin : 0, marginBottom : "10px"}}>
-              <Link to={`/page?${createSearchParams({UUID : item.UUID})}`}>{item.title}</Link>
+              <Link to={`/writing/${item.UUID}`}>{item.title}</Link>
             </h3>
-            <p><Link to={`/user/${r.item.authorName}`}>{item.authorName}</Link> | {item.date} | {item.formType === "snippet" ? "단편" : <Link to={`/sereis/${item.seriesUUID}`}>{r.item.seriesTitle}</Link>}</p>
+            <p><Link to={`/user/${item.authorName}`}>{item.authorName}</Link> | {item.date} | {item.formType === "snippet" ? "단편" : <Link to={`/sereis/${item.seriesUUID}`}>{item.seriesTitle}</Link>}</p>
             <p style={{marginBottom : "10px"}}>조회수 {millify(item.view, { precision: 1 })} | 좋아요 : {millify(item.great, { precision: 1 })} | 댓글 : {item.commentCount}</p>
-            <SubP className={styles.clamp2}>{item.content}</SubP>
+            <p className={styles.clamp2}>{item.content}</p>
           </div>
       </article>
       </li>

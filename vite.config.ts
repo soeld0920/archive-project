@@ -11,7 +11,6 @@ import remarkToc from "remark-toc"
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/archive-project/",
   plugins: [mdx({
       remarkPlugins: [
         remarkGfm,

@@ -1,3 +1,10 @@
+/*
+  글 메타바 컴포넌트
+  - 작성일
+  - 조회수
+  - 좋아요 수
+  - 댓글 수
+*/
 import type { WritingDetailLoaderData } from "features/Search/types/WritingDetailLoaderData";
 import millify from "millify";
 import { useLoaderData } from "react-router-dom";

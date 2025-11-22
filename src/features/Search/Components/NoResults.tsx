@@ -1,4 +1,4 @@
-import styles from "styles/modules/Search.module.css"
+import styles from "features/Search/Search.module.css"
 
 export default function NoResults(){
   return(

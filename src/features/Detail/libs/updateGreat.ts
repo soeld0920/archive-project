@@ -1,8 +1,8 @@
 import upsertUser from "backend/User/upsertUser"
 import upsertWriting from "backend/Writing/upsertWriting"
-import { defaultUser } from "content/user"
-import type { User } from "types/User"
-import type { Writing } from "types/Writing"
+import { defaultUser } from "mocks/database/user"
+import type { User } from "shared/types/User"
+import type { Writing } from "shared/types/Writing"
 
 
 export async function updateGreat(writing : Writing | null, user : User | null, next : boolean) : Promise<void>{

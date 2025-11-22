@@ -1,16 +1,21 @@
+/*
+  글 댓글 컴포넌트
+  - 댓글 목록 표시
+  - 댓글 작성 기능
+  - 댓글 새로고침 기능
+*/
+
 import { Flex } from "antd";
-import type { MessageInstance } from "antd/es/message/interface";
-import Wrapper from "components/blocks/Wrapper";
-import { SubP } from "components/shared/SubSpan";
+import Wrapper from "shared/components/blocks/Wrapper";
 import React, { useState } from "react";
 import { MdOutlineRefresh } from "react-icons/md";
 import styles from "styles/modules/DetailPage.module.css"
-import type { User } from "types/User";
+import type { User } from "shared/types/User";
 import { updateComment } from "../libs/updateComment";
-import type { Writing } from "types/Writing";
+import type { Writing } from "shared/types/Writing";
 import { startOfToday } from "date-fns";
 import { useRevalidatorContext } from "../context/Revalidator";
-import { useMessageContext } from "context/message";
+import { useMessageContext } from "app/providers/message";
 
 type WritingCommentProps = {
   commentContent : {user : User, content : string, date : string}[]
@@ -56,7 +61,7 @@ export default function WritingComment({commentContent, writing,user} : WritingC
                 <div className={styles.commentTextbox}>
                   <Flex gap={'small'} align="end">
                     <p>{c.user.nickname}</p>
-                    <SubP>{c.date}</SubP>
+                    <p className="SupSpan">{c.date}</p>
                   </Flex>
                   <p className={styles.commentContentBox}>{c.content}</p>
                 </div>

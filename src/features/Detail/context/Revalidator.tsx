@@ -1,5 +1,9 @@
+/*
+  새로고침을 담당하는 context
+*/
+
 import React, {createContext, useContext} from "react"
-import { useRevalidator, type RevalidationState } from "react-router-dom"
+import { useRevalidator } from "react-router-dom"
 
 type RevalidatorValue = ReturnType<typeof useRevalidator>;
 const RevalidatorContext = createContext<RevalidatorValue | null>(null)

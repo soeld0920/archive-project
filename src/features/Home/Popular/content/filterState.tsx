@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react"
-import type { MPFilter } from "../types/Filter";
+import type { Filter } from "../../../../shared/types/Filter";
 
-type FilterState = ReturnType<typeof useState<MPFilter>>
+type FilterState = ReturnType<typeof useState<Filter>>
 const FilterStateContext = createContext<FilterState | null>(null)
 
 export function FilterStateProvider({children} : {children : React.ReactNode}){
-  const value = useState<MPFilter>();
+  const value = useState<Filter>();
 
   return(
     <FilterStateContext.Provider value={value}>
@@ -17,7 +17,7 @@ export function FilterStateProvider({children} : {children : React.ReactNode}){
 export function useFilterStateContext(){
   const ctx = useContext(FilterStateContext);
       if (!ctx) {
-        throw new Error("FilterStateContext must be used within <RevalidatorProvider> (and under a Router).");
+        throw new Error("FilterStateContext must be uased within <RevalidatorProvider> (and under a Router).");
       }
       return ctx;
 }

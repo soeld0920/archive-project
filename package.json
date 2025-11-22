@@ -14,20 +14,26 @@
   "dependencies": {
     "@radix-ui/themes": "^3.2.1",
     "antd": "^5.27.6",
+    "axios": "^1.13.2",
     "classnames": "^2.5.1",
     "context": "^3.0.33",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.18",
+    "embla": "^1.0.0",
+    "embla-carousel-react": "^8.6.0",
     "fuse": "^0.12.1",
     "fuse.js": "^7.1.0",
     "millify": "^6.1.0",
+    "msw": "^2.12.2",
     "node": "^22.21.0",
     "node.js": "^0.0.1-security",
     "radix-ui": "^1.4.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.8.2",
+    "redux": "^5.0.1",
     "remark-toc": "^9.0.0",
     "styled-components": "^6.1.19",
     "uuid": "^11.1.0"
@@ -51,5 +57,10 @@
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.12",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

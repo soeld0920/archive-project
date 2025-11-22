@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
-type CurrentPageValue = ReturnType<typeof useState<number>>
+type CurrentPageValue = ReturnType<typeof useState<number | undefined>>
 const CurrentPageContext = createContext<CurrentPageValue | null>(null);
 
 export function CurrentPageProvider({children} : {children : React.ReactNode}){
-  const value = useState<number>()
+  const value = useState<number | undefined>(0)
 
   return(
     <CurrentPageContext.Provider value={value}>

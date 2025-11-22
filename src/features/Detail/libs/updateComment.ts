@@ -1,6 +1,6 @@
 import upsertWriting from "backend/Writing/upsertWriting"
-import { defaultUser } from "content/user"
-import type { Comment, Writing } from "types/Writing"
+import { defaultUser } from "mocks/database/user"
+import type { Comment, Writing } from "shared/types/Writing"
 
 export async function updateComment(writing : Writing | null, comment : Comment) : Promise<void>{
   if(!writing || !comment) throw new Error("Content Error. 문의바랍니다.")

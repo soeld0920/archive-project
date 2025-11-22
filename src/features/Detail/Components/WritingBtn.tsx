@@ -1,13 +1,22 @@
+/*
+  글 상호작용 버튼 컴포넌트
+  - 좋아요 토글 버튼
+  - 북마크 토글 버튼
+  - 댓글 이동 버튼
+
+  TODO : 댓글 이동 버튼 기능 구현
+*/
+
 import { FaBookmark, FaHeart, FaRegBookmark, FaRegCommentDots, FaRegHeart  } from "react-icons/fa";
 import { updateGreat } from "../libs/updateGreat";
-import type { Writing } from "types/Writing";
-import type { User } from "types/User";
+import type { Writing } from "shared/types/Writing";
+import type { User } from "shared/types/User";
 import { Button, Flex, Tooltip } from "antd";
 import {  useState } from "react";
 import styles from "styles/modules/DetailPage.module.css"
 import updateBookmark from "../libs/updateBookmark";
 import { useRevalidatorContext } from "../context/Revalidator";
-import { useMessageContext } from "context/message";
+import { useMessageContext } from "app/providers/message";
 import type { WritingDetailLoaderData } from "features/Search/types/WritingDetailLoaderData";
 import { useLoaderData, useRouteLoaderData } from "react-router-dom";
 

@@ -1,9 +1,9 @@
 import fetchSeries from "backend/Series/fetchSeries"
 import fetchUser from "backend/User/fetchUser"
-import { fetchWritingByParams } from "lib/getWritingByParams"
+import { fetchWritingByParams } from "shared/lib/utils/getWritingByParams"
 import { lazy } from "react"
-import type { User } from "types/User"
-import type { Series, Writing, WritingIndex } from "types/Writing"
+import type { User } from "shared/types/User"
+import type { Series, Writing, WritingIndex } from "shared/types/Writing"
 
 type WritingDetailLoderData = {
   writing : Writing

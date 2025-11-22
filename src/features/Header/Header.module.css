@@ -1,0 +1,318 @@
+.header{
+  width: 100%;
+  height: 140px;
+  box-sizing: border-box;
+}
+
+.topNav{
+  width: 100%;
+  height: 40px;
+  padding : var(--padding-basic);
+}
+
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topNav ul{ 
+  display: flex;
+  gap: var(--gap-nav);
+}
+
+.mainNav{
+  width: 100%;
+  height: 100px;
+  background-color: var(--background-darkGray);
+  padding: 0 var(--padding-inward);
+}
+
+.subNav{
+  display: flex;
+  gap: var(--gap-nav);
+}
+
+.subNavBtn{
+  font-size: 30px;
+  box-sizing: border-box;
+  width: 35px;
+  height: 35px;
+  padding: 3px;
+}
+
+.subNavBtn:hover{
+  padding: 0;
+  border: 3px solid var(--border-color-black);
+}
+
+.searchContainer{
+  position: relative;
+  width: 500px;
+}
+
+.searchDiv{
+  display: flex;
+  width: 100%;
+  height: 50px;
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.3);
+  border: 4px solid var(--border-color-gray);
+}
+
+.searchDiv:hover{
+  border: 4px solid var(--border-color-blue);
+}
+
+.searchCategory{
+  width: 150px;
+  height: 100%;
+  background-color: var(--background-gray);
+  border : none;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchCategory:hover{
+  background-color: var(--background-point-hazy);
+}
+
+.categoryText{
+  font-weight: var(--weight-bold);
+  font-size: var(--scales-m);
+  color: var(--color-text-highlight);
+}
+
+.subcategoryText{
+  font-weight: var(--weight-thin);
+  font-size : var(--scales-xxs);
+  color: var(--color-text-hazy);
+  background-color: none;
+}
+
+.searchInput{
+  width: 325px;
+  height: 100%;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: var(--scales-basic);
+  background-color: var(--background-wrap);
+}
+
+.searchBtn{
+  width: 25px;
+  height: 100%;
+  text-align: center;
+  border: none;
+  font-size: var(--scales-basic);
+  background-color: var(--background-wrap);
+}
+
+.categoryHidden{
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: calc(100% + 10px);
+  width: 100%;
+  max-width: 150px;
+  height: 438px;
+  max-height: 0px;
+  opacity: 0;
+  visibility: hidden;
+  border: 4px solid var(--border-color-gray);
+  box-sizing: border-box;
+}
+
+.categoryHidden.showSubNav{
+  max-width: 500px;
+}
+
+.categoryHidden.isOpen{
+  transition: max-height .5s ease, opacity .3s ease, visibility .3s;
+  max-height: 438px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.categoryHidden .panelHeader{
+  width: 142px;
+  height: 400px;
+  box-sizing: border-box;
+  background-color: var(--background-darkGray);
+  max-height: 0px;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-width .5s ease, opacity .3s ease, visibility .3s;
+}
+
+.categoryHidden .panelHeader.showSubNav{
+  border-right: 3px solid var(--border-color-gray);
+  transition: none;
+}
+
+.categoryHidden .panelHeader.isOpen{
+  max-height: 400px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.categoryHidden .panelHeader .title{
+  width: 142px;
+  height: 40px;
+  background-color: var(--background-point-hazy);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.categoryHidden .panelHeader .title span{
+  font-size: 20px;
+  font-weight: var(--weight-heavy);
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mainCategoryNav{
+  width: 142px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-gray);
+  border-top: 3px solid var(--border-color-gray);
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.mainCategoryNavItem{
+  width: 100%;
+  flex : 1 1 0;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.mainCategoryNavItem.focused{
+  background-color: var(--background-point-hazy);
+  text-decoration: underline;
+}
+
+.mainCategoryNav button{
+  background: none;
+  border: none;
+}
+
+.categoryHidden .subCategoryHeader{
+  width: 350px;
+  max-width: 0px;
+  height: 400px;
+  background-color: var(--background-gray);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-width .5s ease, opacity .3s ease, visibility .3s;
+  position: relative;
+}
+
+.categoryHidden .subCategoryHeader.showSubNav{
+  max-width: 350px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.categoryHidden .subCategoryHeader .title{
+  width: 350px;
+  height: 40px;
+  background-color: var(--background-point-hazy);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.categoryHidden .subCategoryHeader .title span{
+  font-size: 20px;
+  font-weight: var(--weight-heavy);
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.subCategoryNav{
+  width: 350px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--background-basic);
+  border-top: 3px solid var(--border-color-gray);
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.subCategoryNavItem{
+  background: none;
+  border: none;
+  text-decoration: none;
+}
+
+.subCategoryNavItem.focused{
+  text-decoration: underline;
+}
+
+.categoryHidden .bottomBox{
+  width: 492px;
+  max-width: 142px;
+  height: 30px;
+  border-top: 3px solid var(--border-color-gray);
+  box-sizing: border-box;
+  background-color: var(--background-wrap);
+  display: flex;
+  align-items: center;
+  transition: max-width .5s ease, opacity .3s ease, visibility .3s;;
+  max-height: 0px;
+  opacity: 0;
+  visibility: hidden;
+  position: relative;
+}
+
+.categoryHidden .bottomBox.showSubNav{
+  max-width: 492px;
+}
+
+.categoryHidden .bottomBox.isOpen{
+  max-height: 30px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.categoryHidden .bottomBox button{
+  width: auto;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: var(--margin-min);
+  border: none;
+  background: none;
+  position: absolute;
+  right: var(--margin-min);
+  white-space: nowrap;
+}
+
+.categoryHidden .bottomBox button:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}

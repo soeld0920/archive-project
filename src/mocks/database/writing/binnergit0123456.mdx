@@ -1,0 +1,56 @@
+## Git과 GitHub: 초보자 가이드
+
+### 무엇을 다루나요
+- Git과 GitHub의 개념 차이
+- 로컬 저장소 생성, 커밋, 원격 저장소로 푸시하기
+- 자주 쓰는 기본 명령어 예제
+
+### Git과 GitHub의 차이
+Git은 버전 관리 도구입니다. 로컬에서 파일 변경 이력을 관리합니다. GitHub는 Git 저장소를 호스팅하고 협업 기능(이슈, PR 등)을 제공하는 웹 서비스입니다.
+
+### 시작하기 (간단한 순서)
+1. Git 설치: https://git-scm.com 에서 운영체제에 맞는 설치 파일을 받으세요.
+2. 사용자 정보 설정:
+
+```bash
+git config --global user.name "당신이름"
+git config --global user.email "you@example.com"
+```
+
+3. 로컬 저장소 만들기:
+
+```bash
+mkdir my-project
+cd my-project
+git init
+```
+
+4. 파일 추가하고 커밋하기:
+
+```bash
+echo "Hello" > README.md
+git add README.md
+git commit -m "초기 커밋"
+```
+
+5. 원격 저장소 연결하고 푸시하기 (GitHub에서 repo 만들기 후):
+
+```bash
+git remote add origin https://github.com/사용자명/레포이름.git
+git push -u origin main
+```
+
+### 자주 쓰는 명령어
+- 상태 확인: `git status`
+- 변경 내역 보기: `git log --oneline`
+- 브랜치 만들기/전환: `git checkout -b feature` 또는 `git checkout main`
+- 변경 되돌리기(최근 커밋 되돌리기): `git revert <commit>` 또는 `git reset --hard <commit>` (주의)
+
+### 팁
+- 작은 단위로 자주 커밋하세요.
+- 원격으로 푸시하기 전에 `git pull`로 충돌을 확인하세요.
+- GUI가 편하면 GitHub Desktop, SourceTree 같은 도구를 사용해도 됩니다.
+
+---
+
+이 글은 초보자가 로컬에서 커밋하고 GitHub에 올리는 기본 흐름을 이해하도록 간단한 단계와 명령을 제공합니다.
