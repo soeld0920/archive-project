@@ -1,13 +1,13 @@
 // 카테고리 선택 상태를 계속 들고다니기 위한 전역 context
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { createContext } from "react";
-import type { Writing } from "shared/types/Writing";
+import useWriting from "../hooks/useWriting";
 
-type WritingValue = ReturnType<typeof useState<Writing | null>>
+type WritingValue = ReturnType<typeof useWriting>
 const WritingContext = createContext<WritingValue | null>(null);
 
 export function WritingProvider({children} : {children : React.ReactNode}){
-  const value = useState<Writing | null>()
+  const value = useWriting()
   return(
     <WritingContext.Provider value={value}>
       {children}

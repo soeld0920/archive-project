@@ -1,46 +1,54 @@
 import {  Suspense, useEffect } from "react";
-import styles from "styles/modules/DetailPage.module.css"
-import WritingHero from "features/Detail/Components/WritingHero";
-import WritingMetaBar from "features/Detail/Components/WritingMetaBar";
-import WritingInteraction from "features/Detail/Components/WritingBtn";
+import styles from "./DetailPage.module.css"
 import { Flex } from "antd";
-import WritingSubInteraction from "features/Detail/Components/WritingSubInteraction";
+import WritingSubInteraction from "features/Detail/Components/content/WritingSubInteraction";
 import Wrapper from "shared/components/blocks/Wrapper";
-import WritingTag from "features/Detail/Components/WritingTag";
+import WritingTag from "features/Detail/Components/content/WritingTag";
 import WritingComment from "features/Detail/Components/WritingComment";
 import { RevalidatorProvider } from "features/Detail/context/Revalidator";
-import WritingToc from "features/Detail/Components/WritingToc";
 import useTOC from "features/Detail/hooks/useTOC";
 import { useWritingContext, WritingProvider } from "./context/WritingContext";
-import getWriting from "./libs/api/getWriting";
+import getWriting from "shared/lib/api/getWriting";
+import getUser from "shared/lib/api/getUser";
 import { useSearchParams } from "react-router-dom";
+import putView from "./libs/api/putView";
+import type { Series, Writing } from "shared/types/Writing";
+import DetailHeader from "./Components/header";
+import type { User } from "shared/types/User";
+import getSeries from "shared/lib/api/getSeries";
 
 export function Detail(){
   return(
     <WritingProvider>
-      <DetailContent/>
+      <RevalidatorProvider>
+        <DetailContent/>
+      </RevalidatorProvider>
     </WritingProvider>
   )
 }
 
 function DetailContent(){
-  const [writing, setWriting] = useWritingContext()
+  const {writing, setWriting, setAuthor, setSeries} = useWritingContext()
   const [params] = useSearchParams()
   const {toc, writingRef} = useTOC()
 
   useEffect(() => {
-    getWriting(params.get("UUID") || "").then(setWriting)
+    getWriting(params.get("UUID") || "").then((writing : Writing) => {
+      setWriting(writing);
+      putView(writing.UUID);
+      getUser(writing.authorUUID).then((author : User) => {
+        setAuthor(author);
+      });
+      getSeries(writing.seriesUUID || "").then((series : Series | null) => {
+        if(!series) return;
+        setSeries(series);
+      });
+    });
   }, [params])
 
   return (
-    <RevalidatorProvider>
       <main className={styles.wrapper}>
-        <header className={styles.header}>
-          <Wrapper className={styles.headerWrapper}>
-            <WritingHero/>
-            <WritingMetaBar/> 
-          </Wrapper>
-        </header>
+        <DetailHeader/>
         <Wrapper className={styles.contentWrapper}>
           <aside className={styles.aside}>
             <WritingToc toc={toc}/>
@@ -58,6 +66,5 @@ function DetailContent(){
         </Wrapper>
         <WritingComment commentContent={commentContent} writing={writing} user={currentUser}/>
       </main>
-    </RevalidatorProvider>
   )
 }

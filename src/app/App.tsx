@@ -4,7 +4,6 @@ import { Layouts } from "shared/styles/global/Layouts";
 import "./App.css"
 import { MessageProvider, useMessageContext } from "app/providers/message";
 import Header from "features/Header";
-import { LoginProvider } from "app/providers/login";
 import { getLogin } from "shared/lib/api/getLogin";
 import { useEffect } from "react";
 import { AppRoutes } from "./routes/routes";
@@ -14,9 +13,7 @@ import { setLoginUser } from "store/login";
 export default function App() {
   return (
     <MessageProvider>
-      <LoginProvider>
-        <AppLayout/>
-      </LoginProvider>
+      <AppLayout/>
     </MessageProvider>
   );
 }

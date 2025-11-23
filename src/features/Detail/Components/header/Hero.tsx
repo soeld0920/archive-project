@@ -8,16 +8,14 @@ import { Flex } from "antd";
 import CategoryBreadcrumb from "shared/components/features/CategoryBreadCrump";
 import SeriesDropdown from "shared/components/features/SeriesDropdown";
 import UserDropdown from "shared/components/features/UserDropdown";
-import type { WritingDetailLoaderData } from "features/Search/types/WritingDetailLoaderData";
-import { useLoaderData } from "react-router-dom";
-import styles from "styles/modules/DetailPage.module.css"
+import styles from "features/Detail/DetailPage.module.css"
+import { useWritingContext } from "features/Detail/context/WritingContext";
 
 export default function WritingHero(){
-  const pageData : WritingDetailLoaderData = useLoaderData()
-  const {UUID, mainCategory,subCategory,title, formType} = pageData.writing
-  const author = pageData.author
-  const {series, writingIndexs} = pageData?.seriesPayload || {}
-  const pageIdx = writingIndexs?.map(w => w.UUID).indexOf(UUID) ?? -1
+  const {writing, author, series} = useWritingContext()
+  if(writing === null || author === null) return null;
+  const {UUID, mainCategory,subCategory,title, formType} = writing
+  const pageIdx = series?.WritingList?.indexOf(UUID) ?? -1
 
   return(
     <div>
@@ -26,7 +24,7 @@ export default function WritingHero(){
       <Flex gap={"small"}>
         작성자 : <UserDropdown userSummary={author} /> |
         {formType === "snippet" ? " 단편" : 
-          <> 시리즈 : <SeriesDropdown seriesSummary={series} pageIdx={pageIdx} writingIndexs={writingIndexs}/></>
+          <> 시리즈 : <SeriesDropdown seriesSummary={series} pageIdx={pageIdx} writingIndexs={pageIdx}/></>
         }
       </Flex>
     </div>

@@ -4,12 +4,15 @@ import { combineReducers, createStore } from "redux";
 import loginReducer from "./login";
 import { Provider } from "react-redux";
 
+const rootReducer = combineReducers({
+  login : loginReducer,
+})
+
+export type RootState = ReturnType<typeof rootReducer>;
+
 export default function Store({children} : {children : React.ReactNode}){
   
-  const rootReducer = combineReducers({
-    login : loginReducer,
-  })
-
+  
   const store = createStore(rootReducer);
 
   return(

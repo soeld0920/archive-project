@@ -6,8 +6,11 @@
   비로그인은 서버 측에서 IP로 처리.
 */
 
+import { useSelector } from "react-redux";
+import type { RootState } from "store";
+
 export default async function putView(UUID : string) : Promise<void>{
-  const response = await fetch(`/api/writing/${UUID}`, {method : "PUT"});
-  if(!response.ok) throw new Error("Failed to put view");
+  const loginUser = useSelector((state : RootState) => state.login);
+  const response = await fetch(`/api/writing/view/${UUID}`, {method : "PUT", body : JSON.stringify(loginUser)});
   return;
 }
