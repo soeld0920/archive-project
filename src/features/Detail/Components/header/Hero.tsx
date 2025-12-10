@@ -11,8 +11,8 @@ import UserDropdown from "shared/components/features/UserDropdown";
 import styles from "features/Detail/DetailPage.module.css"
 import { useWritingContext } from "features/Detail/context/WritingContext";
 
-export default function WritingHero(){
-  const {writing, author, series} = useWritingContext()
+export default function DetailHero(){
+  const {writing, author, series, seriesWritngsLink} = useWritingContext()
   if(writing === null || author === null) return null;
   const {UUID, mainCategory,subCategory,title, formType} = writing
   const pageIdx = series?.WritingList?.indexOf(UUID) ?? -1
@@ -24,7 +24,7 @@ export default function WritingHero(){
       <Flex gap={"small"}>
         작성자 : <UserDropdown userSummary={author} /> |
         {formType === "snippet" ? " 단편" : 
-          <> 시리즈 : <SeriesDropdown seriesSummary={series} pageIdx={pageIdx} writingIndexs={pageIdx}/></>
+          <> 시리즈 : <SeriesDropdown seriesSummary={series} pageIdx={pageIdx} seriesWritngsLink={seriesWritngsLink}/></>
         }
       </Flex>
     </div>

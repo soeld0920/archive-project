@@ -1,11 +1,11 @@
 import { createContext, useContext } from "react";
-import usePage from "../hooks/usePage";
+import usePageAtSearch from "../hooks/usePage";
 
-type PageValue = ReturnType<typeof usePage>;
+type PageValue = ReturnType<typeof usePageAtSearch>;
 const pageContext = createContext<PageValue | null>(null);
 
 export function PageProvider({children}: {children: React.ReactNode}){
-  const page = usePage();
+  const page = usePageAtSearch();
   return (
     <pageContext.Provider value={page}>
       {children}

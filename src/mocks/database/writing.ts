@@ -11,7 +11,7 @@ export const writingList: Writing[] = [
     authorUUID: "ad12f4b9e8c34a75",
     formType: "series",
     seriesUUID: "a1b2c3d4e5f60789",
-    date: "2025-04-21",
+    date: "2025-12-08",
     view: 6350,
     great: 420,
     comment: [

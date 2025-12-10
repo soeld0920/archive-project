@@ -9,58 +9,78 @@ import { Flex } from "antd";
 import Wrapper from "shared/components/blocks/Wrapper";
 import React, { useState } from "react";
 import { MdOutlineRefresh } from "react-icons/md";
-import styles from "styles/modules/DetailPage.module.css"
-import type { User } from "shared/types/User";
-import { updateComment } from "../libs/updateComment";
-import type { Writing } from "shared/types/Writing";
+import styles from "features/Detail/DetailPage.module.css"
 import { startOfToday } from "date-fns";
-import { useRevalidatorContext } from "../context/Revalidator";
 import { useMessageContext } from "app/providers/message";
+import { useWritingContext } from "features/Detail/context/WritingContext";
+import getComments from "shared/lib/api/getComments";
+import type { CommentRes } from "shared/types/Writing";
+import { useLoginContext } from "app/providers/login";
+import putComment from "../libs/api/putComment";
 
-type WritingCommentProps = {
-  commentContent : {user : User, content : string, date : string}[]
-  writing : Writing
-  user : User
-}
-
-export default function WritingComment({commentContent, writing,user} : WritingCommentProps){
+export default function WritingComment(){
+  const {writing, commentContent, setCommentContent} = useWritingContext()
   const [commentValue, setCommentValue] = useState("")
-  const revalidator = useRevalidatorContext()
   const [messageApi] = useMessageContext()
+  const [isLoading, setIsLoading] = useState(false)
+  const [loginUser] = useLoginContext();
 
-  const onCommentRefresh = (e  : React.MouseEvent) => {
+  const onCommentRefresh = async (e  : React.MouseEvent) => {
     e.preventDefault()
+    setIsLoading(true)
+    if(!writing) return
     messageApi.open({type : "loading", content : "새로고침 진행중...", key : "commentRefresh"})
-    revalidator.revalidate()
-    .then(() => messageApi.open({type : "success", content : "새로고침 완료!", key : "commentRefresh", duration : 2}))
-    .catch(() => messageApi.open({type : "error", content : "새로고침 실패", key : "commentRefresh", duration : 2}))
+    const comment : CommentRes[] | null = await getComments(writing.UUID)
+    .catch(() => {
+      messageApi.open({type : "error", content : "새로고침 실패...", duration : 2})
+      setIsLoading(false)
+      return commentContent;
+    }) || null;
+    setCommentContent(comment);
+    messageApi.open({type : "success", content : "새로고침 완료", duration : 2})
+    setIsLoading(false)
   }
 
-  const onSubmit = (e : React.MouseEvent) => {
+  const onSubmit = async (e : React.MouseEvent) => {
     e.preventDefault()
-    updateComment(writing,{content : commentValue, date : startOfToday().toISOString().slice(0, 10), writer : user.UUID})
-    .then(() => setCommentValue(""))
-    .then(() => revalidator.revalidate())
-    .then(() => messageApi.open({type : "success", content : "댓글 작성 완료", duration : 2}))
-    .catch((e : Error) => messageApi.open({type : "error", content : e.message, duration : 2}))
+    if(!loginUser){
+      messageApi.open({type : "error", content : "로그인 후 댓글을 작성할 수 있습니다.", duration : 2})
+      return
+    }
+    setIsLoading(true)
+    const comment = {content : commentValue, date : startOfToday().toISOString().slice(0, 10), writer : loginUser}
+    const response = await putComment(writing?.UUID || "", comment)
+    .catch(() => {
+      messageApi.open({type : "error", content : "댓글 작성 실패...", duration : 2})
+      setIsLoading(false)
+      return;
+    }) || null;
+    if(response){
+      console.log(response.content);
+      setCommentContent([...commentContent, response.content]);
+      console.log(commentContent);
+      setCommentValue("");
+      messageApi.open({type : "success", content : "댓글 작성 완료", duration : 2})
+    }
+    setIsLoading(false)
   }
 
   return(
     <Wrapper className={styles.commentWrapper}>
         <div className={styles.commentHeader}>
           <span>댓글 {commentContent.length}</span>
-          <button className={styles.refreshBtn} onClick={(e) => onCommentRefresh(e)} disabled={revalidator.state === "loading"}>새로고침 <MdOutlineRefresh/></button>
+          <button className={styles.refreshBtn} onClick={(e) => onCommentRefresh(e)} disabled={isLoading}>새로고침 <MdOutlineRefresh/></button>
         </div>
         <ul className={styles.commentBody}>
           {
             commentContent.map(c => 
               <li key={c.content} className={styles.commentItem}>
                 <div className={styles.commentUserBanner}>
-                  <img src={c.user.bannerImage} alt={`${c.user.nickname}의 프로필`} />
+                  <img src={c.writer.bannerImage} alt={`${c.writer.nickname}의 프로필`} />
                 </div>
                 <div className={styles.commentTextbox}>
                   <Flex gap={'small'} align="end">
-                    <p>{c.user.nickname}</p>
+                    <p>{c.writer.nickname}</p>
                     <p className="SupSpan">{c.date}</p>
                   </Flex>
                   <p className={styles.commentContentBox}>{c.content}</p>

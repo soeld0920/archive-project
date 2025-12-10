@@ -1,15 +1,11 @@
-import { createContext, useContext, useState } from "react"
-import type { Filter } from "shared/types/Filter";
+import { createContext, useContext } from "react"
+import useRecentFilter from "../hooks/useRecentFilter";
 
-type ExtendedFilter = Filter & {
-  tag?: string[];
-}
-
-type FilterState = ReturnType<typeof useState<ExtendedFilter>>
+type FilterState = ReturnType<typeof useRecentFilter>
 const FilterStateContext = createContext<FilterState | null>(null)
 
 export function FilterStateProvider({children} : {children : React.ReactNode}){
-  const value = useState<ExtendedFilter>();
+  const value = useRecentFilter();
 
   return(
     <FilterStateContext.Provider value={value}>

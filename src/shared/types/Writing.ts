@@ -1,3 +1,5 @@
+import type { User } from "./User";
+
 export type FORM_TYPE = "snippet" | "series"
 
 export type WritingIndex = {
@@ -42,6 +44,12 @@ export type Writing = {
 
 export type Comment = {
   writer : string;
+  date : string;
+  content : string;
+}
+
+export type CommentRes = {
+  writer : User;
   date : string;
   content : string;
 }

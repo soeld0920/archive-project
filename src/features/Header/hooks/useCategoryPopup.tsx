@@ -3,6 +3,7 @@ import { useCategoryContext } from "../context/categoryContext";
 import { useOpenPopupContext } from "../context/openPopupContext";
 import { categories, MAIN_SET, SUB_MAP, type MainCategory, type SubCategory } from "shared/types/category";
 import type { CategoryPopupType } from "../types/CategoryPopupType";
+import handleClickOutside from "shared/lib/utils/handleClickOutside";
 
 /* 팝업 상태 관리 훅
   - openPopup false이면 category 초기화.
@@ -28,9 +29,6 @@ export function useCategoryPopup(){
     dispatchCategory({ type: "RESET" });
     setActive({categorySection : "main", idx : 0});
   }, [openPopup]);
-
-
-
   // ★★★ 키보드 방향키로 조작 가능 ★★★
 
   // 최신 상태 참조
@@ -132,22 +130,11 @@ export function useCategoryPopup(){
 
   useEffect(() => {
     if (!openPopup) return;
-
-    const onOutside = (e: PointerEvent) => {
-      const panel = panelRef.current;
-      const toggle = toggleRef.current;
-      if (!panel || !toggle) return;
-
-      const target = e.target as Node;
-      // 패널 내부 or 토글 버튼 클릭은 무시
-      if (panel.contains(target) || toggle.contains(target)) return;
-
-      setOpenPopup(false);
-    };
-
-    window.addEventListener("pointerdown", onOutside);
-    return () => window.removeEventListener("pointerdown", onOutside);
-  }, [openPopup]);
+    
+    const handleClick = handleClickOutside(panelRef, toggleRef, setOpenPopup);
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [openPopup, setOpenPopup]);
 
   //onMainSelect / onSubSelect 함수 생성
 

@@ -1,50 +1,51 @@
-import {  Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import styles from "./DetailPage.module.css"
-import { Flex } from "antd";
-import WritingSubInteraction from "features/Detail/Components/content/WritingSubInteraction";
-import Wrapper from "shared/components/blocks/Wrapper";
-import WritingTag from "features/Detail/Components/content/WritingTag";
-import WritingComment from "features/Detail/Components/WritingComment";
-import { RevalidatorProvider } from "features/Detail/context/Revalidator";
-import useTOC from "features/Detail/hooks/useTOC";
 import { useWritingContext, WritingProvider } from "./context/WritingContext";
-import getWriting from "shared/lib/api/getWriting";
-import getUser from "shared/lib/api/getUser";
-import { useSearchParams } from "react-router-dom";
-import putView from "./libs/api/putView";
-import type { Series, Writing } from "shared/types/Writing";
 import DetailHeader from "./Components/header";
-import type { User } from "shared/types/User";
-import getSeries from "shared/lib/api/getSeries";
+import getInfoAboutWriting from "./libs/api/getInfoAboutWriting";
+import Wrapper from "shared/components/blocks/Wrapper";
+import WritingToc from "./Components/content/WritingToc";
+import useTOC from "./hooks/useTOC";
+import { WRITING_CONTENT_MODULES } from "mocks/libs/toWritingGlobKey";
+import { Flex } from "antd";
+// import WritingInteraction from "./Components/content/WritingBtn";
+import WritingSubInteraction from "./Components/content/WritingSubInteraction";
+import WritingTag from "./Components/content/WritingTag";
+import WritingInteraction from "./Components/content/WritingBtn/index.tsx";
+import putView from "./libs/api/putView.ts";
+import WritingComment from "./Components/WritingComment.tsx";
+import { useLoginContext } from "app/providers/login";
+import type { User } from "shared/types/User.ts";
 
-export function Detail(){
+export function Detail({UUID} : {UUID : string}){
   return(
     <WritingProvider>
-      <RevalidatorProvider>
-        <DetailContent/>
-      </RevalidatorProvider>
+      <DetailContent UUID={UUID}/>
     </WritingProvider>
   )
 }
 
-function DetailContent(){
-  const {writing, setWriting, setAuthor, setSeries} = useWritingContext()
-  const [params] = useSearchParams()
-  const {toc, writingRef} = useTOC()
-
+function DetailContent({UUID} : {UUID : string}){
+  const {setWriting, setAuthor, setSeries, setSeriesWritngsLink, setCommentContent} = useWritingContext()
+  const {toc, writingRef} = useTOC();
+  const [WritingContents, setWritingContents] = useState<React.LazyExoticComponent<React.ComponentType<any>> | null>(null);
+  const [loginUser] = useLoginContext();
   useEffect(() => {
-    getWriting(params.get("UUID") || "").then((writing : Writing) => {
+    const fetchData = async () => {
+      const {writing, author, series, seriesWritngsLink, WritingContentKey, commentContent} = await getInfoAboutWriting(UUID);
       setWriting(writing);
-      putView(writing.UUID);
-      getUser(writing.authorUUID).then((author : User) => {
-        setAuthor(author);
-      });
-      getSeries(writing.seriesUUID || "").then((series : Series | null) => {
-        if(!series) return;
-        setSeries(series);
-      });
-    });
-  }, [params])
+      setAuthor(author);
+      if(series) setSeries(series);
+      if(seriesWritngsLink) setSeriesWritngsLink(seriesWritngsLink);
+      setWritingContents(lazy(async () => {
+        const mod = await WRITING_CONTENT_MODULES[WritingContentKey]!();
+        return { default: (mod as { default: React.ComponentType<any> }).default };
+      }));
+      setCommentContent(commentContent);
+      await putView(UUID, loginUser ? loginUser.UUID : "");
+    }
+    fetchData();
+  }, [UUID])
 
   return (
       <main className={styles.wrapper}>
@@ -54,17 +55,19 @@ function DetailContent(){
             <WritingToc toc={toc}/>
           </aside>
           <div className={styles.article} ref={writingRef}>
-            <Suspense fallback={<div>콘텐츠 불러오는 중…</div>} >
-              <WritingContent key={UUID}/>
-            </Suspense>
+            {WritingContents && (
+              <Suspense fallback={<div>콘텐츠 불러오는 중…</div>} >
+                <WritingContents key={UUID}/>
+              </Suspense>
+            )}
             <Flex justify="space-between" className={styles.subInfoWrapper}>
               <WritingInteraction/>
-              <WritingSubInteraction UUID={writing.UUID} />
+              <WritingSubInteraction/>
             </Flex>
-            <WritingTag tag={tag}/>
+            <WritingTag/>
           </div>
         </Wrapper>
-        <WritingComment commentContent={commentContent} writing={writing} user={currentUser}/>
+        <WritingComment/>
       </main>
   )
 }

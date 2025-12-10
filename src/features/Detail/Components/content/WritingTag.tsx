@@ -6,12 +6,16 @@
 */
 
 import { ConfigProvider, Flex, Popconfirm } from "antd"
-import { clearParams } from "lib/clearParams";
-import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import styles from "styles/modules/DetailPage.module.css"
+import { createSearchParams, useNavigate } from "react-router-dom";
+import styles from "features/Detail/DetailPage.module.css"
+import { useWritingContext } from "features/Detail/context/WritingContext";
 
-export default function WritingTag({tag} : {tag : string[]}){
+export default function WritingTag(){
 
+  const {writing} = useWritingContext();
+  if(!writing) return null;
+  const {tag} = writing;
+  
   return (
     <div  className={styles.tagWrapper}>
       <ConfigProvider>
@@ -30,11 +34,9 @@ type TagProps = {tag : string}
 
 function Tag({tag} : TagProps){
   const navigate = useNavigate()
-  const [props] = useSearchParams()
 
   const onAlertClick = () => {
-    const next = clearParams(props)
-    navigate({pathname : "/search", search : `?${createSearchParams({...next,detail : tag})}`})
+    navigate({pathname : "/search", search : `?${createSearchParams({detail : tag})}`})
   }
 
   return(

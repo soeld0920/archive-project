@@ -3,7 +3,7 @@
 
 import { Dropdown, Space, type MenuProps } from "antd";
 import millify from "millify";
-import { createSearchParams, Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import type { User } from "shared/types/User"
 import { FaAngleDown } from "react-icons/fa";
 import { useMemo } from "react";
@@ -17,11 +17,6 @@ export default function UserDropdown({userSummary} : UserDropdownProps){
   const [params] = useSearchParams();
 
   // 페이지로 이동하기 위한 쿼리 문자열 생성
-  const searchStr = useMemo(() => {
-    const next = new URLSearchParams(params);
-    next.set("UUID", UUID);
-    return createSearchParams(next).toString();
-  }, [params, UUID])
   params.set("UUID", UUID);
 
   // 드롭다운 메뉴 항목 정의
@@ -44,16 +39,16 @@ export default function UserDropdown({userSummary} : UserDropdownProps){
     {
       key : "view-profile",
       label : (
-        <Link to={{ pathname: "/user", search: `?${searchStr}` }}>정보 보기</Link>
+        <Link to={{ pathname: "/user", search: `?${params.toString()}` }}>정보 보기</Link>
       )
     },
     {
       key : "view-writings",
       label : (
-        <Link to={{ pathname: "/user/writing", search: `?${searchStr}` }}>작성글 보기</Link>
+        <Link to={{ pathname: "/user/writing", search: `?${params.toString()}` }}>작성글 보기</Link>
       )
     }
-  ],[nickname, bannerImage, totalWriting, totalComment, totalView, totalGreat, searchStr])
+  ],[nickname, bannerImage, totalWriting, totalComment, totalView, totalGreat, params])
 
   return(
     <Dropdown menu={{items}}>

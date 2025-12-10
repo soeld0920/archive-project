@@ -1,7 +1,6 @@
 import type { Series } from "shared/types/Writing";
+import createGetFetch from "../utils/createGetFetch";
 
-export default async function getSeries(UUID : string) : Promise<Series | null>{
-  const response = await fetch(`api/series/${UUID}`, {method : "GET"});
-  if(!response.ok) return null;
-  return response.json();
+export default async function getSeries(UUID : string) : Promise<Series>{
+  return createGetFetch<Series>(`/api/series/${UUID}`);
 }

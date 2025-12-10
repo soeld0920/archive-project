@@ -8,7 +8,7 @@ import { useMessageContext } from "app/providers/message";
 import doCopyTextAtclipboard from "shared/lib/utils/doCopyTextAtClipboard";
 import { useCallback } from "react";
 import { FaRegCopy } from "react-icons/fa";
-import styles from "styles/modules/CodeBlock.module.css"
+import styles from "shared/styles/modules/CodeBlock.module.css"
 
 type CodeBlockProps = {
   children: string;

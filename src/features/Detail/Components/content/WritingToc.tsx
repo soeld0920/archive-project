@@ -2,9 +2,9 @@
   글 목차 컴포넌트
   - 글 목차 표시
  */
-import type { TocType } from "../types/TocType"
+import type { TocType } from "../../types/TocType"
 import { Anchor } from "antd";
-import processTocItem from "../libs/processTocItem";
+import processTocItem from "../../libs/processTocItem";
 import { useMemo } from "react";
 
 type WritingTocProps = {

@@ -1,14 +1,17 @@
 import type { WritingIndex } from "shared/types/Writing";
-import type { MPFilter } from "../../../../shared/types/Filter";
+import type { Filter as FilterType} from "../../../../shared/types/Filter";
 import { isWithinInterval, startOfToday } from "date-fns";
 
-export default function applyWritingFilters(writings : WritingIndex[], criteria? : MPFilter) : WritingIndex[]{
+export default function applyWritingFilters(writings : WritingIndex[] | undefined, criteria? : FilterType) : WritingIndex[]{
   if(!criteria) criteria = {};
+  if(!writings) return [];
   const dateRange = criteria.dateRange ? {start : criteria.dateRange.from || new Date(0), end : criteria.dateRange.to || startOfToday()} : undefined
 
-  return writings.filter(w => 
+  const filteredWritings = writings.filter(w => 
     (!criteria.mainCategory || w.mainCategory === criteria.mainCategory) &&
     (!criteria.subCategory || w.subCategory === criteria.subCategory) &&
-    (!dateRange || isWithinInterval(w.date,dateRange)) 
-  )
+    (!dateRange || isWithinInterval(w.date,dateRange))
+  ).sort((a, b) => b.view - a.view);
+
+  return filteredWritings;
 }

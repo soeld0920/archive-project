@@ -13,7 +13,7 @@ export const writingIndex: WritingIndex[] = [
     formType: "series",
     seriesUUID: "a1b2c3d4e5f60789",
     seriesTitle: "React Query 실전 가이드",
-    date: "2025-04-21",
+    date: "2025-12-08",
     view: 6350,
     great: 420,
     commentCount: 1,

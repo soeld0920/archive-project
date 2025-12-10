@@ -8,13 +8,13 @@ import { useMessageContext } from "app/providers/message";
 import doCopyTextAtClipboard from "shared/lib/utils/doCopyTextAtClipboard";
 import { FaPrint, FaShareAlt } from "react-icons/fa";
 import { createSearchParams } from "react-router-dom";
+import { useWritingContext } from "features/Detail/context/WritingContext";
 
-type WritingSubInteractionProps = {
-  UUID : string
-}
-
-export default function WritingSubInteraction({UUID} : WritingSubInteractionProps){
+export default function WritingSubInteraction(){
+  const {writing} = useWritingContext();
   const [messageApi] = useMessageContext()
+  if(!writing) return null;
+  const {UUID} = writing;
   const url = (() => {
     const origin = window.location.origin;                    // ex) https://example.com
     const base = (import.meta as any).env?.BASE_URL ?? "/";   // ex) /archive-project/
