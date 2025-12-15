@@ -14,11 +14,11 @@ export default function WritingSubInteraction(){
   const {writing} = useWritingContext();
   const [messageApi] = useMessageContext()
   if(!writing) return null;
-  const {UUID} = writing;
+  const {writingUuid} = writing;
   const url = (() => {
     const origin = window.location.origin;                    // ex) https://example.com
     const base = (import.meta as any).env?.BASE_URL ?? "/";   // ex) /archive-project/
-    const search = `?${createSearchParams({ UUID }).toString()}`;
+    const search = `?${createSearchParams({ writingUuid }).toString()}`;
     return `${origin}${base.replace(/\/?$/, "/")}page${search}`;
   })()
 

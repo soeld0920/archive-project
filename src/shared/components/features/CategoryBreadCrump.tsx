@@ -6,25 +6,24 @@
 import { Breadcrumb } from "antd";
 import type { BreadcrumbItemType, BreadcrumbSeparatorType } from "antd/es/breadcrumb/Breadcrumb";
 import classNames from "classnames";
-import type { MainCategory, SubCategory } from "shared/types/category";
-import { isSubCategoryOf } from "shared/lib/utils/categoryGuard";
 
 type CategoryBreadCrumpProps = {
-  mainCategory? : MainCategory;
-  subCategory? : SubCategory;
   className? :string;
   fallback? : string;
+  categoryPath? : string;
 }
 
-export default function CategoryBreadcrumb({mainCategory, subCategory, className,fallback = "전체보기"} : CategoryBreadCrumpProps){
+export default function CategoryBreadcrumb({categoryPath, className, fallback = "전체보기"} : CategoryBreadCrumpProps){
 
   const separator = ">";
   let items : Partial<BreadcrumbItemType & BreadcrumbSeparatorType>[] = [];
   
-  if(!mainCategory) items = [{title : fallback}];
-  else if(!subCategory) items = [{title : mainCategory}];
-  else if(!isSubCategoryOf(mainCategory, subCategory)) {throw new Error("카테고리가 일치하지 않습니다.");}
-  else items = [{title : mainCategory},{title : subCategory}];
+  if(!categoryPath) {
+    items = [{title : fallback}];
+  } else {
+    const categories = categoryPath.split(">").map(cat => cat.trim()).filter(cat => cat.length > 0);
+    items = categories.map(category => ({title : category}));
+  }
   
   items = items.map((item) => ({...item, className : classNames("SubSpan", className)}));
 

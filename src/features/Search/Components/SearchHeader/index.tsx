@@ -11,11 +11,15 @@ export default function SearchHeader(){
   const [searchParams] = parseUrlSearchParams(params);
   const {mainCategory, subCategory, detail} = searchParams;
   
+  const categoryPath = subCategory 
+    ? `${mainCategory} > ${subCategory}` 
+    : mainCategory;
+  
   return(
     <header className={styles.header}>
       <Wrapper className="flexBlock">
         <div>
-          <CategoryBreadcrumb mainCategory={mainCategory} subCategory={subCategory} />
+          <CategoryBreadcrumb categoryPath={categoryPath} />
           <ResultSummary detail={detail}/>
         </div>
         <form aria-label="검색 결과 정렬" style={{display:"flex",alignItems:"center"}}>

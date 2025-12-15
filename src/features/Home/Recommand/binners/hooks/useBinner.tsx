@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
 import type { WritingIndex } from "shared/types/Writing";
-import type { WritingIndexWithExplan } from "../libs/api/getBinner";
-import getBinner from "../libs/api/getBinner";
+
+export type WritingIndexWithExplan = {
+  writing: WritingIndex;
+  explan: {
+    title: string;
+    description: string;
+  };
+};
+
+export type BinnerResponse = {
+  updateAt: string; // ISO date string
+  writingIndexWithExplan: WritingIndexWithExplan[];
+};
 
 export default function useBinner() {
   const [updateAt, setUpdateAt] = useState<Date | null>(null);
@@ -12,7 +23,9 @@ export default function useBinner() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getBinner();
+        const response = await fetch("/api/writing/binner");
+        if(!response.ok) throw new Error(`Failed to fetch binner: ${response.statusText}`);
+        const data: BinnerResponse = await response.json();
         setUpdateAt(new Date(data.updateAt));
         setWritingIndexWithExplan(data.writingIndexWithExplan);
         

@@ -8,17 +8,25 @@
 import { useWritingContext } from "features/Detail/context/WritingContext";
 import millify from "millify";
 import styles from "features/Detail/DetailPage.module.css"
+import { formatYYMMDD } from "features/Detail/libs/formatYYMMDD";
 
 export default function DetailMetaBar(){
-  const {writing, greatCount} = useWritingContext()
+  const {writing} = useWritingContext()
   if(writing === null) return null;
-  const {date, view, comment} = writing
+  else if(writing === undefined) return null;
+  const {createAt,updateAt, view, great, commentCount} = writing
+
+  // createAt과 updateAt이 문자열인 경우 Date 객체로 변환
+  const createAtDate = typeof createAt === 'string' ? new Date(createAt) : createAt;
+  const updateAtDate = typeof updateAt === 'string' ? new Date(updateAt) : updateAt;
+
   return(
     <dl className={styles.detailSub}>
-      <dt>작성일</dt><dd><time>{date}</time></dd>
+      <dt>작성일</dt><dd><time>{formatYYMMDD(createAtDate)}</time></dd>
+      {updateAtDate.getTime() !== createAtDate.getTime() && <><dt>수정일</dt><dd><time>{formatYYMMDD(updateAtDate)}</time></dd></>}
       <dt>조회수</dt> <dd>{millify(view)} </dd>
-      <dt>좋아요</dt> <dd>{millify(greatCount)}</dd> 
-      <dt>댓글</dt> <dd>{comment.length}</dd>
+      <dt>좋아요</dt> <dd>{millify(great)}</dd> 
+      <dt>댓글</dt> <dd>{commentCount}</dd>
     </dl>
   )
 }

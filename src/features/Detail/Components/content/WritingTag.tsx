@@ -21,8 +21,8 @@ export default function WritingTag(){
       <ConfigProvider>
         <Flex gap="small">
           {
-            tag.map((str) => 
-            <Tag tag={str} key={str}/>)
+            tag.map((tag) => 
+            <Tag tag={tag.tagName} key={tag.tagId}/>)
           }
         </Flex>
       </ConfigProvider>

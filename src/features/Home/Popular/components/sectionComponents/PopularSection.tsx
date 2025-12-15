@@ -6,9 +6,9 @@ import PopularIndicator from "../PopularIndicator";
 import { useCurrentPageContent } from "../../context/currentPage";
 import styles from "features/Home/Popular/Popular.module.css"
 import PopularContentCarousel from "../PopularContentCarousel";
-import getPopularWritingIndex from "../../libs/api/getPopularWritingIndex";
 import updateButtonSize from "../../libs/updateButtonSize";
 import PopularFilter from "./PopularFilter";
+import type { WritingIndex } from "shared/types/Writing";
 
 export default function PopularSectionComponent(){
   //인기글을 db에서 들고와야함
@@ -17,9 +17,15 @@ export default function PopularSectionComponent(){
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    getPopularWritingIndex().then((writings) => {
-      setWritings(writings);
-    }).catch(() => setError(true));
+    fetch("/api/writing/popular")
+      .then(res => {
+        if(!res.ok) throw new Error(`Failed to fetch popular: ${res.statusText}`);
+        return res.json();
+      })
+      .then((data: {writingIndex : WritingIndex[]}) => {
+        setWritings(data.writingIndex);
+      })
+      .catch(() => setError(true));
     setPage(1);
   }, [setWritings]);
 

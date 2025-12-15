@@ -12,20 +12,25 @@ import styles from "features/Detail/DetailPage.module.css"
 import { useWritingContext } from "features/Detail/context/WritingContext";
 
 export default function DetailHero(){
-  const {writing, author, series, seriesWritngsLink} = useWritingContext()
-  if(writing === null || author === null) return null;
-  const {UUID, mainCategory,subCategory,title, formType} = writing
-  const pageIdx = series?.WritingList?.indexOf(UUID) ?? -1
+  const {writing} = useWritingContext()
+  if(!writing) return null;
+  const {mainCategoryName, subCategoryName, writingTitle, authorUuid, authorName, seriesName, seriesOrder, seriesUuid} = writing
+
+  const categoryPath = subCategoryName 
+    ? `${mainCategoryName} > ${subCategoryName}` 
+    : mainCategoryName;
 
   return(
     <div>
-      <CategoryBreadcrumb mainCategory={mainCategory} subCategory={subCategory} fallback="카테고리 없음"/>
-      <h1 style={{marginBottom:"0.75rem"}} className={styles.title}>{title}</h1>
+      <CategoryBreadcrumb categoryPath={categoryPath} fallback="카테고리 없음"/>
+      <h1 style={{marginBottom:"0.75rem"}} className={styles.title}>{writingTitle}</h1>
       <Flex gap={"small"}>
-        작성자 : <UserDropdown userSummary={author} /> |
-        {formType === "snippet" ? " 단편" : 
-          <> 시리즈 : <SeriesDropdown seriesSummary={series} pageIdx={pageIdx} seriesWritngsLink={seriesWritngsLink}/></>
-        }
+        작성자 : <UserDropdown userUuid={authorUuid} userName={authorName} /> |
+        {seriesUuid ? (
+          <> 시리즈 : <SeriesDropdown seriesUuid={seriesUuid} /></>
+        ) : (
+          " 단편"
+        )}
       </Flex>
     </div>
   )

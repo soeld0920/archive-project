@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import type { WritingIndex } from "shared/types/Writing";
-import getRecent from "../libs/api/getRecent";
 import { useFilterStateContext } from "../context/FilterState";
 import applyWritingFilters from "features/Home/Popular/libs/applyWritingFilters";
 
 const PAGE_SIZE = 9; // 3x3
+
+type RecentResponse = {
+  writingIndex: WritingIndex[];
+};
 
 export default function useRecent() {
   const [writings, setWritings] = useState<WritingIndex[]>([]);
@@ -14,7 +17,9 @@ export default function useRecent() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getRecent();
+        const response = await fetch("/api/writing/recent");
+        if(!response.ok) throw new Error(`Failed to fetch recent: ${response.statusText}`);
+        const data: RecentResponse = await response.json();
         setWritings(data.writingIndex);
       } catch (error) {
         console.error("Failed to fetch recent data:", error);

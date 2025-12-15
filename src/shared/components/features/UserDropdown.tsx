@@ -2,59 +2,93 @@
 // 유저 정보 페이지, 작성글 페이지로 이동하는 링크 제공
 
 import { Dropdown, Space, type MenuProps } from "antd";
-import millify from "millify";
 import { Link, useSearchParams } from "react-router-dom";
-import type { User } from "shared/types/User"
+import type { FindUserResDto } from "shared/types/FindUserResDto"
 import { FaAngleDown } from "react-icons/fa";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import type HttpError from "shared/types/HttpError";
 
 type UserDropdownProps = {
-  userSummary : User
+  userUuid : string,
+  userName : string
 }
 
-export default function UserDropdown({userSummary} : UserDropdownProps){
-  const {nickname, UUID, bannerImage, totalWriting, totalGreat, totalComment, totalView} = userSummary;
+export default function UserDropdown({userUuid, userName} : UserDropdownProps){
   const [params] = useSearchParams();
+  const [userData, setUserData] = useState<FindUserResDto | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 페이지로 이동하기 위한 쿼리 문자열 생성
-  params.set("UUID", UUID);
+  params.set("UUID", userUuid);
+
+  const fetchUserData = async () => {
+    if(userData || isLoading) return;
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/user/${userUuid}`)
+        .then(res => res.json())
+        .catch((e : HttpError) => {throw e});
+      
+      if(response.error) {
+        console.error(response.error);
+        setIsLoading(false);
+        return;
+      }
+      
+      setUserData(response);
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // 드롭다운 메뉴 항목 정의
-  const items : MenuProps['items'] = useMemo(() => [
-    {
-      key : "profile",
-      label : (
-        <div>
-          <div style={{width : "100px", height : "100px", borderRadius : "50px", border : "1px solid var(--border-color)", overflow : "hidden"}}>
-            <img src={bannerImage} alt="이미지" width={100} height={100} loading="lazy" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }} />
+  const items : MenuProps['items'] = useMemo(() => {
+    if(!userData) return [];
+    
+    return [
+      {
+        key : "profile",
+        label : (
+          <div>
+            <div style={{width : "100px", height : "100px", borderRadius : "50px", border : "1px solid var(--border-color)", overflow : "hidden"}}>
+              <img src={userData.banner} alt="이미지" width={100} height={100} loading="lazy" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }} />
+            </div>
+            <p className="SubSpan">{userData.bio || "소개가 없습니다."}</p>
           </div>
-          <p className="SubSpan">글 : {millify(totalWriting)} | 댓글 : {millify(totalComment)} <br />
-            조회수 : {millify(totalView)} | 좋아요 : {millify(totalGreat)}</p>
-        </div>
-      )
-    },
-    {
-      type: 'divider'
-    },
-    {
-      key : "view-profile",
-      label : (
-        <Link to={{ pathname: "/user", search: `?${params.toString()}` }}>정보 보기</Link>
-      )
-    },
-    {
-      key : "view-writings",
-      label : (
-        <Link to={{ pathname: "/user/writing", search: `?${params.toString()}` }}>작성글 보기</Link>
-      )
-    }
-  ],[nickname, bannerImage, totalWriting, totalComment, totalView, totalGreat, params])
+        )
+      },
+      {
+        type: 'divider'
+      },
+      {
+        key : "view-profile",
+        label : (
+          <Link to={{ pathname: "/user", search: `?${params.toString()}` }}>정보 보기</Link>
+        )
+      },
+      {
+        key : "view-writings",
+        label : (
+          <Link to={{ pathname: "/user/writing", search: `?${params.toString()}` }}>작성글 보기</Link>
+        )
+      }
+    ];
+  },[userData, params])
 
   return(
-    <Dropdown menu={{items}}>
-      <button type="button" aria-label={`${nickname} 사용자 메뉴 열기`} style={{ all: "unset", cursor: "pointer" }}>
+    <Dropdown 
+      menu={{items}} 
+      onOpenChange={(open) => {
+        if(open) {
+          fetchUserData();
+        }
+      }}
+    >
+      <button type="button" aria-label={`${userData?.userName || userUuid} 사용자 메뉴 열기`} style={{ all: "unset", cursor: "pointer" }}>
         <Space>
-          {nickname}
+          {userName || userUuid}
           <FaAngleDown/>
         </Space>
       </button>
