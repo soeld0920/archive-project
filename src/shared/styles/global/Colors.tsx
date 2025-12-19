@@ -10,6 +10,7 @@ export const Colors = createGlobalStyle`
     --background-black : ${colorTable.gray_500};
     --background-drakBlack : ${colorTable.gray_500};
     --background-warning : ${colorTable.red_100};
+    --background-error : ${colorTable.red_600};
     --background-caution : ${colorTable.yellow_100};
     --background-point : ${colorTable.blue_600};
     --background-point-hazy : ${colorTable.blue_100};
@@ -20,6 +21,7 @@ export const Colors = createGlobalStyle`
     --color-text-bold : ${colorTable.gray_800};
     --color-text-heavy : ${colorTable.gray_900};
     --color-text-hazy : ${colorTable.gray_400};
+    --color-text-white : ${colorTable.gray_50};
     --color-text-error : ${colorTable.red_600};
     --color-text-warning : ${colorTable.red_500};
     --color-text-attention : ${colorTable.yellow_600};
@@ -31,6 +33,8 @@ export const Colors = createGlobalStyle`
     --border-color-gray : ${colorTable.gray_400};
     --border-color-black : ${colorTable.gray_700};
     --border-color-blue : ${colorTable.blue_600};
+    --border-color-point : ${colorTable.blue_300};
+    --border-color-error : ${colorTable.red_600};
 
     --surface-wrap: var(--background-wrap);
     --surface-card: var(--background-basic);

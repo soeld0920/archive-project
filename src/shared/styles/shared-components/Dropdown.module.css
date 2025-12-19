@@ -1,0 +1,135 @@
+.dropdown{
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownButton{
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--border-color-gray);
+  border-radius: 4px;
+  background-color: var(--background-wrap);
+  color: var(--color-text-primary);
+  font-size: 1em;
+  text-align: left;
+  padding: var(--padding-inside);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  outline: none;
+}
+
+.dropdownButton:hover{
+  border-color: var(--border-color-blue);
+}
+
+.dropdownButton:focus-visible{
+  border-color: var(--border-color-blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.dropdownButtonActive{
+  border-color: var(--border-color-blue);
+}
+
+.dropdownList{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: calc(100% + 4px);
+  background-color: var(--background-wrap);
+  border: 2px solid var(--border-color-gray);
+  border-radius: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.dropdownList.dropdownListActive{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdownListItem{
+  width: 100%;
+  background-color: var(--background-wrap);
+  color: var(--color-text-primary);
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdownListItem:hover{
+  background-color: var(--background-gray);
+}
+
+.dropdownListItem.dropdownListItemActive{
+  background-color: var(--background-point-hazy);
+  color: var(--color-text-highlight);
+}
+
+.dropdownListItemButton{
+  width: 100%;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 1em;
+  text-align: left;
+  padding: 10px var(--padding-inside);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  outline: none;
+}
+
+.dropdownListItemButton:hover{
+  background-color: var(--background-gray);
+  color: var(--color-text-primary);
+}
+
+.dropdownListItemButton:focus-visible{
+  background-color: var(--background-gray);
+  outline: 2px solid var(--border-color-blue);
+  outline-offset: -2px;
+}
+
+.dropdownListItemActive .dropdownListItemButton{
+  background-color: var(--background-point-hazy);
+  color: var(--color-text-highlight);
+  font-weight: 500;
+}
+
+/* 스크롤바 스타일링 (웹킷 브라우저) */
+.dropdownList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdownList::-webkit-scrollbar-track {
+  background: var(--background-wrap);
+  border-radius: 3px;
+}
+
+.dropdownList::-webkit-scrollbar-thumb {
+  background: var(--background-darkGray);
+  border-radius: 3px;
+}
+
+.dropdownList::-webkit-scrollbar-thumb:hover {
+  background: var(--background-black);
+}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./DetailPage.module.css"
 import { useWritingContext, WritingProvider } from "./context/WritingContext";
 import DetailHeader from "./Components/header";
@@ -25,14 +25,22 @@ export function Detail({UUID} : {UUID : string}){
 function DetailContent({UUID} : {UUID : string}){
   const {writing, setWriting} = useWritingContext()
   const {toc, writingRef} = useTOC();
+  const hasViewedRef = useRef(false);
 
   useEffect(() => {
+    if (hasViewedRef.current) return;
+    hasViewedRef.current = true;
+  
     const fetchData = async () => {
-      const writingDetail : WritingDetail = await fetch(`/api/writing/${UUID}`).then(res => res.json()).catch((e : HttpError) => {throw e});
+      const writingDetail: WritingDetail =
+        await fetch(`/api/writing/${UUID}`).then(res => res.json());
       setWriting(writingDetail);
-    }
+  
+      await fetch(`/api/writing/${UUID}/view`, { method: "POST" });
+    };
+  
     fetchData();
-  }, [UUID])
+  }, [UUID]);
 
   if(writing == null) return <div>글을 찾을 수 없습니다.</div>;
   else if(writing == undefined) return <div>글을 불러오는 중입니다...</div>;
