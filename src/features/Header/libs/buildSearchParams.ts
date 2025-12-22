@@ -7,10 +7,10 @@ export function buildSearchParams(
   const params = new URLSearchParams();
   params.set("detail", searchText.trim());
   if(category.mainCategory) {
-    params.set("mainCategory", category.mainCategory);
+    params.set("mainCategory", category.mainCategory.id.toString());
   }
   if(category.subCategory) {
-    params.set("subCategory", category.subCategory);
+    params.set("subCategory", category.subCategory.id.toString());
   }
   return params.toString();
 }

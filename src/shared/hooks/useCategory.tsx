@@ -1,12 +1,11 @@
-import { isSubCategoryOf } from "shared/lib/utils/categoryGuard";
 import { useReducer } from "react";
-import type { MainCategory, SubCategory } from "shared/types/Writing";
 import type { SeletedCategory } from "shared/types/SeletedCategory";
+import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 
 
 type Action = 
-  {type : "SET_MAINCATEGORY", payload : MainCategory} |
-  {type : "SET_SUBCATEGORY", payload : SubCategory} |
+  {type : "SET_MAINCATEGORY", payload : MainCategory | undefined} |
+  {type : "SET_SUBCATEGORY", payload : SubCategory | undefined} |
   {type : "RESET"}
 
 const initalState : SeletedCategory = {mainCategory : undefined, subCategory : undefined}
@@ -27,9 +26,6 @@ export function useCategory(){
   const dispatchCategory = (action : Action)  => {
     if(action.type === "SET_SUBCATEGORY" && state.mainCategory === undefined){
       console.error(" main이 없는데 sub가 설정되려함.")
-      return;
-    }else if(action.type === "SET_SUBCATEGORY" && state.mainCategory && !isSubCategoryOf(state.mainCategory, action.payload)){
-      console.error(" main - sub가 관련이 없는데 설정되려함.")
       return;
     }
     dispatch(action);

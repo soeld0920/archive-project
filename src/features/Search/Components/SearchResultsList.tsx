@@ -1,10 +1,11 @@
 import classNames from "classnames/bind"
 import millify from "millify"
-import { createSearchParams, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import styles from "features/Search/Search.module.css"
 import type { WritingIndex } from "shared/types/Writing"
 import { useWritingsContent } from "../context/writingsContent"
 import { usePageContent } from "../context/pageContent"
+import defaultImage from "assets/img/basic-icons.png"
 
 
 export default function SearchResultsList() {
@@ -13,8 +14,8 @@ export default function SearchResultsList() {
   return(
     <ol className={styles.rightWrapper}  aria-label="검색 결과 목록" start={(page - 1) * 10 + 1}>
       {
-        writings.slice((page - 1) * 10, page * 10).map(r => (
-          <SearchResultItem key={r.UUID} item={r}/>
+        writings.map(r => (
+          <SearchResultItem key={r.writingUuid} item={r}/>
         ))
       }
     </ol>
@@ -26,21 +27,18 @@ function SearchResultItem({item} : {item : WritingIndex}){
   return(
     <li>
       <article className={styles.resultItem}>
-        {
-        item.image &&
         <div className={styles.resultItemImg}>
-          <img src={item.image} alt="글의 이미지"/>
+          <img src={item.image ?? defaultImage} alt="글의 이미지"/>
         </div>
-        }
-          <div className={cx('resultItemP',item.image && 'hasimage')}>
-            <p className="Subspan">{item.mainCategory  + ">" + item.subCategory}</p>
-            <h3 style={{margin : 0, marginBottom : "10px"}}>
-              <Link to={`/writing/${item.UUID}`}>{item.title}</Link>
-            </h3>
-            <p><Link to={`/user/${item.authorName}`}>{item.authorName}</Link> | {item.date} | {item.formType === "snippet" ? "단편" : <Link to={`/sereis/${item.seriesUUID}`}>{item.seriesTitle}</Link>}</p>
-            <p style={{marginBottom : "10px"}}>조회수 {millify(item.view, { precision: 1 })} | 좋아요 : {millify(item.great, { precision: 1 })} | 댓글 : {item.commentCount}</p>
-            <p className={styles.clamp2}>{item.content}</p>
-          </div>
+        <div className={cx('resultItemP',item.image && 'hasimage')}>
+          <p className="Subspan">{item.mainCategoryName  + ">" + item.subCategoryName}</p>
+          <h3 style={{margin : 0, marginBottom : "10px"}}>
+            <Link to={`/writing/${item.writingUuid}`}>{item.writingTitle}</Link>
+          </h3>
+          <p><Link to={`/user/${item.authorName}`}>{item.authorName}</Link> | {item.date} | {item.seriesTitle ? <Link to={`/sereis/${item.seriesUUID}`}>{item.seriesTitle}</Link> : "단편"}</p>
+          <p style={{marginBottom : "10px"}}>조회수 {millify(item.view, { precision: 1 })} | 좋아요 : {millify(item.great, { precision: 1 })} | 댓글 : {item.commentCount}</p>
+          <p className={styles.clamp2}>{item.content}</p>
+        </div>
       </article>
       </li>
   )

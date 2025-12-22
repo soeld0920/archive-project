@@ -2,13 +2,26 @@ import classNames from "classnames";
 import styles from "features/Header/Header.module.css";
 import { useCategoryContext } from "features/Header/context/categoryContext";
 import { useOpenPopupContext } from "features/Header/context/openPopupContext";
-import { categories } from "shared/types/category";
 import { SelectMainItem } from "./SelectMainItem";
+import { useEffect } from "react";
+import { api } from "axois/api";
+import { useCategoryPopupContext } from "features/Header/context/categoryPopup";
 
 export function SelectMain(){
   const [openPopup] = useOpenPopupContext();
   const [categoryState] = useCategoryContext();
+  const {mainCategoryOptions, setMainCategoryOptions} = useCategoryPopupContext();
   const className = classNames(styles.panelHeader, categoryState.mainCategory && styles.showSubNav, openPopup && styles.isOpen)
+  
+  useEffect(() => {
+    if(!openPopup) return;
+    const fetchMainCategory = async () => {
+      const res = await api.get("/category/main");
+      setMainCategoryOptions(res.data);
+    }
+    fetchMainCategory();
+  }, [openPopup]);
+
   return(
     <div className={className}>  
       <div className={styles.title}>
@@ -16,8 +29,8 @@ export function SelectMain(){
       </div>
       <ul className={styles.mainCategoryNav}>
         {
-          categories.map((item,i) => 
-            <SelectMainItem key={i} item={item.text} idx={i} />
+          mainCategoryOptions.map((item,i) => 
+            <SelectMainItem key={item.id} item={item} idx={i} />
           )
         }
       </ul>

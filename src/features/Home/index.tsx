@@ -7,8 +7,8 @@ export default function HomePage(){
   return (
     <main>
       <Wrapper>
-        <PopularSection/>
-        <Recommand/>
+        {/* <PopularSection/>
+        <Recommand/> */}
         <aside style={{width : "450px"}}>
           <UserProfileCard/>
         </aside>

@@ -3,11 +3,10 @@ import type { User } from "./User";
 export type FORM_TYPE = "snippet" | "series"
 
 export type WritingIndex = {
-  UUID : string;
-  title : string;
+  writingUuid : string;
+  writingTitle : string;
   authorUUID : string; //링크용
   authorName : string; //표시용
-  formType : FORM_TYPE;
   seriesUUID? : string; 
   seriesTitle? :string;
   date : string;
@@ -15,8 +14,8 @@ export type WritingIndex = {
   great : number;
   commentCount : number;
   tag : string[];
-  mainCategory : MainCategory;
-  subCategory : SubCategory;
+  mainCategoryName : string;
+  subCategoryName : string;
   image? :string;
   content : string; //앞에 보일 약 150자의 내용만
 }

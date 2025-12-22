@@ -34,7 +34,6 @@ export default function UserProfileCard(){
     fetchUserData();
   }, []);
   
-  console.log(userData);
   if(!userData) return <div className={styles.loginWrapper}>유저 정보를 불러오는 중입니다...</div>;
 
   // 로그인 O
