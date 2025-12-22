@@ -34,6 +34,14 @@
 .dropdownButtonActive{
   border-color: var(--border-color-blue);
 }
+.dropdownButtonDisabled{
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.dropdownButtonDisabled:hover{
+  background-color: var(--background-wrap);
+  border-color: var(--border-color-gray);
+}
 
 .dropdownList{
   position: absolute;
@@ -61,6 +69,11 @@
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+.dropdownListDisabled{
+  opacity: 0.5;
+  visibility: hidden;
 }
 
 .dropdownListItem{

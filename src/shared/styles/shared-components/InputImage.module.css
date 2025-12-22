@@ -1,0 +1,26 @@
+.wrapper{
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--border-color-gray);
+  border-radius: 4px;
+  background-color: var(--background-wrap);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper:hover{
+  border-color: var(--border-color-blue);
+  background-color: var(--background-point-hazy);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.input{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}

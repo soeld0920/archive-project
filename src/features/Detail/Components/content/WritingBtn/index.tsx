@@ -5,7 +5,7 @@ import { useWritingContext } from "features/Detail/context/WritingContext";
 import { WritingInteractionProvider, useWritingInteractionContext } from "features/Detail/context/WritingInteractionContext";
 import type HttpError from "shared/types/HttpError";
 import { useEffect } from "react";
-import authFetch from "shared/lib/api/authFetch";
+import { api } from "axois/api";
 import type { WritingInteractionState } from "features/Detail/types/WritingInteractionState";
 
 function WritingInteractionContent(){
@@ -15,8 +15,8 @@ function WritingInteractionContent(){
   useEffect(() => {
     const fetchInteractionState = async () => {
       if(!writing) return;
-      const response : WritingInteractionState = await authFetch(`/api/writing/${writing.writingUuid}/interactionState`, {method : "GET"})
-      .then(res => res.json())
+      const response : WritingInteractionState = await api.get(`/writing/${writing.writingUuid}/interactionState`)
+      .then(res => res.data)
       .catch((e : HttpError) => {throw e});
       
       setGreat(response.greated);

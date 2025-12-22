@@ -6,7 +6,7 @@ import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import { Button } from "antd"
 import { Tooltip } from "antd"
 import styles from "features/Detail/DetailPage.module.css"
-import authFetch from "shared/lib/api/authFetch"
+import { api } from "axois/api"
 
 export function BookmarkToggleButton(){
   const [messageApi] = useMessageContext()
@@ -20,26 +20,16 @@ export function BookmarkToggleButton(){
     if(isBookmarkButtonPending || !writing) return
     setIsBookmarkButtonPending(true)
     try {
-      const response = await authFetch(`/api/writing/${writing.writingUuid}/bookmark`, {
-        method : "PUT", 
-        body : JSON.stringify({next : !bookmark}), 
-        headers : {
-          "Content-Type": "application/json",
-        }
+      await api.put(`/writing/${writing.writingUuid}/bookmark`, {
+        next : !bookmark
       });
-
-      if(!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: "요청 실패" }));
-        messageApi.open({type : 'error', content : errorData.error || "요청 실패", duration : 2})
-        setIsBookmarkButtonPending(false)
-        return;
-      }
 
       setBookmark(!bookmark);
       setIsBookmarkButtonPending(false)
-    } catch (error) {
+    } catch (error: any) {
       console.error("Bookmark toggle error:", error);
-      messageApi.open({type : 'error', content : "요청 실패", duration : 2})
+      const errorMessage = error?.response?.data?.error || "요청 실패";
+      messageApi.open({type : 'error', content : errorMessage, duration : 2})
       setIsBookmarkButtonPending(false)
     }
   }

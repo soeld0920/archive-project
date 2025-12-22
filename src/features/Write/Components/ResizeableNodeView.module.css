@@ -1,0 +1,46 @@
+.resizeableImage {
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+.imageContainer {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.imageContainer:hover .resizeHandle {
+  opacity: 1;
+}
+
+.resizeHandle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-color: var(--border-color-blue, #3b82f6);
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 4px 0 4px 0;
+  z-index: 10;
+}
+
+.resizeHandle:hover {
+  opacity: 1;
+  background-color: var(--border-color-black, #000);
+}
+
+.resizeHandle::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 8px 8px;
+  border-color: transparent transparent var(--background-wrap, #fff) transparent;
+}
+

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button, Tooltip } from "antd";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import styles from "features/Detail/DetailPage.module.css";
-import authFetch from "shared/lib/api/authFetch";
+import { api } from "axois/api";
 
 
 export default function GreatToggleButton(){
@@ -20,26 +20,16 @@ export default function GreatToggleButton(){
     if(isGreatButtonPending || !writing) return
     setIsGreatButtonPending(true)
     try {
-      const response = await authFetch(`/api/writing/${writing.writingUuid}/great`, {
-        method : "PUT", 
-        body : JSON.stringify({next : !great}), 
-        headers : {
-          "Content-Type": "application/json",
-        }
+      await api.put(`/writing/${writing.writingUuid}/great`, {
+        next : !great
       });
-
-      if(!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: "요청 실패" }));
-        messageApi.open({type : 'error', content : errorData.error || "요청 실패", duration : 2});
-        setIsGreatButtonPending(false);
-        return;
-      }
 
       setGreat(!great);
       setIsGreatButtonPending(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Great toggle error:", error);
-      messageApi.open({type : 'error', content : "요청 실패", duration : 2});
+      const errorMessage = error?.response?.data?.error || "요청 실패";
+      messageApi.open({type : 'error', content : errorMessage, duration : 2});
       setIsGreatButtonPending(false);
     }
   }

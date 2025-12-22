@@ -13,7 +13,7 @@ import styles from "features/Detail/DetailPage.module.css"
 import { useMessageContext } from "app/providers/message";
 import { useWritingContext } from "features/Detail/context/WritingContext";
 import type { CommentDto } from "shared/types/CommentDto";
-import authFetch from "shared/lib/api/authFetch";
+import { api } from "axois/api";
 import { formatYYMMDD } from "../libs/formatYYMMDD";
 
 export default function WritingComment(){
@@ -34,7 +34,7 @@ export default function WritingComment(){
     if(!writing) return;
     setIsLoading(true);
     try {
-      const commentList : CommentDto[] = await fetch(`/api/writing/${writing.writingUuid}/comment`).then(res => res.json());
+      const commentList : CommentDto[] = await api.get(`/writing/${writing.writingUuid}/comment`).then(res => res.data);
       setComments(commentList);
     } catch (error) {
       messageApi.open({type : "error", content : "댓글을 불러오는데 실패했습니다.", duration : 2});
@@ -62,12 +62,8 @@ export default function WritingComment(){
     setIsLoading(true);
     try {
       // TODO: 댓글 추가 API 호출
-      await authFetch(`/api/writing/${writing.writingUuid}/comment`, {
-        method : "POST",
-        headers : {
-          "Content-Type" : "application/json",
-        },
-        body : JSON.stringify({content : commentValue}),
+      await api.post(`/writing/${writing.writingUuid}/comment`, {
+        content : commentValue
       });
       await loadComments();
       messageApi.open({type : "success", content : "댓글 작성 완료", duration : 2});

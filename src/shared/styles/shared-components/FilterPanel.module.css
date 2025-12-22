@@ -1,0 +1,80 @@
+
+.filterButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 30px;
+  border: 2px solid var(--border-color-black);
+  background: var(--background-basic);
+  font-size: var(--scales-sm);
+  font-weight: 700;
+  transition: background 0.3s, color 0.3s;
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.filterButton:hover{
+  cursor: pointer;
+  background: var(--background-point-hazy);
+}
+
+.filterButton.open{
+  background: var(--background-point-hazy);
+  border: 2px solid var(--border-color-blue);
+}
+
+.filterPanel{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: auto;
+  max-width: 0;
+  height: 30px;
+  border: none;
+  pointer-events: none;
+  transition: max-width 0.3s;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  border-radius: 15px;
+}
+
+.filterPanel.open{
+  padding-left: 50px;
+  max-width: 100%;
+  pointer-events: auto;
+  border: 2px solid var(--border-color-black);
+  background: var(--background-point-hazy);
+}
+
+.filterRow{
+  display: flex;
+  align-items: center;
+}
+
+
+.filterActions{
+  width: auto;
+  height: 30px;
+  border-left: 2px solid var(--border-color-black);
+}
+
+.closeButton{
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: var(--scales-m);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeButton:hover{
+  cursor: pointer;
+  color: var(--color-text-highlight);
+}

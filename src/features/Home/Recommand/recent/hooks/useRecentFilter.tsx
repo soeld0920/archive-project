@@ -3,11 +3,10 @@
 
 import { useState } from "react";
 import type { MainCategory, SubCategory } from "shared/types/category";
-import type { Filter_DataRange } from "shared/types/Filter";
-import type { ExtendedFilter } from "../types/ExtendedFilter";
+import type { Filter, Filter_DataRange } from "shared/types/Filter";
 
 export default function useRecentFilter(){
-  const [filter, setFilter] = useState<ExtendedFilter>({});
+  const [filter, setFilter] = useState<Filter>({});
 
   const setFilterMainCategory = (mainCategory: MainCategory | undefined) => {
     setFilter((prevFilter) => ({...prevFilter, mainCategory : mainCategory ?? undefined}));
