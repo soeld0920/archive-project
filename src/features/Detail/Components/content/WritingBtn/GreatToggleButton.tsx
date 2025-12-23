@@ -6,6 +6,7 @@ import { Button, Tooltip } from "antd";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import styles from "features/Detail/DetailPage.module.css";
 import { api } from "axois/api";
+import isSignin from "shared/lib/utils/isSignin";
 
 
 export default function GreatToggleButton(){
@@ -17,7 +18,11 @@ export default function GreatToggleButton(){
   if(!writing) return null
 
   const onGreatButtonClick = async () => {
-    if(isGreatButtonPending || !writing) return
+    if(isGreatButtonPending || !writing ) return
+    if(!isSignin()) {
+      messageApi.open({type : 'error', content : "로그인이 필요합니다.", duration : 2});
+      return;
+    }
     setIsGreatButtonPending(true)
     try {
       await api.put(`/writing/${writing.writingUuid}/great`, {
@@ -27,9 +32,7 @@ export default function GreatToggleButton(){
       setGreat(!great);
       setIsGreatButtonPending(false);
     } catch (error: any) {
-      console.error("Great toggle error:", error);
-      const errorMessage = error?.response?.data?.error || "요청 실패";
-      messageApi.open({type : 'error', content : errorMessage, duration : 2});
+      messageApi.open({type : 'error', content : "좋아요를 누를 수 없습니다.", duration : 2});
       setIsGreatButtonPending(false);
     }
   }

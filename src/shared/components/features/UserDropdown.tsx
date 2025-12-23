@@ -3,7 +3,7 @@
 
 import { Dropdown, Space, type MenuProps } from "antd";
 import { Link, useSearchParams } from "react-router-dom";
-import type { FindUserResDto } from "shared/types/FindUserResDto"
+import type { FindUserResDto } from "shared/types/dto/user"
 import { FaAngleDown } from "react-icons/fa";
 import { useMemo, useState } from "react";
 import type HttpError from "shared/types/HttpError";

@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import { categories, type MainCategory, type SubCategory, SUB_MAP } from "shared/types/category";
+import { useState } from "react";
+import { type MainCategory, type SubCategory } from "shared/types/entity/Category";
 import styles from "features/Home/Popular/Popular.module.css";
 import { useFilterStateContext } from "../../context/filterState";
 

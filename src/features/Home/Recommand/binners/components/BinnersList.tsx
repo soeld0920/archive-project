@@ -1,5 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
-import type { WritingIndex } from "shared/types/Writing";
+import type { WritingIndex } from "shared/types/entity/Writing";
 import { useBinnerContext } from "features/Home/Recommand/binners/context/BinnerContext";
 import styles from "../Binners.module.css";
 import classNames from "classnames";

@@ -1,5 +1,5 @@
 import type { FormType } from "features/Search/types/searchFilter";
-import type { MainCategory, SubCategory } from "shared/types/category"
+import type { MainCategory, SubCategory } from "./entity/Category";
 
 export type Filter = {
   mainCategory? : MainCategory;

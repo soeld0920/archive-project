@@ -22,6 +22,8 @@ import { OpenPopupProvider } from "./context/openPopupContext";
 import { CategoryProvider } from "./context/categoryContext";
 import { SelectCategory } from "./components/SelectCategory";
 import { CategoryPopupProvider } from "./context/categoryPopup";
+import { useEffect, useState } from "react";
+import isSignin from "shared/lib/utils/isSignin";
 
 export default function Header(){
   return(
@@ -37,6 +39,12 @@ export default function Header(){
 
 
 function HeaderContent(){
+  const [signIn, setSignIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSignIn(isSignin());
+  }, []);
+
   return(
     <header className={styles.header}>
 
@@ -48,7 +56,7 @@ function HeaderContent(){
           <span className="highlight">한국어로 배우는 쉬운 컴퓨터공학</span>
 
           {/* 로그인 / 유저 네비게이션 */}
-          <LoginNav/>
+          {signIn ? <></> : <LoginNav/>}
         </Wrapper>
       </div>
 

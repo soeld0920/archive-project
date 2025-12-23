@@ -1,4 +1,4 @@
-export type FindUserResDto = {
+export type UserRes = {
   userUuid: string;
   userName: string;
   bio: string;

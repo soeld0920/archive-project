@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import useFilter from "shared/hooks/useFilter";
-import type { WritingIndex } from "shared/types/Writing";
+import type { WritingIndex } from "shared/types/entity/Writing";
 import applyWritingFilters from "../libs/applyWritingFilters";
 
 export default function useFilteredWriting(){

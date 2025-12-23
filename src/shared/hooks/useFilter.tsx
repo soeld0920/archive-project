@@ -3,7 +3,7 @@
 //하지만 여기서는 각각의 필드에 useState를 만들고, 이를 제공함
 
 import { useState } from "react";
-import type { MainCategory, SubCategory } from "shared/types/category";
+import type { MainCategory, SubCategory } from "shared/types/entity/Category";
 import type { Filter, Filter_DataRange } from "shared/types/Filter";
 
 export default function useFilter(){

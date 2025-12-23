@@ -5,7 +5,7 @@ import { Dropdown, Space, type MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import { useMemo, useState } from "react";
-import type { SeriesNavigationResDto } from "shared/types/SeriesNavigationResDto";
+import type { SeriesNavigationResDto } from "shared/types/dto/SeriesNavigationResDto";
 import type HttpError from "shared/types/HttpError";
 
 type SeriesDropdownProps = {

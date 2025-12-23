@@ -8,7 +8,7 @@ import styles from "features/Home/Popular/Popular.module.css"
 import PopularContentCarousel from "../PopularContentCarousel";
 import updateButtonSize from "../../libs/updateButtonSize";
 import PopularFilter from "./PopularFilter";
-import type { WritingIndex } from "shared/types/Writing";
+import type { WritingIndex } from "shared/types/entity/Writing";
 
 export default function PopularSectionComponent(){
   //인기글을 db에서 들고와야함

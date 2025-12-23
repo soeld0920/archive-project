@@ -1,5 +1,5 @@
 import type { User } from "shared/types/User"
-import type { Series, Writing, WritingIndex } from "shared/types/Writing"
+import type { Series, Writing, WritingIndex } from "shared/types/entity/Writing"
 
 export type WritingDetailLoaderData = {
   writing : Writing

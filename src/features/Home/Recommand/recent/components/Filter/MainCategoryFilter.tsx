@@ -1,5 +1,5 @@
 import { useFilterStateContext } from "../../context/FilterState";
-import { MAIN_SET, type MainCategory } from "shared/types/category";
+import { MAIN_SET, type MainCategory } from "shared/types/entity/Category";
 import styles from "../../Recent.module.css";
 
 export default function MainCategoryFilter() {

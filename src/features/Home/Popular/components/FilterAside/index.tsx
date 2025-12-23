@@ -1,5 +1,5 @@
 import { RiResetLeftFill } from "react-icons/ri";
-import { type MainCategory, type SubCategory } from "shared/types/category";
+import { type MainCategory, type SubCategory } from "shared/types/entity/Category";
 import styles from "features/Home/Popular/Popular.module.css";
 import PopularFilterCategory from "./PopularFilterCategory";
 import PopularFilterPeriod from "./PopularFilterPeriod";

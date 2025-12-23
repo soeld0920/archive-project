@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { WritingIndex } from "shared/types/Writing";
+import type { WritingIndex } from "shared/types/entity/Writing";
 
 export type WritingIndexWithExplan = {
   writing: WritingIndex;

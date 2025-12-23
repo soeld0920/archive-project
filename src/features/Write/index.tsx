@@ -8,44 +8,20 @@ import WriteEditor from "./Components/WriteEditor";
 import { useState } from "react";
 import InputText from "shared/components/blocks/InputComponets/InputText";
 import CategorySelect from "shared/components/features/CategorySelect";
-import {  ReactNodeViewRenderer, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import {  useEditor } from "@tiptap/react";
 import SubmitButton from "shared/components/blocks/InputComponets/SubmitButton";
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 import { api } from "axois/api";
 import { useMessageContext } from "app/providers/message";
-import Image from "@tiptap/extension-image";
-import ResizeableNodeView from "./Components/ResizeableNodeView";
+import { editorExtensions } from "shared/constants/editor";
 
 export default function WriteFeature(){
   const [title, setTitle] = useState("");
   const [mainCategory, setMainCategory] = useState<MainCategory | undefined>(undefined);
   const [subCategory, setSubCategory] = useState<SubCategory | undefined>(undefined);
   const [tag, setTag] = useState<string>("");
-  const ResizableImage = Image.extend({
-    addAttributes() {
-      return {
-        ...this.parent?.(),
-        width: {
-          default: 'auto',
-        },
-        height: {
-          default: 'auto',
-        },
-      }
-    },
-    addNodeView() {
-      return ReactNodeViewRenderer(ResizeableNodeView);
-    }
-  })
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      ResizableImage.configure({
-        allowBase64: false,
-        inline : false
-      })
-    ],
+    extensions: editorExtensions,
     content: 'Hello World!',
   })
   const [messageApi] = useMessageContext();

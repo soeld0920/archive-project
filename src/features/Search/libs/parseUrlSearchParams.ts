@@ -1,4 +1,4 @@
-import type { MainCategory, SubCategory, SearchParams } from "shared/types/category";
+import type { MainCategory, SubCategory, SearchParams } from "shared/types/entity/Category";
 
 type UrlSearch = readonly [SearchParams, string];
 

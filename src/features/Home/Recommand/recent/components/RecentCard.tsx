@@ -1,4 +1,4 @@
-import type { WritingIndex } from "shared/types/Writing";
+import type { WritingIndex } from "shared/types/entity/Writing";
 import styles from "../Recent.module.css";
 
 export default function RecentCard({ item }: { item: WritingIndex  | undefined}){

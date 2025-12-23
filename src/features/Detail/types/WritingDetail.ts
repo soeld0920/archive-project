@@ -1,4 +1,4 @@
-import type { Tag } from "shared/types/Tag";
+import type { Tag } from "shared/types/entity/Tag";
 
 export type WritingDetail = {
   writingUuid : string;

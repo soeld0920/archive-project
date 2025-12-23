@@ -2,7 +2,7 @@
 //기존 filter과의 차이는 tag 필드의 추가 뿐임.
 
 import { useState } from "react";
-import type { MainCategory, SubCategory } from "shared/types/category";
+import type { MainCategory, SubCategory } from "shared/types/entity/Category";
 import type { Filter, Filter_DataRange } from "shared/types/Filter";
 
 export default function useRecentFilter(){

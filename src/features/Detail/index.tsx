@@ -12,8 +12,8 @@ import WritingInteraction from "./Components/content/WritingBtn/index.tsx";
 import type { WritingDetail } from "./types/WritingDetail.ts";
 import WritingComment from "./Components/WritingComment.tsx";
 import { api } from "axois/api";
-import StarterKit from "@tiptap/starter-kit";
 import { generateHTML } from "@tiptap/react";
+import { editorExtensions } from "shared/constants/editor.tsx";
 
 export function Detail({UUID} : {UUID : string}){
   return(
@@ -52,7 +52,7 @@ function DetailContent({UUID} : {UUID : string}){
         }
         
         // TipTap JSON을 HTML로 변환
-        const html = generateHTML(tipTapJson, [StarterKit]);
+        const html = generateHTML(tipTapJson, editorExtensions);
         setHtml(html);
       } catch (e) {
         // 파싱 또는 변환 실패 시 빈 문자열로 설정

@@ -54,7 +54,7 @@ export function SearchContent(){
 
       const res1 = await api.post("/search/length", reqBody);
       const res2 = await api.post("/search", reqBody);
-      
+      console.log(res2.data);
       setWritings(res2.data);
       setPageCount(res1.data as number);
     }

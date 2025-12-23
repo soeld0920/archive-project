@@ -11,9 +11,9 @@ export function reducer(state: SearchFilterState, action: SearchFilterAction): S
         ? { ...state, during: "custom" }
         : { ...state, during: action.payload };
     case "SET_DATE_RANGE": return { ...state, during: "custom", ...action.payload };
-    case "SET_VIEW_ENABLED": return { ...state, viewEnabled: action.payload, ...(action.payload ? {} : { viewMin: undefined, viewMax: undefined }) };
+    case "SET_VIEW_ENABLED": return { ...state, viewEnabled: action.payload, ...(action.payload ? {} : { viewRange: undefined }) };
     case "SET_VIEW_RANGE": return { ...state, viewRange : {min: action.payload.min || VIEW_RANGE_STEPS[0], max: action.payload.max || VIEW_RANGE_STEPS[VIEW_RANGE_STEPS.length-1]} };
-    case "SET_GREAT_ENABLED": return { ...state, greatEnabled: action.payload, ...(action.payload ? {} : { greatMin: undefined, greatMax: undefined }) };
+    case "SET_GREAT_ENABLED": return { ...state, greatEnabled: action.payload, ...(action.payload ? {} : { greatRange: undefined }) };
     case "SET_GREAT_RANGE": return { ...state, greatRange : {min: action.payload.min || GREAT_RANGE_STEPS[0], max: action.payload.max || GREAT_RANGE_STEPS[GREAT_RANGE_STEPS.length-1]} };
     case "HYDRATE": return { ...state, ...action.payload };
     case "RESET": return initialFilterState;

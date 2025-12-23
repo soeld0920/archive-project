@@ -8,7 +8,7 @@ import { Input, Button, Form } from "antd";
 import Wrapper from "shared/components/blocks/Wrapper";
 import { useMessageContext } from "app/providers/message";
 import { useNavigate } from "react-router-dom";
-import type { Auth } from "shared/types/auth";
+import type { Auth } from "shared/types/dto/auth";
 
 export default function Login(){
   const [id, setId] = useState("");

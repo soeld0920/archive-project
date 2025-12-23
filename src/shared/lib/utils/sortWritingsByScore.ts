@@ -1,5 +1,5 @@
 import { differenceInDays, parse, startOfToday } from "date-fns";
-import type { Writing, WritingIndex } from "shared/types/Writing";
+import type { Writing, WritingIndex } from "shared/types/entity/Writing";
 
 type ScoreWeight = {
   viewWeight? : number;

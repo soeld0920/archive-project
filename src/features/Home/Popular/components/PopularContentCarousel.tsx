@@ -1,4 +1,4 @@
-import type { WritingIndex } from "shared/types/Writing";
+import type { WritingIndex } from "shared/types/entity/Writing";
 import { useCurrentPageContent } from "../context/currentPage";
 import styles from "features/Home/Popular/Popular.module.css"
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";

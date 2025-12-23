@@ -7,6 +7,7 @@ import { Button } from "antd"
 import { Tooltip } from "antd"
 import styles from "features/Detail/DetailPage.module.css"
 import { api } from "axois/api"
+import isSignin from "shared/lib/utils/isSignin";
 
 export function BookmarkToggleButton(){
   const [messageApi] = useMessageContext()
@@ -17,7 +18,11 @@ export function BookmarkToggleButton(){
   if(!writing) return null
 
   const onBookmarkButtonClick = async () => {
-    if(isBookmarkButtonPending || !writing) return
+    if(isBookmarkButtonPending || !writing ) return
+    if(!isSignin()) {
+      messageApi.open({type : 'error', content : "로그인이 필요합니다.", duration : 2});
+      return;
+    }
     setIsBookmarkButtonPending(true)
     try {
       await api.put(`/writing/${writing.writingUuid}/bookmark`, {
@@ -26,11 +31,9 @@ export function BookmarkToggleButton(){
 
       setBookmark(!bookmark);
       setIsBookmarkButtonPending(false)
-    } catch (error: any) {
-      console.error("Bookmark toggle error:", error);
-      const errorMessage = error?.response?.data?.error || "요청 실패";
-      messageApi.open({type : 'error', content : errorMessage, duration : 2})
-      setIsBookmarkButtonPending(false)
+      } catch (error: any) {
+      messageApi.open({type : 'error', content : "북마크를 누를 수 없습니다.", duration : 2})
+      setIsBookmarkButtonPending(false) 
     }
   }
 

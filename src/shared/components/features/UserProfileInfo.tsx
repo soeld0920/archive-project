@@ -4,7 +4,7 @@ import styles from "shared/styles/modules/UserInfo.module.css"
 import { Link } from "react-router-dom"
 import millify from "millify"
 import { useEffect, useState } from "react"
-import type { FindUserResDto } from "shared/types/FindUserResDto"
+import type { FindUserResDto } from "shared/types/dto/user"
 import { api } from "axois/api"
 
 export default function UserProfileCard(){

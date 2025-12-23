@@ -1,5 +1,5 @@
 import { useFilterStateContext } from "../../context/FilterState";
-import { SUB_MAP, type SubCategory } from "shared/types/category";
+import { SUB_MAP, type SubCategory } from "shared/types/entity/Category";
 import styles from "../../Recent.module.css";
 
 export default function SubCategoryFilter() {

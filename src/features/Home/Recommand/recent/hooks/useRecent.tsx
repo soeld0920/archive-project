@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { WritingIndex } from "shared/types/Writing";
+import type { WritingIndex } from "shared/types/entity/Writing";
 import { useFilterStateContext } from "../context/FilterState";
 import applyWritingFilters from "features/Home/Popular/libs/applyWritingFilters";
 
