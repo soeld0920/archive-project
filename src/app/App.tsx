@@ -5,6 +5,7 @@ import "./App.css"
 import { MessageProvider, useMessageContext } from "app/providers/message";
 import Header from "features/Header";
 import { AppRoutes } from "./routes/routes";
+import { useLocation } from "react-router-dom";
 
 export default function App() {
   return (
@@ -16,6 +17,8 @@ export default function App() {
 
 function AppLayout(){
   const [_,contextHolder] = useMessageContext()
+  const location = useLocation();
+  const isWritePage = location.pathname === "/write";
 
   return(
     <>
@@ -23,7 +26,7 @@ function AppLayout(){
       <TextStyles/>
       <Colors/>
       <Layouts/>
-      <Header/>
+      {!isWritePage && <Header/>}
       <AppRoutes/>
     </>
   )

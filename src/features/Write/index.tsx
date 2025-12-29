@@ -10,10 +10,10 @@ import InputText from "shared/components/blocks/InputComponets/InputText";
 import CategorySelect from "shared/components/features/CategorySelect";
 import {  useEditor } from "@tiptap/react";
 import SubmitButton from "shared/components/blocks/InputComponets/SubmitButton";
-import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 import { api } from "axois/api";
 import { useMessageContext } from "app/providers/message";
 import { editorExtensions } from "shared/constants/editor";
+import type { MainCategory, SubCategory } from "shared/types/entity/Category";
 
 export default function WriteFeature(){
   const [title, setTitle] = useState("");
@@ -70,7 +70,7 @@ export default function WriteFeature(){
       <CategorySelect mainCategory={mainCategory} subCategory={subCategory} setMainCategory={setMainCategory} setSubCategory={setSubCategory} width="500px" height="30px" />
       <InputText value={tag} setValue={setTag} placeholder="태그를 입력하세요" width="500px" height="30px" />
       <WriteEditor editor={editor}/>
-      <SubmitButton onClick={handleSubmit} label="작성하기" width="500px" height="30px" />
+      <SubmitButton onClick={handleSubmit} label="작성하기" width="200px" height="50px" />
     </Wrapper>
   )
 }

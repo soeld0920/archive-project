@@ -1,6 +1,6 @@
 import { NodeViewWrapper } from "@tiptap/react";
 import { useEffect, useRef, useState } from "react";
-import styles from "./ResizeableNodeView.module.css";
+import styles from "shared/Write/styles/ResizeableNodeView.module.css";
 
 export default function ResizeableNodeView(props : any){
   const {node, updateAttributes} = props;
