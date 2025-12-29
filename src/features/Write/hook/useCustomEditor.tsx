@@ -89,25 +89,40 @@ export default function useCustomEditor(){
     editor?.chain().focus().toggleBulletList().run();
   }
   //표
-  const handleTable = () => {
-    editor?.chain().focus().toggleTable().run();
+  const insertTable = (row : number, column : number) => {
+    editor?.chain().focus().insertTable({ rows: row, cols: column }).run();
   }
-  const handleTableCell = () => {
-    editor?.chain().focus().toggleTableCell().run();
+  //todo : 코드블럭, 실행터미널, 객체 설명, 커스텀 박스
+
+  const handleSubmit = () => {
+    console.log(editor?.getJSON());
   }
-  const handleTableHeader = () => {
-    editor?.chain().focus().toggleTableHeader().run();
-  }
-  const handleTableBody = () => {
-    editor?.chain().focus().toggleTableBody().run();
-  }
-  const handleTableFooter = () => {
-    editor?.chain().focus().toggleTableFooter().run();
-  }
-  const handleTableRow = () => {
-    editor?.chain().focus().toggleTableRow().run();
-  }
-  const handleTableColumn = () => {
-    editor?.chain().focus().toggleTableColumn().run();
+  return {
+    handleHeading,
+    handleFontStyle,
+    handleFontSize,
+    handleBold,
+    handleItalic,
+    handleUnderline,
+    handleStrike,
+    handleTextColor,
+    resetTextColor,
+    handleHighlight,
+    resetHighlight,
+    handleCode,
+    handleLeftAlign,
+    handleCenterAlign,
+    handleRightAlign,
+    handleImage,
+    handleVideo,
+    handleBlockquote,
+    handleHorizontalRule,
+    handleLink,
+    resetLink,
+    handleOrderedList,
+    handleBulletList,
+    insertTable,
+    handleSubmit,
+    editor
   }
 }

@@ -1,0 +1,87 @@
+.editorWrapper {
+  width: 100%;
+  min-height: 400px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.editorContent {
+  padding: 16px;
+  min-height: 400px;
+}
+
+.editorContent :global(.ProseMirror) {
+  outline: none;
+  min-height: 400px;
+}
+
+.editorContent :global(.ProseMirror p) {
+  margin: 8px 0;
+}
+
+.editorContent :global(.ProseMirror h1),
+.editorContent :global(.ProseMirror h2),
+.editorContent :global(.ProseMirror h3),
+.editorContent :global(.ProseMirror h4),
+.editorContent :global(.ProseMirror h5),
+.editorContent :global(.ProseMirror h6) {
+  margin: 16px 0 8px 0;
+  font-weight: bold;
+}
+
+.editorContent :global(.ProseMirror h1) {
+  font-size: 2em;
+}
+
+.editorContent :global(.ProseMirror h2) {
+  font-size: 1.5em;
+}
+
+.editorContent :global(.ProseMirror h3) {
+  font-size: 1.17em;
+}
+
+.editorContent :global(.ProseMirror ul),
+.editorContent :global(.ProseMirror ol) {
+  padding-left: 24px;
+  margin: 8px 0;
+}
+
+.editorContent :global(.ProseMirror blockquote) {
+  border-left: 4px solid #ccc;
+  padding-left: 16px;
+  margin: 16px 0;
+  color: #666;
+}
+
+.editorContent :global(.ProseMirror code) {
+  background-color: #f4f4f4;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.editorContent :global(.ProseMirror img) {
+  max-width: 100%;
+  height: auto;
+  margin: 16px 0;
+}
+
+.editorContent :global(.ProseMirror table) {
+  border-collapse: collapse;
+  margin: 16px 0;
+  width: 100%;
+}
+
+.editorContent :global(.ProseMirror table td),
+.editorContent :global(.ProseMirror table th) {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.editorContent :global(.ProseMirror table th) {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
