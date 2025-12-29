@@ -5,7 +5,7 @@ import { useWritingContext } from "features/Detail/context/WritingContext";
 import { WritingInteractionProvider, useWritingInteractionContext } from "features/Detail/context/WritingInteractionContext";
 import type HttpError from "shared/types/HttpError";
 import { useEffect } from "react";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import type { WritingInteractionState } from "features/Detail/types/WritingInteractionState";
 
 function WritingInteractionContent(){

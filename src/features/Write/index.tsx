@@ -9,6 +9,7 @@ import WritingMetadata from "./Components/WritingMetadata";
 import ContentEditor from "./Components/ContentEditor";
 import TagInput from "./Components/TagInput";
 import { EditorProvider } from "./context/useEditorContext";
+import { TextStyleProvider } from "./context/useTextStyleContext";
 
 export default function WriteFeature(){
   return(
@@ -21,7 +22,9 @@ export default function WriteFeature(){
 function WriteFeatureContent(){
   return(
     <>
-      <EditorToolbar/>
+      <TextStyleProvider>
+        <EditorToolbar/>
+      </TextStyleProvider>
       <main>
         <Wrapper>
           <WritingMetadata/>

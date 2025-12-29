@@ -4,7 +4,7 @@
 */
 
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "shared/styles/shared-components/InputText.module.css";
 
 type InputTextNumberProps = {
@@ -14,12 +14,18 @@ type InputTextNumberProps = {
   height?: string;
   placeholder?: string;
   className?: string;
+  border?: boolean;
 }
 
-export default function InputTextNumber({value, setValue, width, height = "25px", placeholder, className} : InputTextNumberProps){
-  const classes = classNames(styles.inputText, className);
+export default function InputTextNumber({value, setValue, width, height , placeholder, className, border = true} : InputTextNumberProps){
+  const isSettingSize = !(width == undefined && height == undefined);
+  const classes = classNames(styles.inputText, className, border ? styles.inputTextBorder : "", isSettingSize ? styles.inputTextSettingSize : "");
   //입력된 값이 숫자, 음수, 소숫점을 허용하는 알고리즘
   const [buffer, setBuffer] = useState(value?.toString() ?? "");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const measureRef = useRef<HTMLSpanElement>(null);
+  const [autoWidth, setAutoWidth] = useState<number | undefined>(undefined);
+  const [autoHeight, setAutoHeight] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     // value prop이 외부에서 변경되었을 때 buffer 동기화
@@ -27,6 +33,27 @@ export default function InputTextNumber({value, setValue, width, height = "25px"
       setBuffer(value.toString());
     }
   }, [value]);
+
+  useEffect(() => {
+    if (!width && measureRef.current && inputRef.current) {
+      // placeholder가 있고 buffer가 비어있으면 placeholder 크기 측정
+      const textToMeasure = buffer || placeholder || "";
+      measureRef.current.textContent = textToMeasure;
+      const measuredWidth = measureRef.current.offsetWidth;
+      // padding을 고려한 너비 계산
+      const computedStyle = window.getComputedStyle(inputRef.current);
+      const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+      const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+      const minWidth = 10; // 최소 너비
+      setAutoWidth(Math.max(measuredWidth + paddingLeft + paddingRight, minWidth));
+    }
+  }, [buffer, placeholder, width]);
+
+  useEffect(() => {
+    if (!height && inputRef.current) {
+      setAutoHeight(inputRef.current.scrollHeight);
+    }
+  }, [buffer, height]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -54,14 +81,72 @@ export default function InputTextNumber({value, setValue, width, height = "25px"
     }
   };
 
+  const containerStyle: React.CSSProperties = {};
+  if (width) {
+    containerStyle.width = width;
+  } else if (autoWidth !== undefined) {
+    containerStyle.width = `${autoWidth}px`;
+  }
+  
+  if (height) {
+    containerStyle.height = height;
+  } else if (autoHeight !== undefined) {
+    containerStyle.height = `${autoHeight}px`;
+  }
+
+  if(!isSettingSize){
+    return (
+      <>
+        {!width && (
+          <span
+            ref={measureRef}
+            style={{
+              position: 'absolute',
+              visibility: 'hidden',
+              whiteSpace: 'pre',
+              fontSize: 'var(--scales-basic)',
+              fontFamily: 'inherit',
+              padding: '3px',
+            }}
+          />
+        )}
+        <input 
+          ref={inputRef}
+          type="text" 
+          placeholder={placeholder} 
+          value={buffer} 
+          onChange={handleChange} 
+          className={classes}
+          style={containerStyle}
+        />
+      </>
+    )
+  }
+
   return(
-    <div style={{ width: width, height: height }}>
-      <input type="text" 
-      placeholder={placeholder} 
-      value={buffer} 
-      onChange={handleChange} 
-      className={classes}
-      />
-    </div>
+    <>
+      {!width && (
+        <span
+          ref={measureRef}
+          style={{
+            position: 'absolute',
+            visibility: 'hidden',
+            whiteSpace: 'pre',
+            fontSize: 'var(--scales-basic)',
+            fontFamily: 'inherit',
+          }}
+        />
+      )}
+      <div style={containerStyle}>
+        <input 
+          ref={inputRef}
+          type="text" 
+          placeholder={placeholder} 
+          value={buffer} 
+          onChange={handleChange} 
+          className={classes}
+        />
+      </div>
+    </>
   )
 }

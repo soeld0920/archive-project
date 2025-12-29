@@ -6,7 +6,7 @@ import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import { Button } from "antd"
 import { Tooltip } from "antd"
 import styles from "features/Detail/DetailPage.module.css"
-import { api } from "axois/api"
+import { api } from "axios/api"
 import isSignin from "shared/lib/utils/isSignin";
 
 export function BookmarkToggleButton(){

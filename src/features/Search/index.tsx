@@ -12,7 +12,7 @@ import SearchHeader from "./Components/SearchHeader"
 import NoResults from "./Components/NoResults"
 import SearchResultsList from "./Components/SearchResultsList"
 import SelectPagination from "./Components/SelectPagination"
-import { api } from "axois/api"
+import { api } from "axios/api"
 import usePageAtSearch from "./hooks/usePage"
 
 export default function Search(){

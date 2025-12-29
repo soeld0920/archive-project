@@ -3,7 +3,7 @@ import { useCategoryContext } from "features/Header/context/categoryContext";
 import styles from "features/Header/Header.module.css";
 import { useEffect } from "react";
 import { SelectSubItem } from "./SelectSubItem";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import { useCategoryPopupContext } from "features/Header/context/categoryPopup";
 
 export function SelectSub(){

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import millify from "millify"
 import { useEffect, useState } from "react"
 import type { FindUserResDto } from "shared/types/dto/user"
-import { api } from "axois/api"
+import { api } from "axios/api"
 
 export default function UserProfileCard(){
   //"" = 로그인 X

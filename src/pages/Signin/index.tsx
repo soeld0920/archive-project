@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Input, Button, Form } from "antd";
 import Wrapper from "shared/components/blocks/Wrapper";
 import InputImage from "shared/components/blocks/InputComponets/InputImage";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import { useMessageContext } from "app/providers/message";
 import { useNavigate } from "react-router-dom";
 import { normalizeImageUrl } from "shared/lib/utils/normalizeImageUrl";

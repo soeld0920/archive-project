@@ -11,7 +11,7 @@ import WritingTag from "./Components/content/WritingTag";
 import WritingInteraction from "./Components/content/WritingBtn/index.tsx";
 import type { WritingDetail } from "./types/WritingDetail.ts";
 import WritingComment from "./Components/WritingComment.tsx";
-import { api } from "axois/api";
+import { api } from "axios/api.ts";
 import { generateHTML } from "@tiptap/react";
 import { editorExtensions } from "shared/constants/editor.tsx";
 

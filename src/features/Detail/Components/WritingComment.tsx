@@ -13,7 +13,7 @@ import styles from "features/Detail/DetailPage.module.css"
 import { useMessageContext } from "app/providers/message";
 import { useWritingContext } from "features/Detail/context/WritingContext";
 import type { CommentDto } from "shared/types/CommentDto";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import { formatYYMMDD } from "../libs/formatYYMMDD";
 
 export default function WritingComment(){

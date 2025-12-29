@@ -3,12 +3,16 @@
   display: inline-block;
 }
 
+.dropdownButtonBorder{
+  border: 2px solid var(--border-color-gray);
+}
+
 .dropdownButton{
   width: 100%;
   height: 100%;
-  border: 2px solid var(--border-color-gray);
+  border: none;
   border-radius: 4px;
-  background-color: var(--background-wrap);
+  background-color: transparent;
   color: var(--color-text-primary);
   font-size: 1em;
   text-align: left;
@@ -46,7 +50,7 @@
 .dropdownList{
   position: absolute;
   left: 0;
-  width: 100%;
+  width: auto;
   top: calc(100% + 4px);
   background-color: var(--background-wrap);
   border: 2px solid var(--border-color-gray);
@@ -77,7 +81,7 @@
 }
 
 .dropdownListItem{
-  width: 100%;
+  width: auto;
   background-color: var(--background-wrap);
   color: var(--color-text-primary);
   font-size: 1em;
@@ -95,13 +99,13 @@
 }
 
 .dropdownListItemButton{
-  width: 100%;
+  width: fit-content;
+  white-space: nowrap; 
   border: none;
   background: none;
   color: inherit;
   font-size: 1em;
   text-align: left;
-  padding: 10px var(--padding-inside);
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
   display: flex;
@@ -109,6 +113,8 @@
   align-items: center;
   gap: 8px;
   outline: none;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .dropdownListItemButton:hover{

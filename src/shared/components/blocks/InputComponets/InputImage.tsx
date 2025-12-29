@@ -4,7 +4,7 @@
 */
 
 import { useMessageContext } from "app/providers/message";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import { useRef, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { parseSizeStringToNum } from "shared/lib/utils/parseSizeStringToNum";

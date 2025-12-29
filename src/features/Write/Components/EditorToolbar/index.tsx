@@ -5,7 +5,6 @@
 
 import SubmitButton from "shared/components/blocks/InputComponets/SubmitButton";
 import { useEditorContext } from "../../context/useEditorContext";
-import useCustomEditor from "../../hook/useCustomEditor";
 import styles from "features/Write/styles/EditorToolbar.module.css";
 import TextToolbar from "./TextToolbar";
 import UtilToolbar from "./UtilToolbar";

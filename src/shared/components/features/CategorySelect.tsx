@@ -1,6 +1,6 @@
 import Dropdown from "../blocks/InputComponets/Dropdown";
 import { useEffect, useState } from "react";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 
 type CategorySelectProps = {

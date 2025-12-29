@@ -4,7 +4,7 @@ import { useCategoryContext } from "features/Header/context/categoryContext";
 import { useOpenPopupContext } from "features/Header/context/openPopupContext";
 import { SelectMainItem } from "./SelectMainItem";
 import { useEffect } from "react";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import { useCategoryPopupContext } from "features/Header/context/categoryPopup";
 
 export function SelectMain(){

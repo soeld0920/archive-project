@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button, Tooltip } from "antd";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import styles from "features/Detail/DetailPage.module.css";
-import { api } from "axois/api";
+import { api } from "axios/api";
 import isSignin from "shared/lib/utils/isSignin";
 
 
