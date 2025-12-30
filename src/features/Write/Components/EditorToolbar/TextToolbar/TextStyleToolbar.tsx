@@ -24,7 +24,7 @@ export default function TextStyleToolbar() {
   }
   
   return (
-    <div className={styles.textStyleToolbar}>
+    <>
       <Dropdown options={[]} setOptions={setNameOptions} 
       toString={(value) => value.name} value={name} onChange={setTextStyle} label={name} 
       isSame={(value : string, option : TextStyle) => value === option.name}
@@ -39,7 +39,8 @@ export default function TextStyleToolbar() {
       isSame={(value : string, option : TextRole) => value === option.name} border={false} arrow={false}/>
 
       <div style={{display: "flex", alignItems: "center", gap: "0px"}}>
-        <InputTextNumber value={size} setValue={setSize} border={false} />pt</div>
-    </div>
+        <InputTextNumber value={size} setValue={setSize} border={false} />pt
+      </div>
+    </>
   )
 }

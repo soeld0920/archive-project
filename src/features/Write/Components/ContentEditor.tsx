@@ -4,11 +4,11 @@
 */
 
 import { EditorContent } from "@tiptap/react";
-import useCustomEditor from "../hook/useCustomEditor";
 import styles from "features/Write/styles/ContentEditor.module.css";
+import { useEditorContext } from "../context/useEditorContext";
 
 export default function ContentEditor() {
-  const { editor } = useCustomEditor();
+  const { editor } = useEditorContext();
 
   if (!editor) {
     return <div>에디터를 불러오는 중...</div>;

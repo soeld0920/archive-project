@@ -53,17 +53,34 @@ export default function Dropdown({options, setOptions, value, onChange, label, t
   const dropdownClasses = classNames(styles.dropdown);
   const [dropdownOptions, setDropdownOptions] = useState(options);
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownButtonClasses = classNames(styles.dropdownButton, isOpen ? styles.dropdownButtonActive : "", disabled ? styles.dropdownButtonDisabled : "", className, border ? styles.dropdownButtonBorder : "");
-  const dropdownListClasses = classNames(styles.dropdownList, isOpen ? styles.dropdownListActive : "", disabled ? styles.dropdownListDisabled : "");
+  const [isDisabled, setIsDisabled] = useState(disabled);
+  const dropdownButtonClasses = classNames(styles.dropdownButton, isOpen ? styles.dropdownButtonActive : "", isDisabled ? styles.dropdownButtonDisabled : "", className, border ? styles.dropdownButtonBorder : "");
+  const dropdownListClasses = classNames(styles.dropdownList, isOpen ? styles.dropdownListActive : "", isDisabled ? styles.dropdownListDisabled : "");
   
+  useEffect(() => {
+    setIsDisabled(disabled);
+  }, [disabled]);
+
+  useEffect(() => {
+    if(setOptions){
+      const fetchOptions = async () => {
+        const newOptions = await setOptions();
+        if(newOptions == null || newOptions.length === 0){
+          setIsDisabled(true);
+        }
+      }
+      fetchOptions();    
+    }
+  }, []);
+
   const handleChange = (option: string) => {
     onChange(option);
     setIsOpen(false);
   }
 
   useEffect(() => {
-    if(disabled) setIsOpen(false);
-  }, [disabled]);
+    if(isDisabled) setIsOpen(false);
+  }, [isDisabled]);
 
   useEffect(() => {
     if(setOptions && isOpen) {
@@ -77,7 +94,7 @@ export default function Dropdown({options, setOptions, value, onChange, label, t
   
   return(
     <label className={dropdownClasses} style={{ width: width, height: height }}>
-      <button type="button" onClick={() => setIsOpen(!isOpen)} className={dropdownButtonClasses} disabled={disabled}>
+      <button type="button" onClick={() => setIsOpen(!isOpen)} className={dropdownButtonClasses} disabled={isDisabled}>
         {label ? label : toString ? toString(value) : value}
         {arrow ? <FaAngleDown/> : null}
       </button>
@@ -85,8 +102,8 @@ export default function Dropdown({options, setOptions, value, onChange, label, t
         {
           dropdownOptions.map((option, index) => (
             <li key={index} className={classNames(styles.dropdownListItem, (isSame ? isSame(value, option) : value === option) ? styles.dropdownListItemActive : "")}>
-              <button type="button" onClick={() => handleChange(option)} className={styles.dropdownListItemButton} disabled={disabled}>
-                {toString ? toString(option) : option}
+              <button type="button" onClick={() => handleChange(option)} className={styles.dropdownListItemButton} disabled={isDisabled}>
+                <span className={styles.dropdownListItemButtonText}>{toString ? toString(option) : option}</span>
               </button>
             </li>
           ))}

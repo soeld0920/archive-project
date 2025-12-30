@@ -11,12 +11,13 @@ type WrapperProps = {
   className? : string;
   center? : boolean;
   flex? :boolean;
+  style? : React.CSSProperties;
 }
 
-export default function Wrapper({children,className,center = true, flex = false} : WrapperProps){
+export default function Wrapper({children,className,center = true, flex = false, style} : WrapperProps){
   const classes = classNames(className,{WrapperCenter : center})
   return(
-    <div style={{width : "100%", maxWidth : "1440px", height : "100%"}} className={classes}>
+    <div style={{width : "100%", maxWidth : "1440px", height : "100%", ...style}} className={classes}>
       {children}
     </div>
   )

@@ -1,0 +1,28 @@
+.tagsWrapper{
+  display: flex;
+  gap: 20px;
+}
+
+.tagItem{
+  display: flex;
+  align-items: center;
+  background-color: var(--background-gray);
+  color: var(--color-text-secondary);
+  padding: 2.5px 5px;
+  font-size: 18px;
+  gap: 3px;
+}
+
+.tagInput{
+  display: inline-block;
+  width: 100px;
+  height: auto;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  color: var(--color-text-secondary);
+}
+
+.tagInput::placeholder{
+  color: var(--color-text-secondary);
+}

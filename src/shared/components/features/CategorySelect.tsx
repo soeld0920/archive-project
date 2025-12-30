@@ -1,5 +1,4 @@
 import Dropdown from "../blocks/InputComponets/Dropdown";
-import { useEffect, useState } from "react";
 import { api } from "axios/api";
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 
@@ -10,37 +9,38 @@ type CategorySelectProps = {
   setSubCategory: (subCategory: SubCategory | undefined) => void;
   width?: string;
   height?: string;
+  flexDirection?: "row" | "column";
+  arrow? : boolean;
 }
 
-export default function CategorySelect({mainCategory, subCategory, setMainCategory, setSubCategory, width, height} : CategorySelectProps){
-  const [mainCategoryOptions, setMainCategoryOptions] = useState<MainCategory[]>([]);
-  const [subCategoryOptions, setSubCategoryOptions] = useState<SubCategory[]>([]);
+export default function CategorySelect({mainCategory, subCategory, setMainCategory, setSubCategory, width, height, flexDirection = "column", arrow = true} : CategorySelectProps){
   
-  useEffect(() => {
-      const fetchMainCategory = async () => {
-        const response = await api.get("/category/main");
-        setMainCategoryOptions(response.data);
-      }
-      fetchMainCategory();
-    }, []);
-
-  useEffect(() => {
-    const fetchSubCategory = async () => {
-      const mainCategoryId = mainCategory?.id;
-      if(!mainCategoryId) return;
-      const response = await api.get(`/category/sub/${mainCategoryId}`);
-      setSubCategoryOptions(response.data);
-    }
-    fetchSubCategory();
-    setSubCategory(undefined);
-  }, [mainCategory]);
+  const fetchMainCategory = async () => {
+    const response = await api.get("/category/main");
+    return response.data;
+  }
+  
+  const fetchSubCategory = async () => {
+    const mainCategoryId = mainCategory?.id;
+    if(!mainCategoryId) return;
+    const response = await api.get(`/category/sub/${mainCategoryId}`);
+    return response.data;
+  }
 
   return(
-    <div style={{display: "flex", flexDirection: "column", gap: "10px", width: width, height: "auto"}}>
-      <Dropdown options={mainCategoryOptions} value={mainCategory?.name || undefined} onChange={setMainCategory} 
-      label={`대분류 : ${mainCategory?.name || ""}`} width={width} height={height} toString={(value) => value.name}/>
-      <Dropdown options={subCategoryOptions} value={subCategory?.name || undefined} onChange={setSubCategory} 
-      label={`소분류 : ${subCategory?.name || ""}`} width={width} height={height} disabled={!mainCategory} toString={(value) => value.name}/>
+    <div style={{display: "flex", flexDirection: flexDirection, gap: "10px", width: "auto", height: "auto"}}>
+
+      <Dropdown options={[]} value={mainCategory?.name || undefined} onChange={(value) => {setMainCategory(value); setSubCategory(undefined);}} 
+      label={`대분류 : ${mainCategory?.name || ""}`} width={width} height={height} toString={(value) => value.name}
+      setOptions={fetchMainCategory}
+      arrow={arrow}
+      />
+
+      <Dropdown options={[]} value={subCategory?.name || undefined} onChange={setSubCategory} 
+      label={`소분류 : ${subCategory?.name || ""}`} width={width} height={height} disabled={!mainCategory} toString={(value) => value.name}
+      setOptions={fetchSubCategory}
+      arrow={arrow}
+      />
     </div>
   )
 }

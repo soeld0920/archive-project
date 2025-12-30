@@ -16,7 +16,7 @@ export default function useTextStyle(){
   const [strikeout, setStrikeout] = useState<boolean>(false);
   const [color, setColor] = useState<string | null>(null);
   const [highlight, setHighlight] = useState<string | null>(null);
-  const [align, setAlign] = useState<string | null>(null);
+  const [align, setAlignValue] = useState<string | null>(null);
 
   const setTextStyle = (ts : TextStyle) => {
     setName(ts.name);
@@ -29,7 +29,7 @@ export default function useTextStyle(){
     setStrikeout(ts.strikeout);
     setColor(ts.color);
     setHighlight(ts.highlight);
-    setAlign(ts.align);
+    setAlignValue(ts.align);
   }
 
   useEffect(() => {
@@ -40,7 +40,27 @@ export default function useTextStyle(){
     fetchDefaultTextStyle();
   }, []);
 
+  const toggleBold = () => {
+    setBold(!bold);
+  }
+  const toggleItalic = () => {
+    setItalic(!italic);
+  }
+  const toggleUnderline = () => {
+    setUnderline(!underline);
+  }
+  const toggleStrike = () => {
+    setStrikeout(!strikeout);
+  }
+  const setAlign = (value : string) => {
+    if(align == value){
+      setAlignValue(null);
+    } else {
+      setAlignValue(value);
+    }
+  }
+
   return {name, size, fontFamily, textRole, bold, italic, underline, strikeout, color, highlight, align,
     setName, setSize, setFontFamily, setTextRole, setBold, setItalic, setUnderline, setStrikeout, setColor, setHighlight, setAlign,
-    setTextStyle} as const;
+    setTextStyle, toggleBold, toggleItalic, toggleUnderline, toggleStrike} as const;
 }
