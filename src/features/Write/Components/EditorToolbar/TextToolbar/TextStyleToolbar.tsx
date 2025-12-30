@@ -4,10 +4,17 @@ import useTextStyle from "features/Write/hook/useTextStyle";
 import type { FontFamily, TextRole, TextStyle } from "features/Write/types/TextStyle";
 import InputTextNumber from "shared/components/blocks/InputComponets/InputTextNumber";
 import styles from "features/Write/styles/EditorToolbar.module.css";
+import { useEditorContext } from "features/Write/context/useEditorContext";
 
 export default function TextStyleToolbar() {
-  const {name, size, fontFamily, textRole, setName, setSize, setFontFamily, setTextRole, setTextStyle} = useTextStyle();
-  
+  const {name, size, fontFamily, textRole, setSize, setFontFamily, setTextRole, setTextStyle} = useTextStyle();
+  const {updateTextStyle} = useEditorContext();
+
+  const handleTextStyleChange = (ts : TextStyle) => {
+    setTextStyle(ts);
+    updateTextStyle(ts);
+  }
+
   const setNameOptions = async () => {
     const response = await api.get("/textStyle/me");
     return response.data;
@@ -26,7 +33,7 @@ export default function TextStyleToolbar() {
   return (
     <>
       <Dropdown options={[]} setOptions={setNameOptions} 
-      toString={(value) => value.name} value={name} onChange={setTextStyle} label={name} 
+      toString={(value) => value.name} value={name} onChange={handleTextStyleChange} label={name} 
       isSame={(value : string, option : TextStyle) => value === option.name}
       className={styles.textStyleToolbarNameItem} border={false} arrow={false}/>
 

@@ -11,16 +11,19 @@ import { parseSizeStringToNum } from "shared/lib/utils/parseSizeStringToNum";
 import styles from "shared/styles/shared-components/InputImage.module.css";
 
 type InputImageProps = {
+  //image url을 반환하는 함수
   setImage: (image: string) => void;
-  width: string;
-  height: string;
-  type : "text" | "icon";
+  width?: string;
+  height?: string;
+  type? : "text" | "icon";
+  className?: string;
+  ref?: React.RefObject<HTMLInputElement | null>;
 }
 
-export default function InputImage({setImage, width, height, type = "icon"} : InputImageProps){
+export default function InputImage({setImage, width, height, type = "icon", className, ref} : InputImageProps){
   const [value, setValue] = useState<string>("");
   const [messageApi] = useMessageContext();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = ref ?? useRef<HTMLInputElement>(null);
 
   //이미지 파일 저장
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +73,6 @@ export default function InputImage({setImage, width, height, type = "icon"} : In
       return;
     }
 
-    console.log(res.data);
     setImage(res.data.url);
     return;
   }
@@ -80,7 +82,7 @@ export default function InputImage({setImage, width, height, type = "icon"} : In
   };
 
   return (
-    <div style={{ width: width, height: height }}>
+    <div style={{ width: width, height: height }} className={className}>
       <div className={styles.wrapper} onClick={handleWrapperClick}>
         <input 
           ref={inputRef}
@@ -90,7 +92,7 @@ export default function InputImage({setImage, width, height, type = "icon"} : In
           onChange={handleImageChange} 
           value={value} 
         />
-        {type === "icon" && <CiImageOn size={parseSizeStringToNum(width) / 1.3} />}
+        {type === "icon" && <CiImageOn size={parseSizeStringToNum(width ?? "100px") / 1.3} />}
         {type === "text" && <span>이미지 업로드</span>}
       </div> 
     </div>

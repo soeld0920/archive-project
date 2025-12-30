@@ -49,6 +49,9 @@ export const editorExtensions = [
   HorizontalRule,
   Link.configure({
     openOnClick: false,
+    HTMLAttributes : {
+      class : "editorLink"
+    }
   }),
   ListItem,
   TableKit

@@ -14,10 +14,12 @@ type InputTextProps = {
   height?: string;
   placeholder?: string;
   className?: string;
+  border?: boolean;
 }
 
-export default function InputText({value, setValue, width, height, placeholder, className} : InputTextProps){
-  const classes = classNames(styles.inputText, className);
+export default function InputText({value, setValue, width, height, placeholder, className, border = true} : InputTextProps){
+  const isSettingSize = !(width == undefined && height == undefined);
+  const classes = classNames(styles.inputText, className, border ? styles.inputTextBorder : "", isSettingSize ? styles.inputTextSettingSize : "");
   const inputRef = useRef<HTMLInputElement>(null);
   const measureRef = useRef<HTMLSpanElement>(null);
   const [autoWidth, setAutoWidth] = useState<number | undefined>(undefined);

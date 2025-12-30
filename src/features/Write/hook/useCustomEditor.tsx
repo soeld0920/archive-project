@@ -2,6 +2,7 @@ import { useEditor } from "@tiptap/react";
 import { useMessageContext } from "app/providers/message";
 import { editorExtensions } from "shared/constants/editor";
 import type { Level } from "@tiptap/extension-heading";
+import type { TextStyle } from "../types/TextStyle";
 
 export default function useCustomEditor(){
   const editor = useEditor({
@@ -21,29 +22,63 @@ export default function useCustomEditor(){
   }
 
   //글 스타일 
-  const handleBold = () => {
-    editor?.chain().focus().toggleBold().run();
+  const handleBold = (bold? : boolean) => {
+    if(bold == undefined) {
+      editor?.chain().focus().toggleBold().run();
+    } else {
+      if(bold) {
+        editor?.chain().focus().setBold().run();
+      } else {
+        editor?.chain().focus().unsetBold().run();
+      }
+    }
   }
-  const handleItalic = () => {
-    editor?.chain().focus().toggleItalic().run();
+  const handleItalic = (italic? : boolean) => {
+    if(italic == undefined) {
+      editor?.chain().focus().toggleItalic().run();
+    } else {
+      if(italic) {
+        editor?.chain().focus().setItalic().run();
+      } else {
+        editor?.chain().focus().unsetItalic().run();
+      }
+    }
   }
-  const handleUnderline = () => {
-    editor?.chain().focus().toggleUnderline().run();
+  const handleUnderline = (underline? : boolean) => {
+    if(underline == undefined) {
+      editor?.chain().focus().toggleUnderline().run();
+    } else {
+      if(underline) {
+        editor?.chain().focus().setUnderline().run();
+      } else {
+        editor?.chain().focus().unsetUnderline().run();
+      }
+    }
   }
-  const handleStrike = () => {
-    editor?.chain().focus().toggleStrike().run();
+  const handleStrike = (strikeout? : boolean) => {
+    if(strikeout == undefined) {
+      editor?.chain().focus().toggleStrike().run();
+    } else {
+      if(strikeout) {
+        editor?.chain().focus().setStrike().run();
+      } else {
+        editor?.chain().focus().unsetStrike().run();
+      }
+    }
   }
-  const handleTextColor = (color : string) => {
-    editor?.chain().focus().setColor(color).run();
+  const handleTextColor = (color? : string) => {
+    if(color == undefined) {
+      editor?.chain().focus().unsetColor().run();
+    } else {
+      editor?.chain().focus().setColor(color).run();
+    }
   }
-  const resetTextColor = () => {
-    editor?.chain().focus().unsetColor().run();
-  }
-  const handleHighlight = (color : string) => {
-    editor?.chain().focus().setHighlight({ color: color }).run();
-  }
-  const resetHighlight = () => {
-    editor?.chain().focus().unsetHighlight().run();
+  const handleHighlight = (color? : string) => {
+    if(color == undefined) {
+      editor?.chain().focus().unsetHighlight().run();
+    } else {
+      editor?.chain().focus().setHighlight({ color: color }).run();
+    }
   }
   const handleCode = () => {
     editor?.chain().focus().toggleCode().run();
@@ -57,6 +92,9 @@ export default function useCustomEditor(){
   }
   const handleRightAlign = () => {
     editor?.chain().focus().setTextAlign("right").run();
+  }
+  const resetAlign = () => {
+    editor?.chain().focus().unsetTextAlign().run();
   }
   //사진
   const handleImage = (src : string) => {
@@ -75,11 +113,8 @@ export default function useCustomEditor(){
     editor?.chain().focus().setHorizontalRule().run();
   }
   //링크
-  const handleLink = (href : string) => {
-    editor?.chain().focus().setLink({ href: href }).run();
-  }
-  const resetLink = () => {
-    editor?.chain().focus().unsetLink().run();
+  const insertLink = (href : string, title : string) => {
+    editor?.chain().focus().insertContent({type : "text", text : title, marks : [{type : "link", attrs : {href : href}}]}).run();
   }
   //목록
   const handleOrderedList = () => {
@@ -97,6 +132,35 @@ export default function useCustomEditor(){
   const handleSubmit = () => {
     console.log(editor?.getJSON());
   }
+
+  //TextStyle로 현 상황 즉시 업데이트
+  const updateTextStyle = (ts : TextStyle) => {
+    if(ts.textRole.code === "h1") {
+      handleHeading(1);
+    } else if(ts.textRole.code === "h2") {
+      handleHeading(2);
+    } else if(ts.textRole.code === "h3") {
+      handleHeading(3);
+    }
+
+    handleFontStyle(ts.fontFamily.key);
+    handleFontSize(ts.size);
+    handleBold(ts.bold);
+    handleItalic(ts.italic);
+    handleUnderline(ts.underline);
+    handleStrike(ts.strikeout);
+    handleTextColor(ts.color ?? undefined);
+    handleHighlight(ts.highlight ?? undefined);
+    if(ts.align == "left") {
+      handleLeftAlign();
+    } else if(ts.align == "center") {
+      handleCenterAlign();
+    } else if(ts.align == "right") {
+      handleRightAlign();
+    } else{
+      resetAlign();
+    }
+  }
   return {
     handleHeading,
     handleFontStyle,
@@ -106,23 +170,22 @@ export default function useCustomEditor(){
     handleUnderline,
     handleStrike,
     handleTextColor,
-    resetTextColor,
     handleHighlight,
-    resetHighlight,
     handleCode,
     handleLeftAlign,
     handleCenterAlign,
     handleRightAlign,
+    resetAlign,
     handleImage,
     handleVideo,
     handleBlockquote,
     handleHorizontalRule,
-    handleLink,
-    resetLink,
+    insertLink,
     handleOrderedList,
     handleBulletList,
     insertTable,
     handleSubmit,
+    updateTextStyle,
     editor
   }
 }

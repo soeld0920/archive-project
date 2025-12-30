@@ -163,3 +163,13 @@ blockquote {
 .highlight{
   color: var(--color-text-highlight);
 }
+
+.editorLink{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.editorLink:visited{
+  color: blue;
+}

@@ -59,6 +59,7 @@ export default function WritingMetadata() {
           placeholder="제목"
           width="100%"
           className={styles.titleInput}
+          border={false}
         />
       </div>
     </div>
