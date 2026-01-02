@@ -10,8 +10,10 @@ import TextAlign from "@tiptap/extension-text-align";
 import Blockquote from "@tiptap/extension-blockquote";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Link from "@tiptap/extension-link";
-import ListItem from "@tiptap/extension-list-item";
+import OrderedList from '@tiptap/extension-ordered-list'
+import BulletList from '@tiptap/extension-bullet-list'
 import { TableKit } from "@tiptap/extension-table";
+import { ListItem } from "@tiptap/extension-list";
 
 export const ResizableImage = Image.extend({
   addAttributes() {
@@ -30,8 +32,27 @@ export const ResizableImage = Image.extend({
   }
 })
 
+export const CustomClassHorizontalRule = HorizontalRule.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      class : {
+        default: null,
+        parseHTML: element => element.getAttribute('class'),
+        renderHTML: attributes => {
+          if (!attributes.class) return {};
+          return { class: attributes.class };
+        }
+      }
+    }
+  }
+})
+
 export const editorExtensions = [
-  StarterKit,
+  StarterKit.configure({
+    orderedList: false,
+    bulletList: false,
+  }),
   ResizableImage.configure({
     allowBase64: false,
     inline : false
@@ -46,13 +67,23 @@ export const editorExtensions = [
     types: ['heading', 'paragraph'],
   }),
   Blockquote,
-  HorizontalRule,
+  CustomClassHorizontalRule,
   Link.configure({
     openOnClick: false,
     HTMLAttributes : {
       class : "editorLink"
     }
   }),
+  BulletList.configure({
+    HTMLAttributes : {
+      class : "bullet-list"
+    }
+  }), 
+  OrderedList.configure({
+    HTMLAttributes : {
+      class : "ordered-list"
+    }
+  }), 
   ListItem,
   TableKit
 ]

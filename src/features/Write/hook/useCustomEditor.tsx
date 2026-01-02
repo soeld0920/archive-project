@@ -109,8 +109,15 @@ export default function useCustomEditor(){
     editor?.chain().focus().toggleBlockquote().run();
   }
   //수평선
-  const handleHorizontalRule = () => {
-    editor?.chain().focus().setHorizontalRule().run();
+  const handleHorizontalRule = (type : "long" | "short" | "think") => {
+    const className = type === "long" ? "editorLongHorizontalRule" 
+    : type === "short" ? "editorShortHorizontalRule" 
+    : "editorThinkHorizontalRule" 
+    
+    editor?.chain().focus().insertContent({
+      type: 'horizontalRule',
+      attrs: { class: className }
+    }).run();
   }
   //링크
   const insertLink = (href : string, title : string) => {
