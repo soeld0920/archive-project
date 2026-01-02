@@ -32,6 +32,7 @@ export function SelectTable({ active, setActive }: SelectTableProps){
     <div className={classNames(styles.selectTableWrapper, { [styles.selectTableWrapperActive]: active })}>
       <div className={styles.selectTableTitle}>{row} x {col}</div>
       <table ref={tableRef} className={styles.selectTable}>
+        <tbody>
         {
           Array.from({length: 10}, (_, rowIndex) => (
             <tr key={rowIndex}>
@@ -43,6 +44,7 @@ export function SelectTable({ active, setActive }: SelectTableProps){
               }
             </tr>
           ))}
+          </tbody>
       </table>
     </div>
   )

@@ -2,9 +2,12 @@ import { useEditor } from "@tiptap/react";
 import { useMessageContext } from "app/providers/message";
 import { editorExtensions } from "shared/constants/editor";
 import type { Level } from "@tiptap/extension-heading";
-import type { TextStyle } from "../types/TextStyle";
+import type { TextRole, TextStyle } from "../types/TextStyle";
+import { api } from "axios/api";
+import { useNavigate } from "react-router-dom";
 
 export default function useCustomEditor(){
+  const navigate = useNavigate();
   const editor = useEditor({
     extensions: editorExtensions,
   })
@@ -80,9 +83,7 @@ export default function useCustomEditor(){
       editor?.chain().focus().setHighlight({ color: color }).run();
     }
   }
-  const handleCode = () => {
-    editor?.chain().focus().toggleCode().run();
-  }
+  
   //글 정렬
   const handleLeftAlign = () => {
     editor?.chain().focus().setTextAlign("left").run();
@@ -135,21 +136,32 @@ export default function useCustomEditor(){
     editor?.chain().focus().insertTable({ rows: row, cols: column }).run();
   }
   //todo : 코드블럭, 실행터미널, 객체 설명, 커스텀 박스
-
-  const handleSubmit = () => {
-    console.log(editor?.getJSON());
+  const handleCode = (language : "html" | "css" | "js" | "ts" | "python" | "java" | "c" | "cpp") => {
+    editor?.chain().focus().toggleCodeBlock({ language: language }).run();
   }
+  const insertExecutionTerminal = () => {
+    messageApi.open({type : "error", content : "실행터미널 기능은 현재 지원하지 않습니다.", duration : 2});
+  }
+  const insertObjectDescription = () => {
+    messageApi.open({type : "error", content : "객체 설명 기능은 현재 지원하지 않습니다.", duration : 2});
+  }
+  const insertCustomBox = () => {
+    messageApi.open({type : "error", content : "커스텀 박스 기능은 현재 지원하지 않습니다.", duration : 2});
+  }
+
+const handleTextStyle = (ts : TextRole) => {
+  if(ts.code === "h1") {
+    handleHeading(1);
+  } else if(ts.code === "h2") {
+    handleHeading(2);
+  } else if(ts.code === "h3") {
+    handleHeading(3);
+  }
+}
 
   //TextStyle로 현 상황 즉시 업데이트
   const updateTextStyle = (ts : TextStyle) => {
-    if(ts.textRole.code === "h1") {
-      handleHeading(1);
-    } else if(ts.textRole.code === "h2") {
-      handleHeading(2);
-    } else if(ts.textRole.code === "h3") {
-      handleHeading(3);
-    }
-
+    handleTextStyle(ts.textRole);
     handleFontStyle(ts.fontFamily.key);
     handleFontSize(ts.size);
     handleBold(ts.bold);
@@ -191,8 +203,11 @@ export default function useCustomEditor(){
     handleOrderedList,
     handleBulletList,
     insertTable,
-    handleSubmit,
     updateTextStyle,
+    insertExecutionTerminal,
+    insertObjectDescription,
+    insertCustomBox,
+    handleTextStyle,
     editor
   }
 }

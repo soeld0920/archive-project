@@ -103,7 +103,7 @@ export default function Dropdown({options, setOptions, value, onChange, label, t
           dropdownOptions.map((option, index) => (
             <li key={index} className={classNames(styles.dropdownListItem, (isSame ? isSame(value, option) : value === option) ? styles.dropdownListItemActive : "")}>
               <button type="button" onClick={() => handleChange(option)} className={styles.dropdownListItemButton} disabled={isDisabled}>
-                <span className={styles.dropdownListItemButtonText}>{toString ? toString(option) : option}</span>
+                <span className={styles.dropdownListItemButtonText}>{toString ? toString(option) : option as string}</span>
               </button>
             </li>
           ))}
