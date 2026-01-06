@@ -38,7 +38,6 @@ export function SearchContent(){
 
   useEffect(() => {
     const fetchWritings = async () => {
-      console.log(1);
       const reqBody =  {
         mainCategoryId : params.get("mainCategory"),
         subCategoryId : params.get("subCategory"),
@@ -54,7 +53,6 @@ export function SearchContent(){
 
       const res1 = await api.post("/search/length", reqBody);
       const res2 = await api.post("/search", reqBody);
-      console.log(res2.data);
       setWritings(res2.data);
       setPageCount(res1.data as number);
     }

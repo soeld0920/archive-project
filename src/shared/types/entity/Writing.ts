@@ -10,7 +10,7 @@ export type WritingIndex = {
   authorName : string; //표시용
   seriesUUID? : string; 
   seriesTitle? :string;
-  date : string;
+  createAt : string;
   view : number;
   great : number;
   commentCount : number;

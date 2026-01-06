@@ -91,7 +91,9 @@ export const editorExtensions = [
   }),
   Color,
   Heading,
-  TextStyleKit,
+  TextStyleKit.configure({
+    color : false
+  }),
   TextAlign.configure({
     types: ['heading', 'paragraph'],
   }),

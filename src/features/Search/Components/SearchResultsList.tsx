@@ -6,6 +6,7 @@ import type { WritingIndex } from "shared/types/entity/Writing"
 import { useWritingsContent } from "../context/writingsContent"
 import { usePageContent } from "../context/pageContent"
 import defaultImage from "assets/img/basic-icons.png"
+import { parseNormalizerDate } from "shared/lib/utils/parseNormalizerDate"
 
 
 export default function SearchResultsList() {
@@ -35,7 +36,7 @@ function SearchResultItem({item} : {item : WritingIndex}){
           <h3 style={{margin : 0, marginBottom : "10px"}}>
             <Link to={`/writing/${item.writingUuid}`}>{item.writingTitle}</Link>
           </h3>
-          <p><Link to={`/user/${item.authorName}`}>{item.authorName}</Link> | {item.date} | {item.seriesTitle ? <Link to={`/sereis/${item.seriesUUID}`}>{item.seriesTitle}</Link> : "단편"}</p>
+          <p><Link to={`/user/${item.authorName}`}>{item.authorName}</Link> | {parseNormalizerDate(item.createAt)} | {item.seriesTitle ? <Link to={`/sereis/${item.seriesUUID}`}>{item.seriesTitle}</Link> : "단편"}</p>
           <p style={{marginBottom : "10px"}}>조회수 {millify(item.view, { precision: 1 })} | 좋아요 : {millify(item.great, { precision: 1 })} | 댓글 : {item.commentCount}</p>
           <p className={styles.clamp2}>{item.content}</p>
         </div>

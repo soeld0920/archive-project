@@ -9,9 +9,6 @@
   height: auto;
   margin: 10px 20px;
   padding-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
   border-bottom: 3px solid var(--border-color);
 }
 
@@ -34,6 +31,15 @@
 }
 .detailSub dt { font-weight: 600; color: var(--color-text-secondary); }
 .detailSub dd { margin: 0; }
+
+.writingActions{
+  width : 300px;
+  height : 40px;
+  margin : 10px 0;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+}
 
 .contentWrapper{
   display: flex;

@@ -4,12 +4,13 @@ import styles from "shared/styles/modules/UserInfo.module.css"
 import { Link } from "react-router-dom"
 import millify from "millify"
 import { useEffect, useState } from "react"
-import type { FindUserResDto } from "shared/types/dto/user"
+import type { UserRes } from "shared/types/dto/user"
 import { api } from "axios/api"
+import isSignin from "shared/lib/utils/isSignin"
 
 export default function UserProfileCard(){
   //"" = 로그인 X
-  if(!localStorage.getItem("accessToken")) return (
+  if(!isSignin()) return (
     <div className={styles.loginWrapper}>
       <div className={styles.profilePicture}>
         <img src="src/assets/img/profile-fallback.png" alt="비로그인 프사" loading="lazy"/>
@@ -19,17 +20,18 @@ export default function UserProfileCard(){
       </div>
       <div className={styles.profileNav}>
         <Link to="/login" className="navItem">로그인하러가기</Link>
-      </div>
+      </div>  
     </div>
   )
 
-  const [userData, setUserData] = useState<FindUserResDto | null>(null);
+  const [userData, setUserData] = useState<UserRes | null>(null);
 
 
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await api.get("/user/me");
-      setUserData(response.data);
+      if(response.status === 200) setUserData(response.data);
+      else setUserData(null);
     }
     fetchUserData();
   }, []);

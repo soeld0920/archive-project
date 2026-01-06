@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./DetailPage.module.css"
 import { useWritingContext, WritingProvider } from "./context/WritingContext";
 import DetailHeader from "./Components/header";
@@ -9,10 +9,9 @@ import { Flex } from "antd";
 import WritingSubInteraction from "./Components/content/WritingSubInteraction";
 import WritingTag from "./Components/content/WritingTag";
 import WritingInteraction from "./Components/content/WritingBtn/index.tsx";
-import type { WritingDetail } from "./types/WritingDetail.ts";
 import WritingComment from "./Components/WritingComment.tsx";
 import { api } from "axios/api.ts";
-import { EditorContent, generateHTML, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import { editorExtensions } from "shared/constants/editor.tsx";
 
 export function Detail({UUID} : {UUID : string}){
@@ -49,11 +48,9 @@ function DetailContent({UUID} : {UUID : string}){
   
       viewer?.commands.setContent(tipTapJson) // ✅ JSON 그대로 넣기
       setWriting(writingDetail)
-  
       await api.post(`/writing/${UUID}/view`)
     }
-  
-    if (!viewer) return
+
     fetchData()
   }, [UUID, viewer])
 
@@ -68,7 +65,7 @@ function DetailContent({UUID} : {UUID : string}){
             <WritingToc toc={toc}/>
           </aside>
           <div className={styles.article} ref={writingRef}>
-            <EditorContent editor={viewer} className={styles.viewer} />
+            <EditorContent editor={viewer}/>
             <Flex justify="space-between" className={styles.subInfoWrapper}>
               <WritingInteraction/>
               <WritingSubInteraction/>
