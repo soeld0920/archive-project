@@ -25,7 +25,6 @@ export function Detail({UUID} : {UUID : string}){
 function DetailContent({UUID} : {UUID : string}){
   const {writing, setWriting} = useWritingContext()
   const {toc, writingRef} = useTOC();
-  const hasViewedRef = useRef(false);
 
   const viewer = useEditor({
     editable: false,
@@ -34,9 +33,6 @@ function DetailContent({UUID} : {UUID : string}){
   })
 
   useEffect(() => {
-    if (hasViewedRef.current) return;
-    hasViewedRef.current = true;
-  
     const fetchData = async () => {
       const { data } = await api.get(`/writing/${UUID}`)
       const writingDetail = data
@@ -47,7 +43,7 @@ function DetailContent({UUID} : {UUID : string}){
           : writingDetail.content ?? { type: 'doc', content: [] }
   
       viewer?.commands.setContent(tipTapJson) // ✅ JSON 그대로 넣기
-      setWriting(writingDetail)
+      setWriting(() => writingDetail)
       await api.post(`/writing/${UUID}/view`)
     }
 

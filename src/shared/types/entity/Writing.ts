@@ -1,5 +1,4 @@
 import type { MainCategory, SubCategory } from "./Category";
-import type { User } from "../User";
 
 export type FORM_TYPE = "snippet" | "series"
 

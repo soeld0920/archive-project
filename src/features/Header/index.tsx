@@ -24,6 +24,7 @@ import { SelectCategory } from "./components/SelectCategory";
 import { CategoryPopupProvider } from "./context/categoryPopup";
 import { useEffect, useState } from "react";
 import isSignin from "shared/lib/utils/isSignin";
+import UserNav from "./components/UserNav";
 
 export default function Header(){
   return(
@@ -56,7 +57,7 @@ function HeaderContent(){
           <span className="highlight">한국어로 배우는 쉬운 컴퓨터공학</span>
 
           {/* 로그인 / 유저 네비게이션 */}
-          {signIn ? <></> : <LoginNav/>}
+          {signIn ? <UserNav/> : <LoginNav/>}
         </Wrapper>
       </div>
 
