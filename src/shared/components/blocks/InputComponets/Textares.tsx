@@ -22,7 +22,7 @@ const Textares = forwardRef<HTMLTextAreaElement, TextaresProps>(
     const classes = classNames(styles.inputText, className);
     
     return(
-      <div style={{ width: width, height: height }}>
+      <div>
         <textarea 
           ref={ref}
           value={value} 
@@ -30,7 +30,7 @@ const Textares = forwardRef<HTMLTextAreaElement, TextaresProps>(
           placeholder={placeholder} 
           className={classes}
           rows={rows}
-          style={{ resize: "none", border: "none" }}
+          style={{ resize: "none", border: "none", width: width, height: height }}
         />
       </div>
     )

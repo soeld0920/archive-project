@@ -14,7 +14,7 @@ import { useWritingContext } from "features/Detail/context/WritingContext";
 export default function DetailHero(){
   const {writing} = useWritingContext()
   if(!writing) return null;
-  const {mainCategoryName, subCategoryName, writingTitle, authorUuid, authorName, seriesName, seriesOrder, seriesUuid} = writing
+  const {mainCategoryName, subCategoryName, writingTitle, authorUuid, authorName, seriesName, seriesOrder, seriesUuid, writingUuid} = writing
 
   const categoryPath = subCategoryName 
     ? `${mainCategoryName} > ${subCategoryName}` 
@@ -27,7 +27,7 @@ export default function DetailHero(){
       <Flex gap={"small"}>
         작성자 : <UserDropdown userUuid={authorUuid} userName={authorName} /> |
         {seriesUuid ? (
-          <> 시리즈 : <SeriesDropdown seriesUuid={seriesUuid} /></>
+          <> 시리즈 : <SeriesDropdown currentWritingUuid={writingUuid} seriesUuid={seriesUuid} /></>
         ) : (
           " 단편"
         )}

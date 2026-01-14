@@ -3,11 +3,11 @@
 
 import { Dropdown, Space, type MenuProps } from "antd";
 import { Link, useSearchParams } from "react-router-dom";
-import type { FindUserResDto } from "shared/types/dto/user"
+
 import { FaAngleDown } from "react-icons/fa";
 import { useMemo, useState } from "react";
 import type HttpError from "shared/types/HttpError";
-
+import type { UserRes } from "shared/types/dto/user";
 type UserDropdownProps = {
   userUuid : string,
   userName : string
@@ -15,7 +15,7 @@ type UserDropdownProps = {
 
 export default function UserDropdown({userUuid, userName} : UserDropdownProps){
   const [params] = useSearchParams();
-  const [userData, setUserData] = useState<FindUserResDto | null>(null);
+  const [userData, setUserData] = useState<UserRes | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   // 페이지로 이동하기 위한 쿼리 문자열 생성

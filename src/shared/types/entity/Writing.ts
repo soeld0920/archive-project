@@ -8,7 +8,7 @@ export type WritingIndex = {
   authorUUID : string; //링크용
   authorName : string; //표시용
   seriesUUID? : string; 
-  seriesTitle? :string;
+  seriesName? :string;
   createAt : string;
   view : number;
   great : number;

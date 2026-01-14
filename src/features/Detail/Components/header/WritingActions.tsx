@@ -1,5 +1,5 @@
 import CancelButton from "shared/components/blocks/InputComponets/CancelButton";
-import CommonButton from "shared/components/blocks/InputComponets/CancelButton copy";
+import CommonButton from "shared/components/blocks/InputComponets/CommonButton";
 import styles from "features/Detail/DetailPage.module.css";
 import { api } from "axios/api";
 import { useMessageContext } from "app/providers/message";
@@ -26,7 +26,7 @@ export default function WritingActions(){
 
   return(
     <div className={styles.writingActions}>
-      <CommonButton onClick={() => {}} label="수정하기" width="45%"/>
+      <CommonButton onClick={() => {navigate(`/write/${writing?.writingUuid}/edit`)}} label="수정하기" width="45%"/>
       <CancelButton onClick={onDelete} label="삭제하기" width="45%"/>
     </div>
   )

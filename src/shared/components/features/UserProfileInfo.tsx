@@ -53,10 +53,10 @@ export default function UserProfileCard(){
         <Link to="/write" className="navItem">글쓰기</Link>
       </li>
       <li>
-        <Link to="/blog/manage" className="navItem">블로그관리</Link>
+        <Link to={`/blog/${userData.userUuid}`} className="navItem">내 블로그</Link>
       </li>
       <li>
-        <Link to="/option" className="navItem">환경설정</Link>
+        <Link to="/manage" className="navItem">설정</Link>
       </li>
     </ul>
   </div>)

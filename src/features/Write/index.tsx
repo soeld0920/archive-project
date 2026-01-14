@@ -11,14 +11,17 @@ import { EditorProvider } from "./context/useEditorContext";
 import { TextStyleProvider } from "./context/useTextStyleContext";
 import Tags from "./Components/Tags/Index";
 import { WriteProvider } from "./context/useWriteContext";
+import { WriteModeProvider } from "./context/useWriteModeContext";
 
-export default function WriteFeature(){
+export default function WriteFeature({mode} : {mode : "write" | "edit"}){
   return(
-    <EditorProvider>
-      <WriteProvider>
-        <WriteFeatureContent/>
-      </WriteProvider>
-    </EditorProvider>
+    <WriteModeProvider initialMode={mode}>
+      <EditorProvider>
+        <WriteProvider>
+          <WriteFeatureContent/>
+        </WriteProvider>
+      </EditorProvider>
+    </WriteModeProvider>
   )
 }
 

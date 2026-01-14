@@ -18,7 +18,7 @@ export default function App() {
 function AppLayout(){
   const [_,contextHolder] = useMessageContext()
   const location = useLocation();
-  const isWritePage = location.pathname === "/write";
+  const isWritePage = location.pathname.includes("/write");
 
   return(
     <>

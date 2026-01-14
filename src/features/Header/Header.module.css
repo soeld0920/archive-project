@@ -252,6 +252,7 @@
 .subCategoryNav{
   width: 350px;
   height: 360px;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

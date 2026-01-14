@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import { useMemo, useState } from "react";
 import type { SeriesNavigationResDto } from "shared/types/dto/SeriesNavigationResDto";
-import type HttpError from "shared/types/HttpError";
+import { api } from "axios/api";
 
 type SeriesDropdownProps = {
+  currentWritingUuid : string;
   seriesUuid : string
 }
 
-export default function SeriesDropdown({seriesUuid} : SeriesDropdownProps){
+export default function SeriesDropdown({currentWritingUuid, seriesUuid} : SeriesDropdownProps){
   const [navigationData, setNavigationData] = useState<SeriesNavigationResDto | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,15 +21,12 @@ export default function SeriesDropdown({seriesUuid} : SeriesDropdownProps){
     if(navigationData || isLoading) return;
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/series/${seriesUuid}/navigation`)
-        .then(res => res.json())
-        .catch((e : HttpError) => {throw e});
-      
-      if(response.error) {
-        console.error(response.error);
-        setIsLoading(false);
-        return;
-      }
+      const response = await api.get(`/series/${seriesUuid}/navigation`, {
+        params : {
+          currentWritingUuid,
+        }
+      })
+        .then(res => res.data);
       
       setNavigationData(response);
     } catch (error) {
@@ -87,7 +85,7 @@ export default function SeriesDropdown({seriesUuid} : SeriesDropdownProps){
     >
       <button type="button" aria-label={`${navigationData?.seriesTitle || seriesUuid} 시리즈 메뉴 열기`} style={{ all: "unset", cursor: "pointer" }}>
         <Space>
-          {navigationData?.seriesTitle || seriesUuid}
+          {navigationData?.seriesTitle || "생성중..."}
           <FaAngleDown/>
         </Space>
       </button>

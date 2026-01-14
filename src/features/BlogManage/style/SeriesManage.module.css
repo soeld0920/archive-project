@@ -1,0 +1,79 @@
+
+.createSeriesItems{
+  width : 70%;
+  height : auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.createSeriesItem{
+  width : 100%;
+  height : auto;
+  display: flex;
+  flex-direction: column;
+  gap : 10px;
+}
+
+.createSeriesItemCategory{
+  width : 100%;
+  height : auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap : 10px;
+}
+
+.seriesListItemCategory{
+  font-size: var(--scales-s);
+  color: var(--color-text-hazy);
+}
+
+.seriesListItemTitle{
+  font-size: var(--scales-m);
+  color: var(--color-text-primary);
+  margin-left: 20px;
+}
+
+.writingListItemContent{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--scales-m);
+}
+
+.writingListItemDragHandle{
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+}
+
+.writingListItemDragHandle:active{
+  cursor: grabbing;
+}
+
+.seriesListItemButton{
+  display : block;
+  width: 30px;
+  height: 30px;
+  font-size: var(--scales-l);
+  border: none;
+  background: none;
+  color: var(--color-text-hazy);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.seriesListItemButton:hover{
+  color: var(--color-text-primary);
+}
+
+.selectSeriesButtons{
+  width : 25%;
+  height : auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

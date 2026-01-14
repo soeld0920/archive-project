@@ -14,13 +14,14 @@ import { useMessageContext } from "app/providers/message";
 import { useWritingContext } from "features/Detail/context/WritingContext";
 import { api } from "axios/api";
 import { formatYYMMDD } from "../libs/formatYYMMDD";
+import type { CommentRes } from "shared/types/dto/comment";
 
 export default function WritingComment(){
   const {writing} = useWritingContext()
   const [commentValue, setCommentValue] = useState("")
   const [messageApi] = useMessageContext()
   const [isLoading, setIsLoading] = useState(false)
-  const [comments, setComments] = useState<CommentDto[]>([]);
+  const [comments, setComments] = useState<CommentRes[]>([]);
 
   // 컴포넌트 마운트 시 댓글 로드
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function WritingComment(){
     if(!writing) return;
     setIsLoading(true);
     try {
-      const commentList : CommentDto[] = await api.get(`/writing/${writing.writingUuid}/comment`).then(res => res.data);
+      const commentList : CommentRes[] = await api.get(`/writing/${writing.writingUuid}/comment`).then(res => res.data);
       setComments(commentList);
     } catch (error) {
       messageApi.open({type : "error", content : "댓글을 불러오는데 실패했습니다.", duration : 2});

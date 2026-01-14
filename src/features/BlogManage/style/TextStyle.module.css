@@ -1,0 +1,148 @@
+.textStyleItem{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.textStyleName{
+  font-size: var(--scales-ml);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-bold);
+}
+
+.textStyleLabel{
+  font-size: var(--scales-s);
+  color: var(--color-text-hazy);
+}
+
+.seriesListItemButton{
+  display : block;
+  width: 30px;
+  height: 30px;
+  font-size: var(--scales-l);
+  border: none;
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.seriesListItemButton:hover{
+  color: var(--color-text-primary);
+}
+
+.seriesListItemButton:disabled{
+  cursor: not-allowed;
+  opacity: 0.5;
+  color: var(--color-text-hazy);
+}
+
+.textStyleConfigContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.textStyleRow{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.textStyleButton{
+  width: 35px;
+  height: 35px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--background-wrap);
+  color: var(--color-text-primary);
+  font-size: var(--scales-m);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textStyleButton:hover{
+  border-color: var(--border-color-blue);
+  background: var(--background-muted);
+}
+
+.textStyleButtonActive{
+  background: var(--color-text-highlight);
+  color: var(--background-wrap);
+  border-color: var(--color-text-highlight);
+}
+
+.textAlignButton{
+  width: 35px;
+  height: 35px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--background-wrap);
+  color: var(--color-text-primary);
+  font-size: var(--scales-m);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textAlignButton:hover{
+  border-color: var(--border-color-blue);
+  background: var(--background-muted);
+}
+
+.textAlignButtonActive{
+  background: var(--color-text-highlight);
+  color: var(--background-wrap);
+  border-color: var(--color-text-highlight);
+}
+
+.colorPickerTrigger{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.colorPickerTrigger:hover{
+  border-color: var(--border-color-blue);
+}
+
+.colorView{
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid var(--border-color);
+}
+
+.highlightPickerTrigger{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  min-width: 40px;
+  height: 32px;
+}
+
+.highlightPickerTrigger:hover{
+  opacity: 0.8;
+}
+
+.formSectionButton{
+  width: 30%;
+  height : 50%;
+}

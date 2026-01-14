@@ -1,7 +1,7 @@
 import Dropdown from "shared/components/blocks/InputComponets/Dropdown";
 import { api } from "axios/api";
 import useTextStyle from "features/Write/hook/useTextStyle";
-import type { FontFamily, TextRole, TextStyle } from "features/Write/types/TextStyle";
+import type { FontFamily, TextRole, TextStyle } from "shared/types/entity/TextStyle";
 import styles from "features/Write/styles/EditorToolbar.module.css";
 import inputStyles from "shared/styles/shared-components/InputText.module.css";
 import { useEditorContext } from "features/Write/context/useEditorContext";

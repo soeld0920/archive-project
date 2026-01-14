@@ -4,6 +4,6 @@
 */
 import WriteFeature from "features/Write";
 
-export default function WritePage(){
-  return(<WriteFeature/>)
+export default function WritePage({mode} : {mode : "write" | "edit"}){
+  return(<WriteFeature mode={mode}/>)
 }

@@ -7,13 +7,14 @@ type CommonButtonProps = {
   className?: string;
   width?: string;
   height?: string;
+  fontSize?: string;
 }
 
-export default function CommonButton({onClick, label, className, width, height} : CommonButtonProps){
+export default function CommonButton({onClick, label, className, width, height, fontSize} : CommonButtonProps){
   const classes = classNames(styles.commonButton, className);
   return(
     <div style={{ width: width, height: height }}>
-      <button className={classes} onClick={onClick}>
+      <button className={classes} onClick={onClick} style={{ fontSize: fontSize }}>
         {label}
       </button>
     </div>

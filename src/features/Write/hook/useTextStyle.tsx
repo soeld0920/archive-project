@@ -2,7 +2,7 @@
 //
 
 import { useEffect, useState } from "react";
-import type { FontFamily, TextRole, TextStyle } from "../types/TextStyle";
+import type { FontFamily, TextRole, TextStyle } from "../../../shared/types/entity/TextStyle";
 import { api } from "axios/api";
 
 export default function useTextStyle(){

@@ -2,7 +2,7 @@ import { useEditor } from "@tiptap/react";
 import { useMessageContext } from "app/providers/message";
 import { editorExtensions } from "shared/constants/editor";
 import type { Level } from "@tiptap/extension-heading";
-import type { TextRole, TextStyle } from "../types/TextStyle";
+import type { TextRole, TextStyle } from "../../../shared/types/entity/TextStyle";
 import { api } from "axios/api";
 import { useNavigate } from "react-router-dom";
 

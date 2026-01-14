@@ -1,0 +1,30 @@
+.wrapper{
+  width: 100%;
+  max-width : 400px;
+  height: auto;
+  margin-left: 50px;
+}
+
+.navList{
+  width: 100%;
+  height: auto;
+  border: 5px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: 0px 4px 15px 0 var(--border-color);
+  margin: 20px 0;
+  padding : 20px;
+}
+
+.navList > ul {
+  display: flex;
+  flex-direction: column;
+  gap : 20px;
+}
+
+.navList > ul > li > a{
+  font-size: var(--scales-ml);
+}
+
+.active{
+  color: var(--color-text-highlight) !important;
+}

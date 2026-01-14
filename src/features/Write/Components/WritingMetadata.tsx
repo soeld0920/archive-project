@@ -14,7 +14,7 @@ import type { SeriesIndex } from "../types/SeriesIndex";
 import { useWriteContext } from "../context/useWriteContext";
 
 export default function WritingMetadata() {
-  const {title, setTitle, setCategoryId, setSeriesUuid} = useWriteContext();
+  const {title, setTitle, categoryId, setCategoryId, setSeriesUuid} = useWriteContext();
   const [mainCategory, setMainCategory] = useState<MainCategory | undefined>(undefined);
   const [subCategory, setSubCategory] = useState<SubCategory | undefined>(undefined);
   const [series, setSeries] = useState<SeriesIndex | undefined>(undefined);
@@ -35,6 +35,19 @@ export default function WritingMetadata() {
       setCategoryId(subCategory.id);
     }
   }, [subCategory?.id]);
+
+  useEffect(() => {
+    if(categoryId && mainCategory === undefined && subCategory === undefined) {
+      const fetchCategory = async () => {
+        const response = await api.get(`/category/detail/${categoryId}`);
+        return response.data;
+      }
+      fetchCategory().then((data) => {
+        setMainCategory(data.mainCategory);
+        setSubCategory(data.subCategory);
+      });
+    }
+  }, [categoryId]);
 
   return (
     <div className={styles.writingMetadataWrapper}>

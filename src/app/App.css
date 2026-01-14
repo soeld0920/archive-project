@@ -97,7 +97,6 @@ code{
 
 a { color: var(--color-text-primary); text-decoration: none;}
 a:hover { color: var(--color-text-highlight); }
-a:visited { color: var(--color-text-secondary); }
 
 nav li a, .navItem{
   font-size: var(--scales-m);
