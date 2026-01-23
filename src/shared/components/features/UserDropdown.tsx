@@ -63,15 +63,9 @@ export default function UserDropdown({userUuid, userName} : UserDropdownProps){
         type: 'divider'
       },
       {
-        key : "view-profile",
-        label : (
-          <Link to={{ pathname: "/user", search: `?${params.toString()}` }}>정보 보기</Link>
-        )
-      },
-      {
         key : "view-writings",
         label : (
-          <Link to={{ pathname: "/user/writing", search: `?${params.toString()}` }}>작성글 보기</Link>
+          <Link to={{ pathname: `/blog/${userUuid}` }}>작성글 보기</Link>
         )
       }
     ];

@@ -16,7 +16,6 @@ import Wrapper from "shared/components/blocks/Wrapper";
 // import { SearchDiv } from "features/Header/components/SearchDiv";
 import { LoginNav } from "./components/LoginNav";
 import { Link } from "react-router-dom";
-import { SubNav } from "./components/SubNav";
 import { SearchDiv } from "./components/SearchDiv";
 import { OpenPopupProvider } from "./context/openPopupContext";
 import { CategoryProvider } from "./context/categoryContext";
@@ -75,7 +74,7 @@ function HeaderContent(){
           </div>
 
           {/* 서브 기능 */}
-          <SubNav/>
+          <div style={{width: "20%", height: "100%"}}></div>
         </Wrapper>
       </div>
     </header>

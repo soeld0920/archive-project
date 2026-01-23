@@ -23,7 +23,7 @@ export default function CreateSeries(){
 
     await api.post("/series", {
       title : title,
-      categoryId : category?.id
+      categoryId : category?.id || null
     }).then(() => {
       messageApi.open({type : "success", content : "시리즈가 추가되었습니다.", duration : 2});
       window.location.reload();

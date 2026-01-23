@@ -14,6 +14,7 @@ import SearchResultsList from "./Components/SearchResultsList"
 import SelectPagination from "./Components/SelectPagination"
 import { api } from "axios/api"
 import usePageAtSearch from "./hooks/usePage"
+import { usePageContent } from "./context/pageContent"
 
 export default function Search(){
   return(
@@ -33,7 +34,7 @@ export function SearchContent(){
   const [writings,setWritings] = useWritingsContent();
   const {filterState} = useFilterContent();
   const [params] = useSearchParams();
-  const {page, setPageCount} = usePageAtSearch();
+  const {page, setPageCount} = usePageContent();
   const [sortStandard] = useSortContent();
 
   useEffect(() => {

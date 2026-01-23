@@ -27,7 +27,7 @@ export default function DetailHero(){
       <Flex gap={"small"}>
         작성자 : <UserDropdown userUuid={authorUuid} userName={authorName} /> |
         {seriesUuid ? (
-          <> 시리즈 : <SeriesDropdown currentWritingUuid={writingUuid} seriesUuid={seriesUuid} /></>
+          <> 시리즈 : <SeriesDropdown currentWritingUuid={writingUuid} seriesUuid={seriesUuid} seriesTitle={seriesName} /></>
         ) : (
           " 단편"
         )}

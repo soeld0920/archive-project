@@ -30,7 +30,7 @@ export default function EditorToolbar() {
   }
 
   const handleCancel = () => {
-    const result = confirm("현재 글은 저장되지 않습니다. 그래도 저장하시겠습니까?");
+    const result = confirm("현재 글은 저장되지 않습니다. 그래도 나가시겠습니까?");
     if(result) {
       navigate("/");
     }

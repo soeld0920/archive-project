@@ -28,7 +28,7 @@ export default function GreatToggleButton(){
       await api.put(`/writing/${writing.writingUuid}/great`, {
         next : !great
       });
-
+      messageApi.open({type : 'success', content : "좋아요를 눌렀습니다.", duration : 2});
       setGreat(!great);
       setIsGreatButtonPending(false);
     } catch (error: any) {

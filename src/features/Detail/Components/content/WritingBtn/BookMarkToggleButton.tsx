@@ -28,7 +28,7 @@ export function BookmarkToggleButton(){
       await api.put(`/writing/${writing.writingUuid}/bookmark`, {
         next : !bookmark
       });
-
+      messageApi.open({type : 'success', content : "북마크를 눌렀습니다.", duration : 2});
       setBookmark(!bookmark);
       setIsBookmarkButtonPending(false)
       } catch (error: any) {

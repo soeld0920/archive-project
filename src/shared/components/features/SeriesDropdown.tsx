@@ -4,21 +4,22 @@
 import { Dropdown, Space, type MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import type { SeriesNavigationResDto } from "shared/types/dto/SeriesNavigationResDto";
 import { api } from "axios/api";
 
 type SeriesDropdownProps = {
   currentWritingUuid : string;
-  seriesUuid : string
+  seriesUuid : string;
+  seriesTitle : string;
 }
 
-export default function SeriesDropdown({currentWritingUuid, seriesUuid} : SeriesDropdownProps){
+export default function SeriesDropdown({currentWritingUuid, seriesUuid, seriesTitle} : SeriesDropdownProps){
   const [navigationData, setNavigationData] = useState<SeriesNavigationResDto | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchNavigationData = async () => {
-    if(navigationData || isLoading) return;
+    if(isLoading) return;
     setIsLoading(true);
     try {
       const response = await api.get(`/series/${seriesUuid}/navigation`, {
@@ -27,14 +28,21 @@ export default function SeriesDropdown({currentWritingUuid, seriesUuid} : Series
         }
       })
         .then(res => res.data);
-      
       setNavigationData(response);
+      console.log("응답 도착!")
     } catch (error) {
       console.error("Failed to fetch series navigation data:", error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  // currentWritingUuid가 바뀌면 데이터를 초기화하고 다시 로드
+  useEffect(() => {
+    setNavigationData(null);
+    // 드롭다운이 열려있을 때만 자동으로 로드 (선택적)
+    // 필요하면 여기서 바로 fetchNavigationData() 호출 가능
+  }, [currentWritingUuid, seriesUuid]);
 
   // 드롭다운 메뉴 아이템 구성
   const items : MenuProps['items'] = useMemo(() => {
@@ -47,7 +55,7 @@ export default function SeriesDropdown({currentWritingUuid, seriesUuid} : Series
       {
         key : "view-series",
         label : (
-          <Link to={`/series/${navigationData.seriesUuid}`}>{navigationData.seriesTitle} 시리즈 보러가기</Link>
+          <Link to={`/search/series?detail=${navigationData.seriesUuid}`}>{navigationData.seriesTitle} 시리즈 보러가기</Link>
         )
       },
       {
@@ -83,9 +91,9 @@ export default function SeriesDropdown({currentWritingUuid, seriesUuid} : Series
         }
       }}
     >
-      <button type="button" aria-label={`${navigationData?.seriesTitle || seriesUuid} 시리즈 메뉴 열기`} style={{ all: "unset", cursor: "pointer" }}>
+      <button type="button" aria-label={`${seriesTitle || seriesUuid} 시리즈 메뉴 열기`} style={{ all: "unset", cursor: "pointer" }}>
         <Space>
-          {navigationData?.seriesTitle || "생성중..."}
+          {seriesTitle || "제목 없음"}
           <FaAngleDown/>
         </Space>
       </button>
