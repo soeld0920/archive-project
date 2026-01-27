@@ -33,6 +33,7 @@ export function AppRoutes(){
         <Route path="textStyle" element={<TextStyleManage/>}/>
         <Route path="post" element={<div>글 설정</div>}/>
       </Route>
+      <Route path="/*" element={<h1>404 Not Found</h1>}/>
     </Routes>
   )
 }

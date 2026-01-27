@@ -1,26 +1,3 @@
-.header{
-  width: 100%;
-  height: 140px;
-  box-sizing: border-box;
-}
-
-.topNav{
-  width: 100%;
-  height: 40px;
-  padding : var(--padding-basic);
-}
-
-.wrapper{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.topNav ul{ 
-  display: flex;
-  gap: var(--gap-nav);
-}
-
 .mainNav{
   width: 100%;
   height: 100px;
@@ -45,12 +22,6 @@
   padding: 0;
   border: 3px solid var(--border-color-black);
 }
-
-.searchContainer{
-  position: relative;
-  width: 500px;
-}
-
 .searchDiv{
   display: flex;
   width: 100%;

@@ -16,6 +16,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@radix-ui/themes": "^3.2.1",
+    "@tailwindcss/vite": "^4.1.18",
     "@tiptap/extension-blockquote": "^3.14.0",
     "@tiptap/extension-code-block-lowlight": "^3.14.0",
     "@tiptap/extension-color": "^3.14.0",
@@ -56,6 +57,8 @@
     "redux": "^5.0.1",
     "remark-toc": "^9.0.0",
     "styled-components": "^6.1.19",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^4.1.18",
     "usehooks-ts": "^3.1.1",
     "uuid": "^11.1.0"
   },

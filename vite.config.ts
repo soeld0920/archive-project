@@ -10,6 +10,7 @@ import remarkToc from "remark-toc";
 import { dirname, join, resolve } from 'path';
 import fs from 'fs';
 import type { IncomingMessage, ServerResponse } from 'http';
+import tailwindcss from '@tailwindcss/vite'
 
 // /files 경로를 형제 디렉터리로 서빙하는 플러그인
 function serveImageFiles(): Plugin {
@@ -63,7 +64,8 @@ export default defineConfig({
     }),
     react(), 
     tsconfigPaths(),
-    serveImageFiles()
+    serveImageFiles(),
+    tailwindcss()
   ],
   resolve: {
     alias: {

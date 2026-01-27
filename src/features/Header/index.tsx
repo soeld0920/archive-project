@@ -46,14 +46,14 @@ function HeaderContent(){
   }, []);
 
   return(
-    <header className={styles.header}>
+    <header className="w-full h-auto">
 
       {/* top */}
-      <div className={styles.topNav}>
-        <Wrapper className={styles.wrapper}>
+      <div className="w-full h-10 my-2">
+        <Wrapper className="flex justify-between items-center">
           
           {/* 사이트 문구 */}
-          <span className="highlight">한국어로 배우는 쉬운 컴퓨터공학</span>
+          <span className="text-blue-600 text-2xl font-[DungGeunMo]">한국어로 배우는 쉬운 컴퓨터공학</span>
 
           {/* 로그인 / 유저 네비게이션 */}
           {signIn ? <UserNav/> : <LoginNav/>}
@@ -62,13 +62,13 @@ function HeaderContent(){
 
 
       {/* main */}
-      <div className={styles.mainNav}>
-        <Wrapper  className={styles.wrapper}>
+      <div className="w-full h-35 bg-gray-300">
+        <Wrapper className="flex justify-between items-center py-3">
           {/* logo */}
-          <Link to="/" aria-label="홈으로"><img src={logo} alt="로고이미지" /></Link>
+          <Link to="/" aria-label="홈으로" className="h-full inline-block"><img src={logo} alt="로고이미지" className="h-full inline-block"/></Link>
 
           {/* 검색창과 카테고리 선택 */}
-          <div className={styles.searchContainer}>
+          <div className="relative w-1/2 max-w-150 h-2/3">
             <SearchDiv/>
             <SelectCategory/>
           </div>

@@ -1,8 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import type { UserRes } from "shared/types/dto/user";
 import getUserUuidFromAccessToken from "shared/lib/utils/getUserUuidFromAccessToken";
-import { api } from "axios/api";
 
 //todo : 유저 메뉴 컴포넌트 수정
 export default function UserNav(){
@@ -15,7 +13,7 @@ export default function UserNav(){
 
   return(
     <nav aria-label="유저 메뉴">
-      <ul>
+      <ul className="flex gap-4">
         <li><Link to="/write">글쓰기</Link></li>
         <li><Link to={`/blog/${userUuid}`}>내 블로그</Link></li>
         <li><Link to="/manage">설정</Link></li>

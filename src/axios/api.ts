@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const api = axios.create({
   baseURL: "/api",
@@ -29,11 +30,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((res) =>  res,
   async (error) => {
     const originalRequest = error.config;
-
+    console.log(error.response?.data);
+    
     // refresh 요청 자체가 실패한 경우 재시도하지 않음
     if(originalRequest.url?.includes("/login/refresh")){
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      alert("로그인 정보가 만료되었습니다. 다시 로그인해주세요.");
+      // react-router의 useNavigate 훅을 사용할 수 없으므로, window.location을 사용하여 로그인 페이지로 이동
+      window.location.href = "/login";
       return Promise.reject(error);
     }
     
