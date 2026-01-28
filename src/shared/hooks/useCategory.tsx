@@ -1,6 +1,6 @@
 import { useReducer } from "react";
-import type { SeletedCategory } from "shared/types/SeletedCategory";
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
+import type { SeletedCategory } from "shared/types/SeletedCategory";
 
 
 type Action = 

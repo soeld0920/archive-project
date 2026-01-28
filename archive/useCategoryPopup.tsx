@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useCategoryContext } from "../context/categoryContext";
-import { useOpenPopupContext } from "../context/openPopupContext";
+import { useCategoryContext } from "../src/features/Header/context/categoryContext";
+import { useOpenPopupContext } from "../src/features/Header/context/openPopupContext";
 // import { MAIN_SET } from "shared/types/category"; // 비활성화됨
-import type { CategoryPopupType } from "../types/CategoryPopupType";
+import type { CategoryPopupType } from "../src/features/Header/types/CategoryPopupType";
 // import handleClickOutside from "shared/lib/utils/handleClickOutside"; // 비활성화됨
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 

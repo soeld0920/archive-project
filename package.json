@@ -44,6 +44,7 @@
     "fuse.js": "^7.1.0",
     "lowlight": "^3.3.0",
     "millify": "^6.1.0",
+    "motion": "^12.29.2",
     "msw": "^2.12.2",
     "node": "^22.21.0",
     "node.js": "^0.0.1-security",
@@ -60,7 +61,8 @@
     "tailwind": "^4.0.0",
     "tailwindcss": "^4.1.18",
     "usehooks-ts": "^3.1.1",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
