@@ -1,38 +1,29 @@
-import classNames from "classnames"
-import { useCategoryContext } from "features/Header/context/categoryContext";
-import styles from "features/Header/Header.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SelectSubItem } from "./SelectSubItem";
 import { api } from "axios/api";
-import { useCategoryPopupContext } from "features/Header/context/categoryPopup";
+import { useMainCategorySelectorContext } from "features/Header/context/mainCategorySeletor";
+import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 
 export function SelectSub(){
-  const [categoryState] = useCategoryContext();
-  const {subCategoryOptions, setSubCategoryOptions} = useCategoryPopupContext();
-
-  //mainCategory가 없으면, 이 컴포를 보이게하면 안됨.
-  const className = classNames(styles.subCategoryHeader, categoryState.mainCategory && styles.showSubNav);
-  const label = categoryState.mainCategory?.name ?? "";
+  const {selectedMainCategory} = useMainCategorySelectorContext();
+  const [subCategoryOptions, setSubCategoryOptions] = useState<SubCategory[]>([]);
 
   //mainCategory가 있으면, 그에 해당하는 subCategory를 가져옴.
   useEffect(() => {
-    if(!categoryState.mainCategory) return;
+    if(!selectedMainCategory) return;
     const fetchSubCategory = async () => {
-      const res = await api.get(`/category/sub/${categoryState.mainCategory?.id}`);
+      const res = await api.get(`/category/sub/${selectedMainCategory?.id}`);
       setSubCategoryOptions(res.data);
     }
     fetchSubCategory();
-  }, [categoryState.mainCategory]);
+  }, [selectedMainCategory]);
 
   return(
-    <div className={className}>  
-      <div className={styles.title}>
-        <span className="highlight">{label}의 소분류선택</span>
-      </div>
-      <ul className={styles.subCategoryNav}>
+    <div className="w-375/525 h-full bg-gray-200">  
+      <ul className="w-full h-full overflow-y-scroll flex flex-col gap-0 scrollbar-none pl-4">
         {
           subCategoryOptions.map((item,i) =>
-          <SelectSubItem key={item.id} item={item} idx={i} />)
+          <SelectSubItem key={item.id} parentItem={selectedMainCategory as MainCategory} item={item} idx={i} />)
         }
       </ul>
     </div>

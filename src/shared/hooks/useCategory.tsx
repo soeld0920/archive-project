@@ -6,6 +6,7 @@ import type { SeletedCategory } from "shared/types/SeletedCategory";
 type Action = 
   {type : "SET_MAINCATEGORY", payload : MainCategory | undefined} |
   {type : "SET_SUBCATEGORY", payload : SubCategory | undefined} |
+  {type : "SET_ALL", payload : {mainCategory : MainCategory | undefined, subCategory : SubCategory | undefined}} |
   {type : "RESET"}
 
 const initalState : SeletedCategory = {mainCategory : undefined, subCategory : undefined}
@@ -16,6 +17,8 @@ function reduce(state : SeletedCategory, action : Action) : SeletedCategory{
       return {...state, mainCategory : action.payload}
     case "SET_SUBCATEGORY" : 
       return {...state, subCategory : action.payload}
+    case "SET_ALL" :
+      return {...state, mainCategory : action.payload.mainCategory, subCategory : action.payload.subCategory}
     case "RESET":
       return initalState;
   }

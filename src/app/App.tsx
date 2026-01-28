@@ -19,7 +19,7 @@ export default function App() {
 function AppLayout(){
   const [_,contextHolder] = useMessageContext()
   const location = useLocation();
-  const isWritePage = location.pathname.includes("/write");
+  const notIncludeHeaderComponents = !(location.pathname.includes("/write") || location.pathname.includes("/login") || location.pathname.includes("/join"));
 
   return(
     <>
@@ -27,7 +27,7 @@ function AppLayout(){
       <TextStyles/>
       <Colors/>
       <Layouts/>
-      {!isWritePage && <Header/>}
+      {notIncludeHeaderComponents && <Header/>}
       <AppRoutes/>
     </>
   )

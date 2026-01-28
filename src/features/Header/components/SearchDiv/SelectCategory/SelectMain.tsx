@@ -1,33 +1,27 @@
-import classNames from "classnames";
-import styles from "features/Header/Header.module.css";
-import { useCategoryContext } from "features/Header/context/categoryContext";
-import { useOpenPopupContext } from "features/Header/context/openPopupContext";
 import { SelectMainItem } from "./SelectMainItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "axios/api";
-import { useCategoryPopupContext } from "features/Header/context/categoryPopup";
+import type { MainCategory } from "shared/types/MainCategory";
+import { useOpenSelectCategoryContext } from "features/Header/context/openSelectCategoryContext";
+import { useMainCategorySelectorContext } from "features/Header/context/mainCategorySeletor";
 
 export function SelectMain(){
-  const [openPopup] = useOpenPopupContext();
-  const [categoryState] = useCategoryContext();
-  const {mainCategoryOptions, setMainCategoryOptions} = useCategoryPopupContext();
-  const className = classNames(styles.panelHeader, categoryState.mainCategory && styles.showSubNav, openPopup && styles.isOpen)
+  const [mainCategoryOptions, setMainCategoryOptions] = useState<MainCategory[]>([]);
+  const {openSelectCategory} = useOpenSelectCategoryContext();
+  const {setMainCategoryList} = useMainCategorySelectorContext();
   
   useEffect(() => {
-    if(!openPopup) return;
     const fetchMainCategory = async () => {
       const res = await api.get("/category/main");
       setMainCategoryOptions(res.data);
+      setMainCategoryList(res.data);
     }
     fetchMainCategory();
-  }, [openPopup]);
+  }, [openSelectCategory]);
 
   return(
-    <div className={className}>  
-      <div className={styles.title}>
-        <span className="highlight">대분류선택</span>
-      </div>
-      <ul className={styles.mainCategoryNav}>
+    <div className="w-150/525 h-full bg-blue-200">  
+      <ul className="w-full h-full overflow-y-scroll flex flex-col gap-0 scrollbar-none py-3">
         {
           mainCategoryOptions.map((item,i) => 
             <SelectMainItem key={item.id} item={item} idx={i} />

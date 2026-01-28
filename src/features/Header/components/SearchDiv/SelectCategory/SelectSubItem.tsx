@@ -1,24 +1,22 @@
-import classNames from "classnames";
-import { useCategoryPopupContext } from "features/Header/context/categoryPopup";
-import styles from "features/Header/Header.module.css";
-import type { SubCategory } from "shared/types/MainCategory";
+import { useCategoryContext } from "features/Header/context/categoryContext";
+import { useOpenSelectCategoryContext } from "features/Header/context/openSelectCategoryContext";
+import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 
 type SelectSubItemProps = {
+  parentItem : MainCategory;
   item : SubCategory;
   idx : number;
 }
 
-export function SelectSubItem({item,idx} : SelectSubItemProps){
-  const {active, onSubSelect, onSubHover} = useCategoryPopupContext();
-  const isActive = active.idx === idx && active.categorySection === "sub";
-  const className = classNames("navItem", styles.subCategoryNavItem ,isActive && styles.focused)
+export function SelectSubItem({parentItem, item, idx} : SelectSubItemProps){
+  const [_, setCategoryState] = useCategoryContext();
+  const {closeSelectCategory} = useOpenSelectCategoryContext();
 
   return(
-  <li> 
+  <li className="w-full h-auto py-2"> 
     <button 
-      onClick={() => onSubSelect(item, idx)} 
-      onMouseEnter={() => onSubHover(idx)}
-      className={className}>
+      className="text-gray-500 text-lg font-[DungGeunMo] cursor-pointer hover:text-blue-600 hover:bold"
+      onClick={() => {setCategoryState({type : "SET_ALL", payload : {mainCategory : parentItem, subCategory : item}}); closeSelectCategory();}}>
       {item.name}
     </button>
   </li>

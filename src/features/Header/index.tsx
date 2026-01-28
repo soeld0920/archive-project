@@ -21,13 +21,21 @@ import { useEffect, useState } from "react";
 import isSignin from "shared/lib/utils/isSignin";
 import UserNav from "./components/UserNav";
 import { OpenSelectCategoryProvider, useOpenSelectCategoryContext } from "./context/openSelectCategoryContext";
+import { SelectCategory } from "./components/SearchDiv/SelectCategory";
+import { DivSizeProvider } from "./context/divSize";
+import { MainCategorySelectorProvider } from "./context/mainCategorySeletor";
+import { GlobalAction } from "./components/GlobalAction";
 
 export default function Header(){
   return(
     <CategoryProvider>
-      <OpenSelectCategoryProvider>
-          <HeaderContent/>
-      </OpenSelectCategoryProvider>
+      <DivSizeProvider>
+        <MainCategorySelectorProvider>
+          <OpenSelectCategoryProvider>
+            <HeaderContent/>
+          </OpenSelectCategoryProvider>
+        </MainCategorySelectorProvider>
+      </DivSizeProvider>
     </CategoryProvider>
   )
 }
@@ -37,6 +45,7 @@ function HeaderContent(){
   const [signIn, setSignIn] = useState<boolean>(false);
   const {containerRef} = useOpenSelectCategoryContext();
   useEffect(() => {
+    console.log("HeaderContent");
     setSignIn(isSignin());
   }, []);
 
@@ -63,13 +72,16 @@ function HeaderContent(){
           <Link to="/" aria-label="홈으로" className="h-full inline-block"><img src={logo} alt="로고이미지" className="h-full inline-block"/></Link>
 
           {/* 검색창과 카테고리 선택 */}
-          <div className="relative w-1/2 max-w-150 h-2/3" ref={containerRef}>
-            <SearchDiv/>
-            {/* <SelectCategory/> */}
+          <div className="relative w-1/2 max-w-150 h-2/3">
+           {/* useOpenSelectCategory를 위한 가상 div */}
+            <div className="relative" ref={containerRef}>
+              <SearchDiv/>
+              <SelectCategory/>
+            </div>
           </div>
 
           {/* 서브 기능 */}
-          <div style={{width: "20%", height: "100%"}}></div>
+          <GlobalAction/>
         </Wrapper>
       </div>
     </header>

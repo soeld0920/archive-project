@@ -1,26 +1,30 @@
 import { useCategoryContext } from "features/Header/context/categoryContext";
 import { useOpenSelectCategoryContext } from "features/Header/context/openSelectCategoryContext";
-import { motion } from "motion/react";
 
 export function CategorySelecter(){
   const [categoryState] = useCategoryContext();
-  const {openSelectCategory, HOVER_TIME, selecterRef} = useOpenSelectCategoryContext();
+  const {isSelectCategoryOpen, openSelectCategory} = useOpenSelectCategoryContext();
 
   return(
-    <motion.div className="w-1/4 h-full"
-    aria-controls="category-popover" aria-haspopup="dialog" ref={selecterRef}
-    whileHover={{backgroundColor: "#64B5F6", transition: {duration: 1.5}}}
+    <div
+      className={`w-1/4 h-full cursor-pointer transition-colors duration-500 hover:bg-blue-200`}
+      style={{
+        backgroundColor: isSelectCategoryOpen ? "oklch(88.2% 0.059 254.128)" : undefined,
+      }}
+      aria-controls="category-popover"
+      aria-haspopup="dialog"
+      onClick={openSelectCategory}
     >
-      <p className="w-full h-full text-lg flex justify-center items-center">
+      <p className="w-full h-full text-xl flex justify-center items-center font-[DungGeunMo] flex flex-col">
         {
-          openSelectCategory ? "전체 카테고리" :
+          isSelectCategoryOpen ? "전체 카테고리" :
           categoryState.mainCategory ? <>
-            <span>{categoryState.mainCategory?.name}</span>
-            <span>{categoryState.subCategory?.name}</span>
+            <span className="text-lg font-[DungGeunMo]">{categoryState.mainCategory?.name}</span>
+            <span className="text-sm font-[DungGeunMo]">{categoryState.subCategory?.name}</span>
           </> :
-          "카테고리 선택 ▼"
+          "검색 범위 ▾"
         }
       </p>
-    </motion.div>
+    </div>
   )
 }

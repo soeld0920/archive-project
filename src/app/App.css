@@ -60,25 +60,12 @@ h6{
   margin-block: 0 0;
 }
 
-body, p, li, select {
+body {
   color: var(--color-text-primary);
   font-family: var(--font-detailEng), var(--font-detailKor);
   line-height: 1.5;
   font-size: var(--scales-basic);
 }
-
-p{
-  font-size: var(--scales-basic);
-}
-
-pre {
-  background: var(--surface-muted);
-  color: var(--color-text-heavy);
-  padding: var(--padding-inside);
-  border-radius: 8px;
-  overflow: auto;
-}
-
 code{
   font-size: var(--scales-sm);
   font-family: var(--font-code);
@@ -344,5 +331,12 @@ blockquote {
   font-weight: 700;
 }
 
+.scrollbar-none{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 @import "tailwindcss";

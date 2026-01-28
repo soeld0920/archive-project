@@ -6,7 +6,6 @@ export function ConfirmButton(){
     w-3/24 h-full 
     flex justify-center items-center
     hover:bg-blue-600 
-    overflow-hidden
     transition-all duration-500
     group">
       <FaSearch className="
