@@ -1,6 +1,6 @@
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
 import { useSearchCategoryStore } from "features/Header/store/useSearchCategoryStore";
-import { useIsSelectCategoryOpenStore } from "features/Header/store/useSelectorOpenStore";
+import { useSelectorOpenStore } from "features/Header/store/useSelectorOpenStore";  
 
 type SelectSubItemProps = {
   parentItem : MainCategory;
@@ -10,7 +10,7 @@ type SelectSubItemProps = {
 
 export function SelectSubItem({parentItem, item, idx} : SelectSubItemProps){
   const {setAllCategory} = useSearchCategoryStore();
-  const {closeSelectCategory} = useIsSelectCategoryOpenStore();
+  const {closeSelectCategory} = useSelectorOpenStore(); 
 
   return(
   <li className="w-full h-auto py-2"> 

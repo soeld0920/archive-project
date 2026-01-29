@@ -1,5 +1,5 @@
 import type { MainCategory } from "shared/types/MainCategory";
-import { useIsSelectCategoryOpenStore } from "features/Header/store/useSelectorOpenStore";
+import { useSelectorOpenStore } from "features/Header/store/useSelectorOpenStore";
 import { useMainCategorySelectorStore } from "features/Header/store/useMainCategorySeletorStore";
 import { useSearchCategoryStore } from "features/Header/store/useSearchCategoryStore";
 
@@ -9,7 +9,7 @@ type SelectMainItemProps = {
 }
 
 export function SelectMainItem({item, idx} : SelectMainItemProps){
-  const {closeSelectCategory} = useIsSelectCategoryOpenStore();
+  const {closeSelectCategory} = useSelectorOpenStore();
   const {selectMainCategoryIndex, selectedMainCategoryIndex} = useMainCategorySelectorStore();
   const {setMainCategory} = useSearchCategoryStore();
   const isSelected = selectedMainCategoryIndex === idx;
