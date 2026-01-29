@@ -1,20 +1,15 @@
 import { useWritingsContent, WritingsProvider } from "./context/writingsContent"
-import styles from "./Search.module.css"
 import { useSearchParams } from "react-router-dom"
 import { useEffect } from "react"
 import { PageProvider } from "./context/pageContent"
-import UserProfileCard from "shared/components/features/UserProfileInfo"
-import Wrapper from "shared/components/blocks/Wrapper"
 import { FilterProvider, useFilterContent } from "./context/FilterContent"
 import { SortProvider, useSortContent } from "./context/sortContent"
-import { FilterPanel } from "./Components/FilterPanel"
-import SearchHeader from "./Components/SearchHeader"
-import NoResults from "./Components/NoResults"
-import SearchResultsList from "./Components/SearchResultsList"
-import SelectPagination from "./Components/SelectPagination"
 import { api } from "axios/api"
-import usePageAtSearch from "./hooks/usePage"
 import { usePageContent } from "./context/pageContent"
+import PageHeader from "shared/components/features/PageHeader"
+import { MdSearch } from "react-icons/md"
+import { SearchStateProvider, useSearchStateContent } from "./context/searchStateContext"
+import SearchHeader from "./Components/SearchHeader"
 
 export default function Search(){
   return(
@@ -22,7 +17,9 @@ export default function Search(){
       <SortProvider>
         <WritingsProvider>
           <PageProvider>
-            <SearchContent/>
+            <SearchStateProvider>
+              <SearchContent/>
+            </SearchStateProvider>
           </PageProvider>
         </WritingsProvider>
       </SortProvider>
@@ -36,6 +33,7 @@ export function SearchContent(){
   const [params] = useSearchParams();
   const {page, setPageCount} = usePageContent();
   const [sortStandard] = useSortContent();
+  const [_, setSearchState] = useSearchStateContent();
 
   useEffect(() => {
     const fetchWritings = async () => {
@@ -56,6 +54,8 @@ export function SearchContent(){
       const res2 = await api.post("/search", reqBody);
       setWritings(res2.data);
       setPageCount(res1.data as number);
+      if(res1.data === 0) setSearchState("noResults");
+      else setSearchState("results");
     }
     fetchWritings();
   }, [params, page, filterState, sortStandard]);
@@ -63,15 +63,16 @@ export function SearchContent(){
   return(
     <main>
       <section>
+        <PageHeader icon={<MdSearch />} title="Search" />
         <SearchHeader/>
-        <Wrapper className={styles.bodyWrapper}>
+        {/* <Wrapper className={styles.bodyWrapper}>
           <aside style={{width : "370px", height : "100%"}}>
             <UserProfileCard/>
             <FilterPanel/>
           </aside>
           {writings.length === 0 ? <NoResults /> : <SearchResultsList/>}
         </Wrapper>
-        {writings.length !== 0 && <SelectPagination/>}
+        {writings.length !== 0 && <SelectPagination/>} */}
       </section>
     </main>
   )

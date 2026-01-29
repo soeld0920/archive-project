@@ -46,9 +46,8 @@ export function Header(){
         </Wrapper>
       </div>
 
-
       {/* main */}
-      <div className="w-full h-35 bg-gray-300">
+      <div className="w-full h-35 bg-gray-300 py-3">
         <Wrapper className="flex justify-between items-center py-3">
           {/* logo */}
           <Link to="/" aria-label="홈으로" className="h-full inline-block"><img src={logo} alt="로고이미지" className="h-full inline-block"/></Link>

@@ -1,12 +1,9 @@
-import type { MainCategory, SubCategory, SearchParams } from "shared/types/entity/Category";
-
-type UrlSearch = readonly [SearchParams, string];
+type UrlSearch = {mainCategoryId: number | null, subCategoryId: number | null, detail: string};
 
 export function parseUrlSearchParams(params: URLSearchParams): UrlSearch {
-  const main = params.get("mainCategory") as MainCategory | undefined;
-  const sub = params.get("subCategory") as SubCategory | undefined;
+  const mainId = params.get("mainCategory") ? parseInt(params.get("mainCategory") as string) : null;
+  const subId = params.get("subCategory") ? parseInt(params.get("subCategory") as string) : null;
   const detail = params.get("detail") || "";
-  const userId = params.get("UUID") || "";
-  return [{ mainCategory: main, subCategory: sub, detail }, userId] as const;
+  return { mainCategoryId: mainId, subCategoryId: subId, detail };
 }
 
