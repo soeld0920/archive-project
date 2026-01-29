@@ -1,9 +1,9 @@
-import { useCategoryContext } from "features/Header/context/categoryContext";
-import { useOpenSelectCategoryContext } from "features/Header/context/openSelectCategoryContext";
+import { useSearchCategoryStore } from "features/Header/store/useSearchCategoryStore";
+import { useIsSelectCategoryOpenStore } from "../../store/useSelectorOpenStore";
 
 export function CategorySelecter(){
-  const [categoryState] = useCategoryContext();
-  const {isSelectCategoryOpen, openSelectCategory} = useOpenSelectCategoryContext();
+  const {mainCategory, subCategory} = useSearchCategoryStore();
+  const {isSelectCategoryOpen, openSelectCategory} = useIsSelectCategoryOpenStore();
 
   return(
     <div
@@ -18,9 +18,9 @@ export function CategorySelecter(){
       <p className="w-full h-full text-xl flex justify-center items-center font-[DungGeunMo] flex flex-col">
         {
           isSelectCategoryOpen ? "전체 카테고리" :
-          categoryState.mainCategory ? <>
-            <span className="text-lg font-[DungGeunMo]">{categoryState.mainCategory?.name}</span>
-            <span className="text-sm font-[DungGeunMo]">{categoryState.subCategory?.name}</span>
+          mainCategory ? <>
+            <span className="text-lg font-[DungGeunMo]">{mainCategory?.name}</span>
+            <span className="text-sm font-[DungGeunMo]">{subCategory?.name}</span>
           </> :
           "검색 범위 ▾"
         }

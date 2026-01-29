@@ -16,36 +16,18 @@ import Wrapper from "shared/components/blocks/Wrapper";
 import { LoginNav } from "./components/LoginNav";
 import { Link } from "react-router-dom";
 import { SearchDiv } from "./components/SearchDiv";
-import { CategoryProvider } from "./context/categoryContext";
 import { useEffect, useState } from "react";
 import isSignin from "shared/lib/utils/isSignin";
 import UserNav from "./components/UserNav";
-import { OpenSelectCategoryProvider, useOpenSelectCategoryContext } from "./context/openSelectCategoryContext";
 import { SelectCategory } from "./components/SearchDiv/SelectCategory";
-import { DivSizeProvider } from "./context/divSize";
-import { MainCategorySelectorProvider } from "./context/mainCategorySeletor";
 import { GlobalAction } from "./components/GlobalAction";
+import { useCloseSelectCategoryByMouseleave } from "./hooks/useCloseSelectCategoryByMouseleave";
 
-export default function Header(){
-  return(
-    <CategoryProvider>
-      <DivSizeProvider>
-        <MainCategorySelectorProvider>
-          <OpenSelectCategoryProvider>
-            <HeaderContent/>
-          </OpenSelectCategoryProvider>
-        </MainCategorySelectorProvider>
-      </DivSizeProvider>
-    </CategoryProvider>
-  )
-}
-
-
-function HeaderContent(){
+export function Header(){
   const [signIn, setSignIn] = useState<boolean>(false);
-  const {containerRef} = useOpenSelectCategoryContext();
+  const {containerRef} = useCloseSelectCategoryByMouseleave();
+  
   useEffect(() => {
-    console.log("HeaderContent");
     setSignIn(isSignin());
   }, []);
 

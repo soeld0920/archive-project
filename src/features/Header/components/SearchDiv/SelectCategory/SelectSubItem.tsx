@@ -1,6 +1,6 @@
-import { useCategoryContext } from "features/Header/context/categoryContext";
-import { useOpenSelectCategoryContext } from "features/Header/context/openSelectCategoryContext";
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
+import { useSearchCategoryStore } from "features/Header/store/useSearchCategoryStore";
+import { useIsSelectCategoryOpenStore } from "features/Header/store/useSelectorOpenStore";
 
 type SelectSubItemProps = {
   parentItem : MainCategory;
@@ -9,14 +9,14 @@ type SelectSubItemProps = {
 }
 
 export function SelectSubItem({parentItem, item, idx} : SelectSubItemProps){
-  const [_, setCategoryState] = useCategoryContext();
-  const {closeSelectCategory} = useOpenSelectCategoryContext();
+  const {setAllCategory} = useSearchCategoryStore();
+  const {closeSelectCategory} = useIsSelectCategoryOpenStore();
 
   return(
   <li className="w-full h-auto py-2"> 
     <button 
       className="text-gray-500 text-lg font-[DungGeunMo] cursor-pointer hover:text-blue-600 hover:bold"
-      onClick={() => {setCategoryState({type : "SET_ALL", payload : {mainCategory : parentItem, subCategory : item}}); closeSelectCategory();}}>
+      onClick={() => {setAllCategory(parentItem, item); closeSelectCategory();}}>
       {item.name}
     </button>
   </li>

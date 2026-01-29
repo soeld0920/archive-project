@@ -4,9 +4,9 @@ import { Layouts } from "shared/styles/global/Layouts";
 import "./App.css"
 import "shared/styles/font.css"
 import { MessageProvider, useMessageContext } from "app/providers/message";
-import Header from "features/Header";
 import { AppRoutes } from "./routes/routes";
 import { useLocation } from "react-router-dom";
+import { Header } from "features/Header";
 
 export default function App() {
   return (

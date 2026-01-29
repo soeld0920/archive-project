@@ -1,19 +1,20 @@
-//SearchDiv의 크기를 전달하는 훅.
+//SearchDiv의 크기를 Store에 전달하는 훅.
 //SelectCategory의 위치 및 크기 지정에 필요
 import { useEffect } from "react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useSearchDivSizeStore } from "../store/useSearchDivSizeStore";
 
-export function useDivSize(){
-  const [divSize, setDivSize] = useState({width : 0, height : 0});
+export function useSetDivSize(){
   const searchDivRef = useRef<HTMLDivElement>(null);
+  const {setSize} = useSearchDivSizeStore();
 
   // useEffect를 사용해 searchDivRef.current가 세팅됐을 때 그 크기를 divSize로 설정
   useEffect(() => {
     if (searchDivRef.current) {
       const { width, height } = searchDivRef.current.getBoundingClientRect();
-      setDivSize({ width : width * 7/8, height });
+      setSize(width, height);
     }
   }, [searchDivRef.current]);
 
-  return {divSize, searchDivRef};
+  return {searchDivRef};
 }

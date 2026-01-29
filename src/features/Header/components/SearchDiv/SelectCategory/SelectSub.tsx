@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { SelectSubItem } from "./SelectSubItem";
 import { api } from "axios/api";
-import { useMainCategorySelectorContext } from "features/Header/context/mainCategorySeletor";
 import type { MainCategory, SubCategory } from "shared/types/MainCategory";
+import { useMainCategorySelectorStore } from "features/Header/store/useMainCategorySeletorStore";
 
 export function SelectSub(){
-  const {selectedMainCategory} = useMainCategorySelectorContext();
+  const {selectedMainCategory} = useMainCategorySelectorStore();
   const [subCategoryOptions, setSubCategoryOptions] = useState<SubCategory[]>([]);
 
   //mainCategory가 있으면, 그에 해당하는 subCategory를 가져옴.

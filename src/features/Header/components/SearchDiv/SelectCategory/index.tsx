@@ -1,12 +1,12 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useDivSizeContext } from "features/Header/context/divSize";
 import { SelectMain } from "./SelectMain";
 import { SelectSub } from "./SelectSub";
-import { useOpenSelectCategoryContext } from "features/Header/context/openSelectCategoryContext";
+import { useSearchDivSizeStore } from "features/Header/store/useSearchDivSizeStore";
+import { useSelectorOpenStore } from "features/Header/store/useSelectorOpenStore";
 
 export function SelectCategory(){
-  const {divSize} = useDivSizeContext();
-  const {isSelectCategoryOpen} = useOpenSelectCategoryContext();
+  const {width, height} = useSearchDivSizeStore();
+  const {isSelectCategoryOpen} = useSelectorOpenStore();
   
   return(
     <AnimatePresence >
@@ -21,10 +21,10 @@ export function SelectCategory(){
       shadow-lg
       `}
       style={{
-        width : divSize.width,
-        top : divSize.height,
-        borderBottomLeftRadius: divSize.height / 2,
-        borderBottomRightRadius: divSize.height / 2,
+        width : width * 7/8,
+        top : height,
+        borderBottomLeftRadius: height / 2,
+        borderBottomRightRadius: height / 2,
       }}
       initial={{height : 0}}
       animate={{height : "400px"}}

@@ -2,12 +2,12 @@
 import { SearchInput } from "./SearchInput";
 import { CategorySelecter } from "./CategorySelecter";
 import { ConfirmButton } from "./ConfirmButton";
-import { useOpenSelectCategoryContext } from "features/Header/context/openSelectCategoryContext";
-import { useDivSizeContext } from "features/Header/context/divSize";
+import { useSelectorOpenStore } from "../../store/useSelectorOpenStore";
+import { useSetDivSize } from "features/Header/hooks/useSetDivSize";
 
 export function SearchDiv(){
-  const {isSelectCategoryOpen} = useOpenSelectCategoryContext();
-  const {searchDivRef} = useDivSizeContext();
+  const {isSelectCategoryOpen} = useSelectorOpenStore();
+  const {searchDivRef} = useSetDivSize();
 
   return(
     <div 
