@@ -21,7 +21,7 @@ export function SelectMainItem({item, idx} : SelectMainItemProps){
       backgroundColor : "oklch(92.8% 0.006 264.531)"
     } : {}}
     onMouseEnter={() => {setSelectedMainCategoryIndex(idx)}}>
-      <button className="text-gray-500 text-lg font-[DungGeunMo] cursor-pointer" style={isSelected ? {
+      <button className="text-gray-500 text-lg font-[Galmuri] cursor-pointer" style={isSelected ? {
         color : " oklch(27.8% 0.033 256.848)", 
         fontWeight : "bold",
       } : {}}

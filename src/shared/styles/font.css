@@ -42,3 +42,9 @@
   font-family: "DungGeunMo";
   src: url("/src/assets/fonts/DungGeunMo.woff2") format("woff");
 }
+
+
+@font-face {
+  font-family: "Galmuri";
+  src: url("/src/assets/fonts/Galmuri9.ttf") format("truetype");
+}

@@ -15,7 +15,7 @@ export function SelectSubItem({parentItem, item, idx} : SelectSubItemProps){
   return(
   <li className="w-full h-auto py-2"> 
     <button 
-      className="text-gray-500 text-lg font-[DungGeunMo] cursor-pointer hover:text-blue-600 hover:bold"
+      className="text-gray-500 text-lg font-[Galmuri] cursor-pointer hover:text-blue-600 hover:bold"
       onClick={() => {setCategoryState({type : "SET_ALL", payload : {mainCategory : parentItem, subCategory : item}}); closeSelectCategory();}}>
       {item.name}
     </button>

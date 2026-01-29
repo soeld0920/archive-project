@@ -20,7 +20,7 @@ export function SearchInput(){
     <>
       <input type="text" placeholder="TECH.text에서 찾아보기" 
       value={searchText} 
-      className="w-375/600 h-full text-lg pl-3 font-[DungGeunMo]"
+      className="w-375/600 h-full text-lg pl-3 font-[Galmuri]"
       onChange={e => setSearchText(e.target.value)}
       onKeyDown={e => {if(e.key === "Enter") handleSearchSubmit(searchText)}}/>
     </>
