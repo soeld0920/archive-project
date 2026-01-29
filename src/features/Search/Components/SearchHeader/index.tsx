@@ -6,13 +6,15 @@ import { useEffect, useState } from "react";
 import { getMainCategoryById } from "shared/api/getMainCategoryById";
 import { usePageContent } from "../../context/pageContent";
 import { parseUrlSearchParams } from "features/Search/libs/parseUrlSearchParams";
+import { useWritingContext } from "features/Detail/context/WritingContext";
+
 
 export default function SearchHeader(){
   const [searchState] = useSearchStateContent();
   const [params] = useSearchParams();
   const searchParams = parseUrlSearchParams(params);
   const {mainCategoryId, subCategoryId, detail} = searchParams;
-  const {pageCount} = usePageContent();
+  const {writing} = useWritingContext();
   const [categoryLabel, setCategoryLabel] = useState<string>("");
   const className = "text-2xl font-[Galmuri] text-gray-700"
 

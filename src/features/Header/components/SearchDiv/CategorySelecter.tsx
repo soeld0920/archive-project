@@ -1,9 +1,9 @@
 import { useSearchCategoryStore } from "features/Header/store/useSearchCategoryStore";
-import { useIsSelectCategoryOpenStore } from "../../store/useSelectorOpenStore";
+import { useSelectorOpenStore } from "../../store/useSelectorOpenStore";
 
 export function CategorySelecter(){
   const {mainCategory, subCategory} = useSearchCategoryStore();
-  const {isSelectCategoryOpen, openSelectCategory} = useIsSelectCategoryOpenStore();
+  const {isSelectCategoryOpen, openSelectCategory} = useSelectorOpenStore();
 
   return(
     <div

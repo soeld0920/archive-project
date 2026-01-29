@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { api } from "axios/api";
 import type { MainCategory } from "shared/types/MainCategory";
 import { useMainCategorySelectorStore } from "features/Header/store/useMainCategorySeletorStore";
-import { useIsSelectCategoryOpenStore } from "features/Header/store/useSelectorOpenStore";
+import { useSelectorOpenStore } from "features/Header/store/useSelectorOpenStore";
 
 export function SelectMain(){
   const [mainCategoryOptions, setMainCategoryOptions] = useState<MainCategory[]>([]);
-  const {openSelectCategory} = useIsSelectCategoryOpenStore();
+  const {openSelectCategory} = useSelectorOpenStore();
   const {setMainCategoryList} = useMainCategorySelectorStore();
   
   useEffect(() => {
