@@ -6,22 +6,24 @@
 */
 
 import { ConfigProvider, Flex, Popconfirm } from "antd"
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import styles from "features/Detail/DetailPage.module.css"
-import { useWritingContext } from "features/Detail/context/WritingContext";
+import { useWritingDetail } from "features/Detail/hooks/query/useWritingDetail";
+import type { Tag } from "shared/types/entity/Tag";
 
 export default function WritingTag(){
 
-  const {writing} = useWritingContext();
-  if(!writing) return null;
-  const {tag} = writing;
+  const {UUID} = useParams();
+  const {data : writingDetail, error, isLoading, isError} = useWritingDetail(UUID ?? "")
+  if(isError || isLoading) {console.error(error); return null;}
+  const {tag} = writingDetail;
   
   return (
     <div  className={styles.tagWrapper}>
       <ConfigProvider>
         <Flex gap="small">
           {
-            tag.map((tag) => 
+            tag.map((tag : Tag) => 
             <Tag tag={tag.tagName} key={tag.tagId}/>)
           }
         </Flex>

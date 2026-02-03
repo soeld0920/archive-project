@@ -11,13 +11,15 @@ import React, { useState, useEffect } from "react";
 import { MdOutlineRefresh } from "react-icons/md";
 import styles from "features/Detail/DetailPage.module.css"
 import { useMessageContext } from "app/providers/message";
-import { useWritingContext } from "features/Detail/context/WritingContext";
+import { useParams } from "react-router-dom";
+import { useWritingDetail } from "features/Detail/hooks/query/useWritingDetail";
 import { api } from "axios/api";
 import { formatYYMMDD } from "../libs/formatYYMMDD";
 import type { CommentRes } from "shared/types/dto/comment";
 
 export default function WritingComment(){
-  const {writing} = useWritingContext()
+  const {UUID} = useParams();
+  const {data : writingDetail} = useWritingDetail(UUID ?? "")
   const [commentValue, setCommentValue] = useState("")
   const [messageApi] = useMessageContext()
   const [isLoading, setIsLoading] = useState(false)
@@ -25,16 +27,16 @@ export default function WritingComment(){
 
   // 컴포넌트 마운트 시 댓글 로드
   useEffect(() => {
-    if(writing) {
+    if(writingDetail) {
       loadComments();
     }
-  }, [writing]);
+  }, [writingDetail]);
 
   const loadComments = async () => {
-    if(!writing) return;
+    if(!writingDetail) return;
     setIsLoading(true);
     try {
-      const commentList : CommentRes[] = await api.get(`/writing/${writing.writingUuid}/comment`).then(res => res.data);
+      const commentList : CommentRes[] = await api.get(`/writing/${writingDetail.writingUuid}/comment`).then(res => res.data);
       setComments(commentList);
     } catch (error) {
       messageApi.open({type : "error", content : "댓글을 불러오는데 실패했습니다.", duration : 2});
@@ -55,14 +57,14 @@ export default function WritingComment(){
       messageApi.open({type : "error", content : "댓글 내용을 입력해주세요.", duration : 2});
       return;
     }
-    if(!writing){
+    if(!writingDetail){
       return;
     }
     
     setIsLoading(true);
     try {
       // TODO: 댓글 추가 API 호출
-      await api.post(`/writing/${writing.writingUuid}/comment`, {
+      await api.post(`/writing/${writingDetail.writingUuid}/comment`, {
         content : commentValue
       });
       await loadComments();

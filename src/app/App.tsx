@@ -7,11 +7,24 @@ import { MessageProvider, useMessageContext } from "app/providers/message";
 import { AppRoutes } from "./routes/routes";
 import { useLocation } from "react-router-dom";
 import { Header } from "features/Header";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// 쿼리클라이언트 = get 요청 결과 데이터 저장소(전역상태)
+const queryClient = new QueryClient({
+  defaultOptions : {
+    queries : {
+      //staleTime : 특정 시간마다 재요청
+      //refetchOnWindowFocus : 윈도우 포커스 시 자동 리패치
+    }
+  }
+});
 
 export default function App() {
   return (
     <MessageProvider>
-      <AppLayout/>
+      <QueryClientProvider client={queryClient}>
+        <AppLayout/>
+      </QueryClientProvider>
     </MessageProvider>
   );
 }

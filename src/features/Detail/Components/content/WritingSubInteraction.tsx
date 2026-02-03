@@ -7,14 +7,16 @@ import { Button, Flex, Tooltip } from "antd";
 import { useMessageContext } from "app/providers/message";
 import doCopyTextAtClipboard from "shared/lib/utils/doCopyTextAtClipboard";
 import { FaPrint, FaShareAlt } from "react-icons/fa";
-import { createSearchParams } from "react-router-dom";
-import { useWritingContext } from "features/Detail/context/WritingContext";
+import { createSearchParams, useParams } from "react-router-dom";
+import { useWritingDetail } from "features/Detail/hooks/query/useWritingDetail";
 
 export default function WritingSubInteraction(){
-  const {writing} = useWritingContext();
+  const {UUID} = useParams();
+  const {data : writingDetail, error, isLoading, isError} = useWritingDetail(UUID ?? "")
   const [messageApi] = useMessageContext()
-  if(!writing) return null;
-  const {writingUuid} = writing;
+  if(isError || isLoading) {console.error(error); return null;}
+  const {writingUuid} = writingDetail;
+
   const url = (() => {
     const origin = window.location.origin;                    // ex) https://example.com
     const base = (import.meta as any).env?.BASE_URL ?? "/";   // ex) /archive-project/

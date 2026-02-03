@@ -12,5 +12,7 @@ export function buildSearchParams(
   if(category.subCategory) {
     params.set("subCategory", category.subCategory.id.toString());
   }
+  params.set("sortBy", "정확도순");
+  params.set("page", "1");
   return params.toString();
 }

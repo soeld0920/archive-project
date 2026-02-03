@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from "motion/react";
 import { SelectMain } from "./SelectMain";
 import { SelectSub } from "./SelectSub";
-import { useSearchDivSizeStore } from "features/Header/store/useSearchDivSizeStore";
 import { useSelectorOpenStore } from "features/Header/store/useSelectorOpenStore";
+import { useSizeStore } from "shared/store/useSizeStore";
 
 export function SelectCategory(){
-  const {width, height} = useSearchDivSizeStore();
+  const {width, height} = useSizeStore("header-search-div");
   const {isSelectCategoryOpen} = useSelectorOpenStore();
   
   return(
@@ -16,7 +16,7 @@ export function SelectCategory(){
       h-auto
       border-4 border-gray-400
       border-t-0
-      z-10
+      z-100
       overflow-hidden
       shadow-lg
       `}

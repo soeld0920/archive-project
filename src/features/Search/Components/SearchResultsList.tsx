@@ -1,21 +1,31 @@
-import classNames from "classnames/bind"
-import millify from "millify"
-import { Link } from "react-router-dom"
-import styles from "features/Search/Search.module.css"
+import { Link, useSearchParams } from "react-router-dom"
 import type { WritingIndex } from "shared/types/entity/Writing"
-import { useWritingsContent } from "../context/writingsContent"
-import { usePageContent } from "../context/pageContent"
-import defaultImage from "assets/img/basic-icons.png"
+import defaultUserImage from "assets/img/profile-fallback.png"
+import { parseUrlSearchParams } from "../libs/parseUrlSearchParams"
+import { useWritingSearchResult } from "../hooks/query/useWritingSearchResult"
+import { FaComment, FaHeart } from "react-icons/fa6"
 import { parseNormalizerDate } from "shared/lib/utils/parseNormalizerDate"
 
 
 export default function SearchResultsList() {
-  const [writings] = useWritingsContent();
-  const {page} = usePageContent();
+  const [params] = useSearchParams();
+  const urlParams = parseUrlSearchParams(params);
+  const {searchParams, page, sortBy} = urlParams;
+  const {items} = useWritingSearchResult(searchParams, page, sortBy);
+  const {data : writings, isLoading, isError, error} = items;
+
+  if(isError){
+    console.error(error);
+  }
+
+  if(isLoading){
+    return <div className="text-2xl font-[Galmuri] text-gray-700">Loading...</div>;
+  }
+
   return(
-    <ol className={styles.rightWrapper}  aria-label="검색 결과 목록" start={(page - 1) * 10 + 1}>
+    <ol className="grid grid-cols-2 gap-x-30 gap-y-20" aria-label="검색 결과 목록" start={(page - 1) * 10 + 1}>
       {
-        writings.map(r => (
+        writings?.map((r : WritingIndex) => (
           <SearchResultItem key={r.writingUuid} item={r}/>
         ))
       }
@@ -24,23 +34,27 @@ export default function SearchResultsList() {
 }
 
 function SearchResultItem({item} : {item : WritingIndex}){
-  const cx = classNames.bind(styles)
   return(
     <li>
-      <article className={styles.resultItem}>
-        <div className={styles.resultItemImg}>
-          <img src={item.image ?? defaultImage} alt="글의 이미지"/>
-        </div>
-        <div className={cx('resultItemP',item.image && 'hasimage')}>
-          <p className="Subspan">{item.mainCategoryName  + ">" + item.subCategoryName}</p>
-          <h3 style={{margin : 0, marginBottom : "10px"}}>
-            <Link to={`/writing/${item.writingUuid}`}>{item.writingTitle}</Link>
-          </h3>
-          <p><Link to={`/user/${item.authorName}`}>{item.authorName}</Link> | {parseNormalizerDate(item.createAt)} | {item.seriesName ? <Link to={`/sereis/${item.seriesUUID}`}>{item.seriesName}</Link> : "단편"}</p>
-          <p style={{marginBottom : "10px"}}>조회수 {millify(item.view, { precision: 1 })} | 좋아요 : {millify(item.great, { precision: 1 })} | 댓글 : {item.commentCount}</p>
-          <p className={styles.clamp2}>{item.content}</p>
-        </div>
+      <article className="w-auto h-auto">
+        <header className="flex gap-2">
+          <img className="w-6 h-6 rounded-full" src={item.authorImage ?? defaultUserImage} alt="." />
+          <Link to={`/blog/${item.authorUuid}`}><span className="text-sm font-[Galmuri] text-gray-700 hover:underline">{item.authorName}</span></Link>
+        </header>
+        <main className="flex gap-5 mt-3">
+          <div className="flex-1">
+            <p className="text-sm text-gray-500">{item.mainCategoryName} &gt; {item.subCategoryName}</p>
+            <Link to={`/writing/${item.writingUuid}`}><h2 className="text-3xl text-gray-700 font-bold hover:underline">{item.writingTitle}</h2></Link>
+            <p className="text-md text-gray-500 mt-1 line-clamp-2 h-14">{item.content}</p>
+          </div>
+          {item.image && <img className="w-1/2 h-auto" src={item.image} alt="." />}
+        </main>
+        <footer className="flex gap-3 mt-3">
+          <p className="flex items-center gap-1"><FaHeart/> <span className="text-gray-500">{item.great}</span></p>
+          <p className="flex items-center gap-1"><FaComment/> <span className="text-gray-500">{item.commentCount}</span></p>
+          <span className="text-gray-500">{parseNormalizerDate(item.createAt)}</span>
+        </footer>
       </article>
-      </li>
+    </li>
   )
 }

@@ -1,13 +1,20 @@
 import { Pagination } from "antd"
-import styles from "features/Search/Search.module.css"
-import { usePageContent } from "../context/pageContent";
+import { useSearchParams } from "react-router-dom";
+import { parseUrlSearchParams } from "../libs/parseUrlSearchParams";
+import { useWritingSearchResult } from "../hooks/query/useWritingSearchResult";
 
 export default function SelectPagination(){
-  const {page, setPage, pageCount, PAGE_SIZE} = usePageContent();
+  const [params, setParams] = useSearchParams();
+  const urlParams = parseUrlSearchParams(params);
+  const {page, searchParams, sortBy} = urlParams;
+
+  const {total} = useWritingSearchResult(searchParams, page, sortBy);
+  const {data : totalWritingCount} = total
+
   return (
-    <nav className={styles.pagination}>
+    <nav className="flex justify-center mt-10">
       <Pagination align="center" current={page} 
-      onChange={p => setPage(p)} total={pageCount * PAGE_SIZE} showSizeChanger={false}/>
+      onChange={p => setParams((prev) => ({...prev, page: p}))} total={totalWritingCount} showSizeChanger={false}/>
     </nav>
   )
 }

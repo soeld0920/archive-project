@@ -25,5 +25,5 @@
 
     "baseUrl": "src"
   },
-  "include": ["src", "archive/backend", "public/mockServiceWorker.js", "toWritingGlobKey.ts", "archive/useCategoryPopup.tsx", "archive/SearchHeader"]
+  "include": ["src", "archive/backend", "public/mockServiceWorker.js", "toWritingGlobKey.ts", "archive/useCategoryPopup.tsx", "archive/SearchHeader", "archive/FilterPanel"]
 }

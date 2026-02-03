@@ -25,7 +25,7 @@ export default function CategoryBreadcrumb({categoryPath, className, fallback = 
     items = categories.map(category => ({title : category}));
   }
   
-  items = items.map((item) => ({...item, className : classNames("SubSpan", className)}));
+  items = items.map((item) => ({...item, className : "text-sm font-[Galmuri] text-gray-500 " + className}));
 
   return <Breadcrumb separator={separator} items={items}/>
   

@@ -30,6 +30,9 @@ type DropdownProps = {
   // 드롭다운 컴포넌트 클래스
   className?: string;
 
+  // 드롭다운 컴포넌트 텍스트 색상
+  textColor?: string;
+
   // 드롭다운 컴포넌트 너비
   width?: string;
 
@@ -49,7 +52,7 @@ type DropdownProps = {
   arrow?: boolean;
 }
 
-export default function Dropdown({options, setOptions, value, onChange, label, toString, className, width, height, disabled, isSame, border = true, arrow = true} : DropdownProps){
+export default function Dropdown({options, setOptions, value, onChange, label, toString, className, width, height, disabled, isSame, border = true, arrow = true, textColor} : DropdownProps){
   const dropdownClasses = classNames(styles.dropdown);
   const [dropdownOptions, setDropdownOptions] = useState(options);
   const [isOpen, setIsOpen] = useState(false);
@@ -94,7 +97,7 @@ export default function Dropdown({options, setOptions, value, onChange, label, t
   
   return(
     <label className={dropdownClasses} style={{ width: width, height: height }}>
-      <button type="button" onClick={() => setIsOpen(!isOpen)} className={dropdownButtonClasses} disabled={isDisabled}>
+      <button type="button" onClick={() => setIsOpen(!isOpen)} className={dropdownButtonClasses} disabled={isDisabled} style={{ color: textColor }}>
         {label ? label : toString ? toString(value) : value}
         {arrow ? <FaAngleDown/> : null}
       </button>

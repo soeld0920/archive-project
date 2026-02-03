@@ -30,7 +30,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((res) =>  res,
   async (error) => {
     const originalRequest = error.config;
-    console.log(error.response?.data);
+    //console.log(error.response?.data);
     
     // refresh 요청 자체가 실패한 경우 재시도하지 않음
     if(originalRequest.url?.includes("/login/refresh")){

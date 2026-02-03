@@ -32,7 +32,7 @@ export function Header(){
   }, []);
 
   return(
-    <header className="w-full h-auto">
+    <header className="w-full h-auto z-100 relative">
 
       {/* top */}
       <div className="w-full h-10 my-2">

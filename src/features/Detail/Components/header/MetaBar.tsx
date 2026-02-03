@@ -5,16 +5,18 @@
   - 좋아요 수
   - 댓글 수
 */
-import { useWritingContext } from "features/Detail/context/WritingContext";
 import millify from "millify";
 import styles from "features/Detail/DetailPage.module.css"
 import { formatYYMMDD } from "features/Detail/libs/formatYYMMDD";
+import { useParams } from "react-router-dom";
+import { useWritingDetail } from "features/Detail/hooks/query/useWritingDetail";
 
 export default function DetailMetaBar(){
-  const {writing} = useWritingContext()
-  if(writing === null) return null;
-  else if(writing === undefined) return null;
-  const {createAt,updateAt, view, great, commentCount} = writing
+  const {UUID} = useParams();
+  const {data : writingDetail, error, isLoading, isError} = useWritingDetail(UUID ?? "")
+
+  if(isError || isLoading) {console.error(error); return null;}
+  const {createAt,updateAt, view, great, commentCount} = writingDetail
 
   // createAt과 updateAt이 문자열인 경우 Date 객체로 변환
   const createAtDate = typeof createAt === 'string' ? new Date(createAt) : createAt;

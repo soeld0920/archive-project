@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import styles from "./DetailPage.module.css"
-import { useWritingContext, WritingProvider } from "./context/WritingContext";
 import DetailHeader from "./Components/header";
 import Wrapper from "shared/components/blocks/Wrapper";
 import WritingToc from "./Components/content/WritingToc";
@@ -10,51 +9,43 @@ import WritingSubInteraction from "./Components/content/WritingSubInteraction";
 import WritingTag from "./Components/content/WritingTag";
 import WritingInteraction from "./Components/content/WritingBtn/index.tsx";
 import WritingComment from "./Components/WritingComment.tsx";
-import { api } from "axios/api.ts";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { editorExtensions } from "shared/constants/editor.tsx";
+import PageHeader from "shared/components/features/PageHeader.tsx";
+import { FaBook } from "react-icons/fa6";
+import { useWritingDetail } from "./hooks/query/useWritingDetail.tsx";
+import { useParams } from "react-router-dom";
 
-export function Detail({UUID} : {UUID : string}){
-  return(
-    <WritingProvider>
-      <DetailContent UUID={UUID}/>
-    </WritingProvider>
-  )
-}
 
-function DetailContent({UUID} : {UUID : string}){
-  const {writing, setWriting} = useWritingContext()
+export function Detail(){
   const {toc, writingRef} = useTOC();
-
+  const {UUID} = useParams();
+  
   const viewer = useEditor({
     editable: false,
     extensions: editorExtensions, // ✅ 편집기랑 동일
     content: { type: 'doc', content: [] },
   })
 
+  const {data : writingDetail, error, isLoading, isError} = useWritingDetail(UUID ?? "")
+
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await api.get(`/writing/${UUID}`)
-      const writingDetail = data
-  
-      let tipTapJson =
-        typeof writingDetail.content === 'string'
-          ? JSON.parse(writingDetail.content)
-          : writingDetail.content ?? { type: 'doc', content: [] }
-  
-      viewer?.commands.setContent(tipTapJson) // ✅ JSON 그대로 넣기
-      setWriting(() => writingDetail)
-      await api.post(`/writing/${UUID}/view`)
-    }
+    if(!writingDetail) return;
+    let tipTapJson =
+      typeof writingDetail?.content === 'string'
+        ? JSON.parse(writingDetail.content)
+        : writingDetail.content ?? { type: 'doc', content: [] }
 
-    fetchData()
-  }, [UUID, viewer])
+    viewer?.commands.setContent(tipTapJson) // ✅ JSON 그대로 넣기
+  
+  }, [UUID, writingDetail])
 
-  if(writing == null) return <div>글을 찾을 수 없습니다.</div>;
-  else if(writing == undefined) return <div>글을 불러오는 중입니다...</div>;
+  if(isError) {console.error(error); return <div className="text-2xl font-[Galmuri] text-gray-700">글을 찾을 수 없습니다.</div>;}
+  else if(isLoading) {return <div className="text-2xl font-[Galmuri] text-gray-700">글을 불러오는 중입니다...</div>;}
 
   return (
       <main className={styles.wrapper}>
+        <PageHeader icon={<FaBook/>} title="Writing"/>
         <DetailHeader/>
         <Wrapper className={styles.contentWrapper}>
           <aside className={styles.aside}>

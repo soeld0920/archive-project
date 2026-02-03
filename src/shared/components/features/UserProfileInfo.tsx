@@ -26,7 +26,6 @@ export default function UserProfileCard(){
 
   const [userData, setUserData] = useState<UserRes | null>(null);
 
-
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await api.get("/user/me");

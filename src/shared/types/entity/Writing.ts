@@ -5,7 +5,7 @@ export type FORM_TYPE = "snippet" | "series"
 export type WritingIndex = {
   writingUuid : string;
   writingTitle : string;
-  authorUUID : string; //링크용
+  authorUuid : string; //링크용
   authorName : string; //표시용
   authorImage? :string;
   seriesUUID? : string; 

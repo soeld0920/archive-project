@@ -3,11 +3,11 @@ import { SearchInput } from "./SearchInput";
 import { CategorySelecter } from "./CategorySelecter";
 import { ConfirmButton } from "./ConfirmButton";
 import { useSelectorOpenStore } from "../../store/useSelectorOpenStore";
-import { useSetDivSize } from "features/Header/hooks/useSetDivSize";
+import { useSetDivSize } from "shared/hooks/useSetDivSize";
 
 export function SearchDiv(){
   const {isSelectCategoryOpen} = useSelectorOpenStore();
-  const {searchDivRef} = useSetDivSize();
+  const {searchDivRef} = useSetDivSize("header-search-div");
 
   return(
     <div 

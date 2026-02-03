@@ -8,13 +8,17 @@ import { Flex } from "antd";
 import CategoryBreadcrumb from "shared/components/features/CategoryBreadCrump";
 import SeriesDropdown from "shared/components/features/SeriesDropdown";
 import UserDropdown from "shared/components/features/UserDropdown";
-import styles from "features/Detail/DetailPage.module.css"
-import { useWritingContext } from "features/Detail/context/WritingContext";
+import { useWritingDetail } from "features/Detail/hooks/query/useWritingDetail.tsx";
+import { useParams } from "react-router-dom";
 
 export default function DetailHero(){
-  const {writing} = useWritingContext()
-  if(!writing) return null;
-  const {mainCategoryName, subCategoryName, writingTitle, authorUuid, authorName, seriesName, seriesOrder, seriesUuid, writingUuid} = writing
+  const {UUID} = useParams();
+
+  const {data : writingDetail, error, isLoading, isError} = useWritingDetail(UUID ?? "")
+
+  if(isError || isLoading) {console.error(error); return null;}
+
+  const {mainCategoryName, subCategoryName, writingTitle, authorUuid, authorName, seriesName, seriesUuid, writingUuid} = writingDetail
 
   const categoryPath = subCategoryName 
     ? `${mainCategoryName} > ${subCategoryName}` 
@@ -23,7 +27,7 @@ export default function DetailHero(){
   return(
     <div>
       <CategoryBreadcrumb categoryPath={categoryPath} fallback="카테고리 없음"/>
-      <h1 style={{marginBottom:"0.75rem"}} className={styles.title}>{writingTitle}</h1>
+      <h1 className="mb-2 text-3xl font-[Galmuri]">{writingTitle}</h1>
       <Flex gap={"small"}>
         작성자 : <UserDropdown userUuid={authorUuid} userName={authorName} /> |
         {seriesUuid ? (
